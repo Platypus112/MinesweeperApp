@@ -1,4 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
+using MinesweeperApp.Views;
+using MinesweeperApp.ViewModels;
+using MinesweeperApp.Services;
 
 namespace MinesweeperApp
 {
@@ -14,9 +17,11 @@ namespace MinesweeperApp
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
-
+            builder.Services.AddSingleton<GameView>();
+            builder.Services.AddSingleton<GameViewModel>();
+            builder.Services.AddSingleton<Service>();
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
             return builder.Build();

@@ -8,7 +8,11 @@
              xmlns:syncfusion="clr-namespace:Syncfusion.Maui.DataGrid;assembly=Syncfusion.Maui.DataGrid"
              Title="GameView">
     <ContentView>
-        
+        <syncfusion:SfDataGrid ItemsSource="{Binding Board}">
+            <!--<Border x:DataType="Models:Tile">
+                <Label Text="{Binding Value}"/>
+            </Border>-->
+        </syncfusion:SfDataGrid>
     </ContentView>
         
 

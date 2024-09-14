@@ -2,6 +2,7 @@
 using MinesweeperApp.Views;
 using MinesweeperApp.ViewModels;
 using MinesweeperApp.Services;
+using Syncfusion.Maui.Core.Hosting;
 
 namespace MinesweeperApp
 {
@@ -17,6 +18,7 @@ namespace MinesweeperApp
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
+            builder.ConfigureSyncfusionCore();
             builder.Services.AddSingleton<GameView>();
             builder.Services.AddSingleton<GameViewModel>();
             builder.Services.AddSingleton<Service>();

@@ -47,12 +47,12 @@ namespace MinesweeperApp.Models
             {
                 for(int j = 0; j < Board.GetLength(1); j++)//height
                 {
-                    Board[i,j] = new Tile(0);
+                    Board[i,j] = new Tile(0,i,j);
                 }
             }
             for(int i = 0;i < heights.Count; i++)//filling an empty board with tiles with bombs
             {
-                Board[widths[i], heights[i]] = new Tile(-1);
+                Board[widths[i], heights[i]] = new Tile(-1, widths[i], heights[i]);
                 for (int k = -1; k <= 1; k++)
                 {
                     for( int j = -1;j <= 1; j++)

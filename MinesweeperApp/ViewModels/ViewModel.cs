@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MinesweeperApp.ViewModels
 {
-    public class ViewModel
+    public class ViewModel:INotifyPropertyChanged
     {
         #region INotifyPropertyChanged
 

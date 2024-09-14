@@ -11,6 +11,8 @@ namespace MinesweeperApp.Models
         public int Value { get; private set; }
         public bool Unvailed { get; private set; }//-1 is bomb
         public bool Flagged {  get; private set; }
+        public int? x { get; private set; }
+        public int? y { get; private set; }
         public Tile(int Value_)
         {
             Value = Value_;
@@ -21,6 +23,11 @@ namespace MinesweeperApp.Models
         {
             Unvailed = Unvailed_;
 
+        }
+        public Tile(int Value_, int x_,int y_) : this(Value_)
+        {
+            x = x_;
+            y = y_;
         }
         public bool Dig()//returns true when the move doesn't kill you
         {

@@ -5,17 +5,12 @@
              xmlns:Models="clr-namespace:MinesweeperApp.Models"
              x:Class="MinesweeperApp.Views.GameView"
              x:DataType="ViewModel:GameViewModel"
+             xmlns:syncfusion="clr-namespace:Syncfusion.Maui.DataGrid;assembly=Syncfusion.Maui.DataGrid"
              Title="GameView">
-    <VerticalStackLayout>
-        <FlexLayout BindableLayout.ItemsSource="{Binding Board}">
-            <BindableLayout.ItemTemplate>
-                <DataTemplate x:DataType="Models:Tile">
-                    <ViewCell>
-                        
-                    </ViewCell>
-                </DataTemplate>
-            </BindableLayout.ItemTemplate>
-            
-        </FlexLayout>
-    </VerticalStackLayout>
+    <ContentView>
+        
+    </ContentView>
+        
+
+    
 </ContentPage>

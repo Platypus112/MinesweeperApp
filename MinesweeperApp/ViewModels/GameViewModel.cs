@@ -11,8 +11,8 @@ namespace MinesweeperApp.ViewModels
 {
     public class GameViewModel:ViewModel
     {
-        public DataTable Board { get { return board; } set {board=value; OnPropertyChanged();} }
-        private DataTable board;
+        public Tile[,] Board { get { return board; } set {board=value; OnPropertyChanged();} }
+        private Tile[,] board;
         public int Height { get { return height; } set { height = value; OnPropertyChanged(); } }
         private int height;
         public int Width { get { return width; } set { width = value; OnPropertyChanged(); } }
@@ -24,7 +24,7 @@ namespace MinesweeperApp.ViewModels
             game = new Game(5, 5, 4);
             Width = 5;
             Height = 5;
-            board = ConvertBoardToDatatable();
+            Board = game.GetBoardState();
         }
         private DataTable ConvertBoardToDatatable()
         {

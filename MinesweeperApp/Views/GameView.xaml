@@ -5,14 +5,17 @@
              xmlns:Models="clr-namespace:MinesweeperApp.Models"
              x:Class="MinesweeperApp.Views.GameView"
              x:DataType="ViewModel:GameViewModel"
-             xmlns:syncfusion="clr-namespace:Syncfusion.Maui.DataGrid;assembly=Syncfusion.Maui.DataGrid"
              Title="GameView">
     <ContentView>
-        <syncfusion:SfDataGrid ItemsSource="{Binding Board}">
-            <!--<Border x:DataType="Models:Tile">
-                <Label Text="{Binding Value}"/>
-            </Border>-->
-        </syncfusion:SfDataGrid>
+        <Grid x:Name="GameGrid" BindableLayout.ItemsSource="{Binding Board}">
+            <BindableLayout.ItemTemplate>
+                <DataTemplate x:DataType="Models:Tile">
+                    <Button HeightRequest="5" WidthRequest="5" BorderWidth="0">
+                        <Button.Text set="{Binding ToString()}"/>
+                    </Button>
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+        </Grid>
     </ContentView>
         
 

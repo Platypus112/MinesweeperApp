@@ -1,5 +1,4 @@
 using MinesweeperApp.ViewModels;
-using DataGrid2DLibrary;
 
 namespace MinesweeperApp.Views;
 
@@ -9,15 +8,15 @@ public partial class GameView : ContentPage
 	{
 		this.BindingContext = vm;
 		InitializeComponent();
-		ArranageGrid(vm);
+		ArranageGrid();
 	}
-	public void ArranageGrid(GameViewModel vm)
+	public void ArranageGrid()
 	{
-		for(int i=0; i < vm.Board.GetLength(0); i++)
+		for(int i=0; i < ((GameViewModel)this.BindingContext).Width; i++)
 		{
 			GameGrid.ColumnDefinitions.Add(new ColumnDefinition());
 		}
-		for (int i = 0; i < vm.Board.GetLength(1); i++)
+		for (int i = 0; i < ((GameViewModel)this.BindingContext).Height; i++)
 		{
 			GameGrid.RowDefinitions.Add(new RowDefinition());
 		}

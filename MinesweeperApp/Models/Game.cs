@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Syncfusion.Maui.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -140,9 +141,9 @@ namespace MinesweeperApp.Models
             IsPlaying = false;
             return true;
         }
-        public Tile[,] GetBoardState()
+        public List<Tile> GetBoardStateList()
         {
-            return Board;
+            return Board.ToList<Tile>().ToList();
         }
         public void Play()
         {

@@ -10,13 +10,16 @@
         <Grid HeightRequest="400" WidthRequest="400" x:Name="GameGrid" BindableLayout.ItemsSource="{Binding Board}">
             <BindableLayout.ItemTemplate Margin="0" Padding="0">
                 <DataTemplate x:DataType="Models:Tile">
-                    <Button Margin="0" Padding="0" HeightRequest="1" WidthRequest="1"
-                            Grid.Column="{Binding x}"
-                            Grid.Row="{Binding y}"
-                            Text="{Binding Value}"
-                            BorderWidth="0">
-                        
-                    </Button>
+                    <Border Margin="0" Padding="0" 
+                            Grid.Column="{Binding DisplayDetails.x}"
+                            Grid.Row="{Binding DisplayDetails.y}"
+                            >
+                        <Button
+                            Command="{Binding Source={x:Reference GameGrid}, Path=BindingContext.ClickTileCommand}"
+                            FontSize="Large" CommandParameter="{Binding .}"
+                            
+                            Text="{Binding DisplayDetails.Text}" />
+                    </Border>
                 </DataTemplate>
             </BindableLayout.ItemTemplate>
         </Grid>

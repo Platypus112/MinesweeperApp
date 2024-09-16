@@ -1,18 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace MinesweeperApp.Models
 {
-    public class Tile
+    public class Tile:INotifyPropertyChanged
     {
-        public int Value { get; private set; }
-        public bool Unvailed { get; private set; }//-1 is bomb
-        public bool Flagged {  get; private set; }
-        public int? x { get; private set; }
-        public int? y { get; private set; }
+        #region INotifyPropertyChanged
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        #endregion
+        public int Value { get { return value; } private set { UpdateDisplay(); this.value = value; } }
+        private int value;
+        public bool Unvailed { get { return unvailed; } private set { UpdateDisplay();unvailed = value; } }//-1 is bomb
+        private bool unvailed;
+        public bool Flagged { get{ return flagged; } private set { UpdateDisplay();flagged = value; } }
+        private bool flagged;
+        public DisplayDetails? DisplayDetails { get { return displayDetails; } private set { OnPropertyChanged();displayDetails = value; } }
+        private DisplayDetails? displayDetails;
         public Tile(int Value_)
         {
             Value = Value_;
@@ -26,13 +41,29 @@ namespace MinesweeperApp.Models
         }
         public Tile(int Value_, int x_,int y_) : this(Value_)
         {
-            x = x_;
-            y = y_;
+            DisplayDetails = new DisplayDetails(x_,y_,string.Empty);
+            UpdateDisplay();
+        }
+        public void UpdateDisplay()
+        {
+            if (DisplayDetails == null) return;
+            if (Flagged) this.DisplayDetails.Text = "@";
+            else if (Unvailed)
+            {
+                if (Value == 0) this.DisplayDetails.Text = string.Empty;
+                else if (Value != -1) this.DisplayDetails.Text = Value.ToString();
+                else this.DisplayDetails.Text = "*";
+
+            }
+
+            else this.DisplayDetails.Text = string.Empty;
+            OnPropertyChanged("DisplayDetails");
         }
         public bool Dig()//returns true when the move doesn't kill you
         {
             if (Unvailed||Flagged) return true;
             Unvailed = true;
+            UpdateDisplay();
             if (Value == -1) return false;
             return true;
         }
@@ -168,5 +199,29 @@ namespace MinesweeperApp.Models
         //    }
         //    return result;
         //}
+    }
+    public class DisplayDetails: INotifyPropertyChanged
+    {
+        #region INotifyPropertyChanged
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        #endregion
+        public int x { get; private set; }
+        public int y { get; private set; }
+        public string Text { get { return text; } set { OnPropertyChanged(); text = value; } }
+        private string text;
+        
+        public DisplayDetails(int x_,int y_,string text_)
+        {
+            x = x_;
+            y = y_;
+            Text = text_;
+        }
     }
 }

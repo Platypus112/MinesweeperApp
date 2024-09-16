@@ -14,20 +14,24 @@ namespace MinesweeperApp.Models
         public DateTime StartTime { get; private set; }
         public DateTime EndTime { get; private set; }   
         public bool IsPlaying { get; private set; }
-        
+        public bool? HasWon { get; private set; }
+
         public int Bombs {  get; private set; }
+        private readonly int OBombs;
         
-        public Game(int width,int height,int Bombs_)
+        public Game(int width,int height,int Bombs_,int? xPos,int? yPos)
         {
             StartTime=DateTime.Now;
             EndTime=DateTime.Now;
             IsPlaying = true;
             Board = new Tile[width,height];
-            Bombs = Bombs_;
+            Bombs= Bombs_;
+            OBombs = Bombs_;
             VailedTiles = width * height;
-            FillBoard();
+            FillBoard(xPos,yPos);
         }
-        public void FillBoard()
+        
+        public void FillBoard(int? xPos,int? yPos)
         {
             if (Board == null) return;
             Random rnd=new Random();
@@ -37,7 +41,12 @@ namespace MinesweeperApp.Models
             {
                 int width = rnd.Next(Board.GetLength(0));
                 int height = rnd.Next(Board.GetLength(1));
-                if (widths.Contains(width) && heights.Contains(height)) i--;
+                bool within = false;
+                if (xPos != null && yPos != null)
+                {
+                    within= (width>=xPos-1&&width<=xPos+1)&&(height>=yPos-1&&height<=yPos+1);
+                }
+                if ((widths.Contains(width) && heights.Contains(height))||within) i--;
                 else
                 {
                     widths.Add(width);
@@ -74,19 +83,19 @@ namespace MinesweeperApp.Models
             }
 
         }
-        public void UnvailTile(int x,int y)
+        public bool UnvailTile(int x,int y)//returns true when the game is done
         {
             if ((x < 0 || y < 0 || x >= Board.GetLength(0) || y >= Board.GetLength(1))|| Board[x, y] == null)
             {
                 Console.WriteLine("illegal move");
-                return;
+                return false;
             }
-            if (Board[x, y].Unvailed) return;
+            if (Board[x, y].Unvailed) return false;
             VailedTiles--;
             if(!Board[x, y].Dig())
             {
                 GameLost();
-                return;
+                return true;
             }
             if (Board[x, y].Value == 0)
             {
@@ -109,8 +118,13 @@ namespace MinesweeperApp.Models
                     }
                 }
             }
-            if (VailedTiles == Bombs) GameWon();
             EndTime = DateTime.Now;
+            if (VailedTiles == OBombs)
+            {
+                GameWon();
+                return true;
+            }
+            return false;
         }
         public void FlagTile(int x, int y)
         {
@@ -122,6 +136,7 @@ namespace MinesweeperApp.Models
             if (Board[x, y].Unvailed) return;
             if (Board[x, y].Flag()) Bombs--;
             else Bombs++;
+            EndTime = DateTime.Now;
         }
         public void GameLost()
         {
@@ -132,14 +147,16 @@ namespace MinesweeperApp.Models
                     Board[i, j].Dig();
                 }
             }
+            Bombs = 0;
             EndTime = DateTime.Now;
+            HasWon = false;
             IsPlaying = false;
         }
-        public bool? GameWon()
+        public void GameWon()
         {
             EndTime = DateTime.Now;
             IsPlaying = false;
-            return true;
+            HasWon = true;
         }
         public List<Tile> GetBoardStateList()
         {

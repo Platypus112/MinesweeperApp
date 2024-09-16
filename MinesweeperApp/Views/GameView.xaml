@@ -6,24 +6,31 @@
              x:Class="MinesweeperApp.Views.GameView"
              x:DataType="ViewModel:GameViewModel"
              Title="GameView">
-    <ContentView >
-        <Grid HeightRequest="400" WidthRequest="400" x:Name="GameGrid" BindableLayout.ItemsSource="{Binding Board}">
+    <StackLayout HorizontalOptions="Center">
+        <Label HorizontalOptions="Center" Text="{Binding Timer}"/>
+        <HorizontalStackLayout HorizontalOptions="Center">
+            <Image Source="mine.png" HeightRequest="20" WidthRequest="20"/>
+            <Label Text="{Binding Bombs}"/>
+        </HorizontalStackLayout>
+        <Grid HorizontalOptions="Center" HeightRequest="400" WidthRequest="400" x:Name="GameGrid" BindableLayout.ItemsSource="{Binding Board}">
             <BindableLayout.ItemTemplate Margin="0" Padding="0">
                 <DataTemplate x:DataType="Models:Tile">
-                    <Border Margin="0" Padding="0" 
+                    <Button Style="{DynamicResource Tile}"
+                            ImageSource="{Binding DisplayDetails.Image}"
+                            BackgroundColor="{Binding DisplayDetails.BackgroundColor}"
                             Grid.Column="{Binding DisplayDetails.x}"
                             Grid.Row="{Binding DisplayDetails.y}"
-                            >
-                        <Button
                             Command="{Binding Source={x:Reference GameGrid}, Path=BindingContext.ClickTileCommand}"
                             FontSize="Large" CommandParameter="{Binding .}"
-                            
                             Text="{Binding DisplayDetails.Text}" />
-                    </Border>
                 </DataTemplate>
             </BindableLayout.ItemTemplate>
         </Grid>
-    </ContentView>
+        <HorizontalStackLayout HorizontalOptions="Center">
+            <ImageButton Style="{DynamicResource imgButton}" Source="mine.png" Command="{Binding ToggleMineCommand}"/>
+            <ImageButton Style="{DynamicResource imgButton}" Source="flag.png" Command="{Binding ToggleFlagCommand}"/>
+        </HorizontalStackLayout>
+    </StackLayout>
         
 
     

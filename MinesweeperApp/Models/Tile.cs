@@ -41,22 +41,41 @@ namespace MinesweeperApp.Models
         }
         public Tile(int Value_, int x_,int y_) : this(Value_)
         {
-            DisplayDetails = new DisplayDetails(x_,y_,string.Empty);
+            DisplayDetails = new DisplayDetails(x_,y_,string.Empty,((Color)((Style)AppShell.Current.Resources.First(x =>x.Key=="Tile").Value).Setters.First(x=> x.Property.PropertyName== "BackgroundColor").Value).ToHex());
             UpdateDisplay();
         }
         public void UpdateDisplay()
         {
             if (DisplayDetails == null) return;
-            if (Flagged) this.DisplayDetails.Text = "@";
+            if (Flagged)
+            {
+                this.DisplayDetails.Text = string.Empty;
+                this.DisplayDetails.Image = "flag.png";
+                this.DisplayDetails.BackgroundColor = "#9e969e";
+            }
             else if (Unvailed)
             {
-                if (Value == 0) this.DisplayDetails.Text = string.Empty;
-                else if (Value != -1) this.DisplayDetails.Text = Value.ToString();
-                else this.DisplayDetails.Text = "*";
+                if (Value != -1)
+                {
+                    if (value != 0) this.DisplayDetails.Text = Value.ToString();
+                    else this.DisplayDetails.Text = string.Empty;
+                    this.DisplayDetails.BackgroundColor = "#211e1f";
+
+                }
+                else
+                {
+                    this.DisplayDetails.Image = "mine.png";
+                    this.DisplayDetails.Text = string.Empty;
+                    this.DisplayDetails.BackgroundColor = "#e61531";
+                }
 
             }
-
-            else this.DisplayDetails.Text = string.Empty;
+            else
+            {
+                this.DisplayDetails.Text = string.Empty;
+                this.DisplayDetails.Image = null;
+                this.DisplayDetails.BackgroundColor = this.DisplayDetails.baseBackgroundColor;
+            }
             OnPropertyChanged("DisplayDetails");
         }
         public bool Dig()//returns true when the move doesn't kill you
@@ -71,6 +90,7 @@ namespace MinesweeperApp.Models
         {
             if (Flagged) Flagged = false;
             else Flagged = true;
+            UpdateDisplay();
             return Flagged;
         }
         
@@ -80,13 +100,14 @@ namespace MinesweeperApp.Models
         }
         public override string ToString()
         {
-            if (Flagged) return "@";
-            if (Unvailed)
-            {
-                if(Value!=-1) return Value.ToString();
-                return "*";
-            }
-            return "x";
+            return Value.ToString();
+            //if (Flagged) return "@";
+            //if (Unvailed)
+            //{
+            //    if(Value!=-1) return Value.ToString();
+            //    return "*";
+            //}
+            //return "x";
         }
         //public Tile[] Adjacants { get; private set; }//adjacant tiles
         //public int Value { get;set; }//goes from 0-9, -1 value is a bomb
@@ -214,14 +235,32 @@ namespace MinesweeperApp.Models
         #endregion
         public int x { get; private set; }
         public int y { get; private set; }
-        public string Text { get { return text; } set { OnPropertyChanged(); text = value; } }
+        public string Text 
+        {
+            get { return text; }
+            set { OnPropertyChanged(); text = value; }
+        }
         private string text;
-        
-        public DisplayDetails(int x_,int y_,string text_)
+        public string? BackgroundColor
+        {
+            get { return backgroundColor; }
+            set { OnPropertyChanged(); backgroundColor = value; }
+        }
+        private string? backgroundColor;
+        public readonly string? baseBackgroundColor;
+        public string? Image
+        {
+            get { return image; }
+            set { OnPropertyChanged(); image = value; }
+        }
+        private string? image;
+        public DisplayDetails(int x_,int y_,string text_,string? backgroundColor_)
         {
             x = x_;
             y = y_;
             Text = text_;
+            BackgroundColor = backgroundColor_;
+            baseBackgroundColor = backgroundColor_;
         }
     }
 }

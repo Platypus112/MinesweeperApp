@@ -16,17 +16,18 @@
             <BindableLayout.ItemTemplate Margin="0" Padding="0">
                 
                 <DataTemplate x:DataType="Models:Tile">
-
-                    <Button Style="{DynamicResource Tile}"
-                            Grid.Column="{Binding DisplayDetails.x}"
+                    <Border Grid.Column="{Binding DisplayDetails.x}"
                             Grid.Row="{Binding DisplayDetails.y}"
-                            ImageSource="{Binding DisplayDetails.Image}"
-                            BackgroundColor="{Binding DisplayDetails.BackgroundColor}"
-                            Scale="{Binding DisplayDetails.Scale}"
-                            Text="{Binding DisplayDetails.Text}"
-                            Command="{Binding Source={x:Reference GameGrid}, Path=BindingContext.ClickTileCommand}"
-                            FontSize="Large" CommandParameter="{Binding .}"/>
-                    
+                            Stroke="Black"
+                            Margin="0" Padding="0" Background="Transparent" StrokeThickness="0.5">
+                        <Button Style="{DynamicResource Tile}"
+                                ImageSource="{Binding DisplayDetails.Image}"
+                                BackgroundColor="{Binding DisplayDetails.BackgroundColor}"
+                                Scale="{Binding DisplayDetails.Scale}"
+                                Text="{Binding DisplayDetails.Text}"
+                                Command="{Binding Source={x:Reference GameGrid}, Path=BindingContext.ClickTileCommand}"
+                                FontSize="Large" CommandParameter="{Binding .}"/>
+                    </Border>
                 </DataTemplate>
             </BindableLayout.ItemTemplate>
         </Grid>

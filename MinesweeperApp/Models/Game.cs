@@ -83,14 +83,55 @@ namespace MinesweeperApp.Models
             }
 
         }
-        public bool UnvailTile(int x,int y)//returns true when the game is done
+        public async Task<bool> UnvailTile(int x,int y)//returns true when the game is done
         {
             if ((x < 0 || y < 0 || x >= Board.GetLength(0) || y >= Board.GetLength(1))|| Board[x, y] == null)
             {
                 Console.WriteLine("illegal move");
                 return false;
             }
-            if (Board[x, y].Unvailed) return false;
+            if (Board[x, y].Unvailed) 
+            {
+                
+                if (Board[x,y].Value!=0&&CountAdjBy(x, y, (xX, yY) => Board[xX, yY].Flagged) >= Board[x,y].Value)
+                {
+                    for (int k = -1; k <= 1; k++)
+                    {
+                        for (int j = -1; j <= 1; j++)
+                        {
+
+                            if (k != 0 || j != 0)
+                            {
+                                bool withinBounds =
+                                    (x + k >= 0 && x + k < Board.GetLength(0))//checks if the k value gives a tile that exists in the board array
+                                    &&
+                                    (y + j >= 0 && y + j < Board.GetLength(1));//checks if the j value gives a tile that exists in the board array
+                                if (withinBounds)
+                                {
+                                    VailedTiles--;
+                                    if (!await Board[x + k, y + j].Dig())
+                                    {
+                                        GameLost();
+                                        return true;
+                                    }
+                                    else if (VailedTiles == OBombs)
+                                    {
+                                        GameWon();
+                                        return true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                EndTime = DateTime.Now;
+                if (VailedTiles == OBombs)
+                {
+                    GameWon();
+                    return true;
+                }
+                return false;
+            }
             VailedTiles--;
             if(!Board[x, y].Dig().Result)
             {
@@ -137,6 +178,25 @@ namespace MinesweeperApp.Models
             if (Board[x, y].Flag()) Bombs--;
             else Bombs++;
             EndTime = DateTime.Now;
+        }
+        private int CountAdjBy(int x, int y, Func<int, int, bool> func)
+        {
+            int count = 0;
+            for (int k = -1; k <= 1; k++)
+            {
+                for (int j = -1; j <= 1; j++)
+                {
+                    if (k != 0 || j != 0)
+                    {
+                        bool withinBounds =
+                                (x + k >= 0 && x + k < Board.GetLength(0))//checks if the k value gives a tile that exists in the board array
+                                &&
+                                (y + j >= 0 && y + j < Board.GetLength(1));//checks if the j value gives a tile that exists in the board array
+                        if (withinBounds&&func(x+k, y+j)) count++;
+                    }
+                }
+            }
+            return count;
         }
         public void GameLost()
         {

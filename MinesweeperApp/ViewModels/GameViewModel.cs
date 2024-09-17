@@ -37,11 +37,11 @@ namespace MinesweeperApp.ViewModels
         {
             t = App.Current.Dispatcher.CreateTimer();
             t.Stop();
-            t.Interval = new TimeSpan(0, 0, 0, 0, 50);
+            t.Interval = new TimeSpan(0, 0, 0, 0, 200);
             t.Tick += async (object sender, EventArgs e) => Timer =  (DateTime.Now - game.StartTime).ToString().Substring(3,5);
-            Width = 5;
-            Height = 5;
-            Bombs = 4;
+            Width = 10;
+            Height = 10;
+            Bombs = 15;
             game = new Game(Width, Height, Bombs,null,null);
             notStarted = true;
             Board = new ObservableCollection<Tile>();
@@ -90,7 +90,7 @@ namespace MinesweeperApp.ViewModels
                 }
                 if (!isFlagging)
                 {
-                    if(game.UnvailTile(((Tile)obj).DisplayDetails.x, ((Tile)obj).DisplayDetails.y)) await GameOver();
+                    if(await game.UnvailTile(((Tile)obj).DisplayDetails.x, ((Tile)obj).DisplayDetails.y)) await GameOver();
                     //AnimateDig(((Tile)obj), 2);
                 }
                 else game.FlagTile(((Tile)obj).DisplayDetails.x, ((Tile)obj).DisplayDetails.y);

@@ -1,4 +1,5 @@
-﻿using MinesweeperApp.Models;
+﻿using Microsoft.Maui.Graphics.Text;
+using MinesweeperApp.Models;
 using MinesweeperApp.Services;
 using System;
 using System.Collections.Generic;
@@ -90,6 +91,7 @@ namespace MinesweeperApp.ViewModels
                 if (!isFlagging)
                 {
                     if(game.UnvailTile(((Tile)obj).DisplayDetails.x, ((Tile)obj).DisplayDetails.y)) await GameOver();
+                    //AnimateDig(((Tile)obj), 2);
                 }
                 else game.FlagTile(((Tile)obj).DisplayDetails.x, ((Tile)obj).DisplayDetails.y);
                 Bombs = game.Bombs;
@@ -100,6 +102,23 @@ namespace MinesweeperApp.ViewModels
             }
             
         }
+        //private async Task AnimateDig(Tile tile,double secs)
+        //{
+        //    IDispatcherTimer timer = App.Current.Dispatcher.CreateTimer();
+        //    timer.Stop();
+        //    int tick = ((int)(secs / 0.05));
+        //    timer.Interval = new TimeSpan(0, 0, 0, 0, tick);
+        //    timer.Tick += async (Object sender, EventArgs e) =>
+        //    {
+        //        if (tile.DisplayDetails.Scale != 0) tile.DisplayDetails.Scale -= 0.05;
+        //        else
+        //        {
+        //            tile.DisplayDetails.Scale = 1;
+        //            timer.Stop();
+        //        }
+        //    };
+            
+        //}
         //private DataTable ConvertBoardToDatatable()
         //{
         //    DataTable result = new DataTable();

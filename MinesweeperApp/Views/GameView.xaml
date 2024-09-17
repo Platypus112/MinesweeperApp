@@ -12,17 +12,21 @@
             <Image Source="mine.png" HeightRequest="20" WidthRequest="20"/>
             <Label Text="{Binding Bombs}"/>
         </HorizontalStackLayout>
-        <Grid HorizontalOptions="Center" HeightRequest="400" WidthRequest="400" x:Name="GameGrid" BindableLayout.ItemsSource="{Binding Board}">
+        <Grid BackgroundColor="#211e1f" HorizontalOptions="Center" HeightRequest="400" WidthRequest="400" x:Name="GameGrid" BindableLayout.ItemsSource="{Binding Board}">
             <BindableLayout.ItemTemplate Margin="0" Padding="0">
+                
                 <DataTemplate x:DataType="Models:Tile">
+
                     <Button Style="{DynamicResource Tile}"
-                            ImageSource="{Binding DisplayDetails.Image}"
-                            BackgroundColor="{Binding DisplayDetails.BackgroundColor}"
                             Grid.Column="{Binding DisplayDetails.x}"
                             Grid.Row="{Binding DisplayDetails.y}"
+                            ImageSource="{Binding DisplayDetails.Image}"
+                            BackgroundColor="{Binding DisplayDetails.BackgroundColor}"
+                            Scale="{Binding DisplayDetails.Scale}"
+                            Text="{Binding DisplayDetails.Text}"
                             Command="{Binding Source={x:Reference GameGrid}, Path=BindingContext.ClickTileCommand}"
-                            FontSize="Large" CommandParameter="{Binding .}"
-                            Text="{Binding DisplayDetails.Text}" />
+                            FontSize="Large" CommandParameter="{Binding .}"/>
+                    
                 </DataTemplate>
             </BindableLayout.ItemTemplate>
         </Grid>

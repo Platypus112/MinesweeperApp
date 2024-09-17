@@ -92,7 +92,7 @@ namespace MinesweeperApp.Models
             }
             if (Board[x, y].Unvailed) return false;
             VailedTiles--;
-            if(!Board[x, y].Dig())
+            if(!Board[x, y].Dig().Result)
             {
                 GameLost();
                 return true;

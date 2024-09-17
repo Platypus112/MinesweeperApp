@@ -108,16 +108,23 @@ namespace MinesweeperApp.Models
                                     (y + j >= 0 && y + j < Board.GetLength(1));//checks if the j value gives a tile that exists in the board array
                                 if (withinBounds)
                                 {
-                                    VailedTiles--;
-                                    if (!await Board[x + k, y + j].Dig())
+                                        VailedTiles--;
+                                    if (Board[x + k, y + j].Value == 0)
                                     {
-                                        GameLost();
-                                        return true;
+                                        await UnvailTile(x + k, y + j);
                                     }
-                                    else if (VailedTiles == OBombs)
+                                    else
                                     {
-                                        GameWon();
-                                        return true;
+                                        if (!await Board[x + k, y + j].Dig())
+                                        {
+                                            GameLost();
+                                            return true;
+                                        }
+                                        else if (VailedTiles == OBombs)
+                                        {
+                                            GameWon();
+                                            return true;
+                                        }
                                     }
                                 }
                             }

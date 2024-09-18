@@ -41,8 +41,8 @@ namespace MinesweeperApp.ViewModels
             t.Tick += async (object sender, EventArgs e) => Timer =  (DateTime.Now - game.StartTime).ToString().Substring(3,5);
             Width = 10;
             Height = 10;
-            Bombs = 10;
-            game = new Game(Width, Height, Bombs,null,null);
+            Bombs = 15;
+            game = new Game(Width, Height, 0,null,null);
             notStarted = true;
             Board = new ObservableCollection<Tile>();
             UpdateCollection();

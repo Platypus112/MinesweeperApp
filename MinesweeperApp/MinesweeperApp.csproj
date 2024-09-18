@@ -61,6 +61,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="MersenneTwister" Version="1.0.6" />
 		<PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0" />
@@ -70,6 +71,7 @@
 		<PackageReference Include="Microsoft.Maui.Dependencies" Version="6.0.553" />
 		<PackageReference Include="Microsoft.Maui.Graphics" Version="8.0.90" />
 		<PackageReference Include="Syncfusion.Maui.DataGrid" Version="26.2.14" />
+		<PackageReference Include="Syncfusion.Shared.WPF" Version="26.2.14" />
 	</ItemGroup>
 
 	<ItemGroup>

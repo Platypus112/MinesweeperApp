@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MersenneTwister;
 
 namespace MinesweeperApp.Models
 {
@@ -34,19 +35,23 @@ namespace MinesweeperApp.Models
         public void FillBoard(int? xPos,int? yPos)
         {
             if (Board == null) return;
-            Random rnd=new Random();
-            List<int> heights=new List<int>();
+            Random rnd=new Random();            List<int> heights=new List<int>();
             List<int> widths=new List<int>();
             for (int i = 0; i < Bombs; i++)//getting the locarions of bombs
             {
-                int width = rnd.Next(Board.GetLength(0));
-                int height = rnd.Next(Board.GetLength(1));
+                int width = Randoms.Next(Board.GetLength(0));
+                int height = Randoms.Next(Board.GetLength(1));
                 bool within = false;
                 if (xPos != null && yPos != null)
                 {
                     within= (width>=xPos-1&&width<=xPos+1)&&(height>=yPos-1&&height<=yPos+1);
                 }
-                if ((widths.Contains(width) && heights.Contains(height))||within) i--;
+                bool exists = false;
+                if((widths.Contains(width) && heights.Contains(height)))
+                {
+                    exists = width == widths[heights.IndexOf(height)];
+                }
+                if (exists||within) i--;
                 else
                 {
                     widths.Add(width);

@@ -22,6 +22,8 @@ namespace MinesweeperApp.Models
         #endregion
         public int Value { get { return value; } private set { UpdateDisplay(); this.value = value; } }
         private int value;
+        public int FlagCount { get { return flagCount; } private set { UpdateDisplay(); this.flagCount = value; } }
+        private int flagCount;
         public bool Unvailed { get { return unvailed; } private set { UpdateDisplay();unvailed = value; } }//-1 is bomb
         private bool unvailed;
         public bool Flagged { get{ return flagged; } private set { UpdateDisplay();flagged = value; } }
@@ -33,6 +35,7 @@ namespace MinesweeperApp.Models
             Value = Value_;
             Unvailed = false;
             Flagged = false;
+            flagCount = 0;
         }
         public Tile(int Value_,bool Unvailed_) : this(Value_)
         {
@@ -118,6 +121,14 @@ namespace MinesweeperApp.Models
         public void AddBomb()
         {
             Value+=1;
+        }
+        public void AddFlag()
+        {
+            FlagCount += 1;
+        }
+        public void RemoveFlag()
+        {
+            FlagCount -= 1;
         }
         public override string ToString()
         {

@@ -90,10 +90,11 @@ namespace MinesweeperApp.Models
                 Console.WriteLine("illegal move");
                 return false;
             }
+            if (Board[x,y].Flagged)return false;
             if (Board[x, y].Unvailed) 
             {
                 
-                if (Board[x,y].Value!=0&&CountAdjBy(x, y, (xX, yY) => Board[xX, yY].Flagged) >= Board[x,y].Value)
+                if (Board[x, y].Value != 0 && Board[x, y].FlagCount == Board[x,y].Value)
                 {
                     for (int k = -1; k <= 1; k++)
                     {
@@ -108,13 +109,13 @@ namespace MinesweeperApp.Models
                                     (y + j >= 0 && y + j < Board.GetLength(1));//checks if the j value gives a tile that exists in the board array
                                 if (withinBounds)
                                 {
-                                        VailedTiles--;
                                     if (Board[x + k, y + j].Value == 0)
                                     {
                                         await UnvailTile(x + k, y + j);
                                     }
                                     else
                                     {
+                                        if (!Board[x + k, y + j].Unvailed) VailedTiles--;
                                         if (!await Board[x + k, y + j].Dig())
                                         {
                                             GameLost();
@@ -126,6 +127,7 @@ namespace MinesweeperApp.Models
                                             return true;
                                         }
                                     }
+                                    await Task.Delay(20);
                                 }
                             }
                         }
@@ -162,6 +164,7 @@ namespace MinesweeperApp.Models
                             {
                                 UnvailTile(x + k, y + j);
                             }
+                            await Task.Delay(20);
                         }
                     }
                 }
@@ -182,8 +185,16 @@ namespace MinesweeperApp.Models
                 return;
             }
             if (Board[x, y].Unvailed) return;
-            if (Board[x, y].Flag()) Bombs--;
-            else Bombs++;
+            if (Board[x, y].Flag())
+            {
+                Bombs--;
+                CountAdjBy(x, y, (int X, int Y) => { Board[X, Y].AddFlag(); return true; });
+            }
+            else
+            {
+                Bombs++;
+                CountAdjBy(x, y, (int X, int Y) => { Board[X, Y].RemoveFlag(); return true; });
+            }
             EndTime = DateTime.Now;
         }
         private int CountAdjBy(int x, int y, Func<int, int, bool> func)

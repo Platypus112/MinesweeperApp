@@ -147,7 +147,7 @@ namespace MinesweeperApp.Models
                 return false;
             }
             VailedTiles--;
-            if(!Board[x, y].Dig().Result)
+            if(!await Board[x, y].Dig())
             {
                 GameLost();
                 return true;
@@ -167,7 +167,7 @@ namespace MinesweeperApp.Models
                                 (y + j >= 0 && y + j < Board.GetLength(1));//checks if the j value gives a tile that exists in the board array
                             if (withinBounds)
                             {
-                                UnvailTile(x + k, y + j);
+                                await UnvailTile(x + k, y + j);
                             }
                             await Task.Delay(20);
                         }

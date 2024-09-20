@@ -35,7 +35,7 @@ namespace MinesweeperApp.Models
             Value = Value_;
             Unvailed = false;
             Flagged = false;
-            flagCount = 0;
+            FlagCount = 0;
         }
         public Tile(int Value_,bool Unvailed_) : this(Value_)
         {

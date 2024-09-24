@@ -126,13 +126,13 @@ namespace MinesweeperApp.Models
                                             GameLost();
                                             return true;
                                         }
-                                        else if (VailedTiles == OBombs)
+                                        else if (VailedTiles <= OBombs)
                                         {
                                             GameWon();
                                             return true;
                                         }
                                     }
-                                    await Task.Delay(20);
+                                    //await Task.Delay(20);
                                 }
                             }
                         }
@@ -169,7 +169,7 @@ namespace MinesweeperApp.Models
                             {
                                 await UnvailTile(x + k, y + j);
                             }
-                            await Task.Delay(20);
+                            //await Task.Delay(20);
                         }
                     }
                 }

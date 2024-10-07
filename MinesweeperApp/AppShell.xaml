@@ -6,7 +6,9 @@
     xmlns:local="clr-namespace:MinesweeperApp"
     xmlns:views="clr-namespace:MinesweeperApp.Views"
     Shell.FlyoutBehavior="Disabled"
-    
+    xmlns:syncfusion="clr-namespace:Syncfusion;assembly=Syncfusion.Licensing"
+    xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
+
     Title="MinesweeperApp">
     <Shell.Resources>
         <Style TargetType="Shell">
@@ -15,14 +17,13 @@
         <Style TargetType="ContentPage">
             <Setter Property="BackgroundColor" Value="Gray"/>
         </Style>
-        <Style TargetType="ImageButton" x:Key="Tile">
-            <Setter Property="BackgroundColor" Value="#bd0892"/>
-
+        <Style TargetType="buttons:SfButton" x:Key="Tile">
+            <Setter Property="Background" Value="DeepPink"/>
             <!--<Setter Property="BorderWidth" Value="1"/>
             <Setter Property="BorderColor" Value="Black"/>-->
             <Setter Property="CornerRadius" Value="0"/>
-            <!--<Setter Property="TextColor" Value="White"/>-->
-            <!--<Setter Property="FontSize" Value="Large"/>-->
+            <Setter Property="TextColor" Value="White"/>
+            <Setter Property="FontSize" Value="Large"/>
             <Setter Property="Margin" Value="0"/>
             <Setter Property="Padding" Value="0"/>
         </Style>

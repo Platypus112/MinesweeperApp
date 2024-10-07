@@ -44,7 +44,7 @@ namespace MinesweeperApp.Models
         }
         public Tile(int Value_, int x_,int y_) : this(Value_)
         {
-            DisplayDetails = new DisplayDetails(x_,y_,1,string.Empty,((Color)((Style)AppShell.Current.Resources.First(x =>x.Key=="Tile").Value).Setters.First(x=> x.Property.PropertyName== "BackgroundColor").Value).ToHex());
+            DisplayDetails = new DisplayDetails(x_,y_,1,string.Empty, "#e014b1"/*,((SolidColorBrush)((Style)AppShell.Current.Resources.First(x =>x.Key=="Tile").Value).Setters.First(x=> x.Property.PropertyName== "Background").Value).Color.ToHex()*/);
             UpdateDisplay();
         }
         public void UpdateDisplay()
@@ -62,7 +62,7 @@ namespace MinesweeperApp.Models
                 {
                     this.DisplayDetails.BackgroundColor = "#211e1f";
                     if (value != 0) this.DisplayDetails.Text = Value.ToString();
-                    else this.DisplayDetails.Text = string.Empty;
+                    else this.DisplayDetails.Text = string.Empty;           
                     if(value!=0)this.DisplayDetails.Image = "t"+Value+"photoroom.png";
                 }
                 else
@@ -277,10 +277,16 @@ namespace MinesweeperApp.Models
         public string? BackgroundColor
         {
             get { return backgroundColor; }
-            set { OnPropertyChanged(); backgroundColor = value; }
+            set { OnPropertyChanged(); backgroundColor = value; if(Background!=null)Background.Color = Color.FromHex(value); }
         }
         private string? backgroundColor;
         public readonly string? baseBackgroundColor;
+        public SolidColorBrush? Background
+        {
+            get { return background; }
+            set { OnPropertyChanged(); background = value; }
+        }
+        private SolidColorBrush? background;
         public string? Image
         {
             get { return image; }
@@ -301,6 +307,7 @@ namespace MinesweeperApp.Models
             BackgroundColor = backgroundColor_;
             baseBackgroundColor = backgroundColor_;
             Scale=scale_;
+            Background = new SolidColorBrush(Color.FromHex(BackgroundColor));
         }
     }
 }

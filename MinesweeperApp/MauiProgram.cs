@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging;
 using MinesweeperApp.Views;
 using MinesweeperApp.ViewModels;
 using MinesweeperApp.Services;

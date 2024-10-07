@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:ViewModel="clr-namespace:MinesweeperApp.ViewModels"
              xmlns:Models="clr-namespace:MinesweeperApp.Models"
@@ -9,7 +10,6 @@
              x:DataType="ViewModel:GameViewModel"
              Title="GameView">
     <StackLayout HorizontalOptions="Center">
-        
         <Label HorizontalOptions="Center" Text="{Binding Timer}"/>
         <HorizontalStackLayout HorizontalOptions="Center">
             <Image Source="mine.png" HeightRequest="20" WidthRequest="20"/>
@@ -17,13 +17,13 @@
         </HorizontalStackLayout>
         <Grid BackgroundColor="#211e1f" HorizontalOptions="Center" HeightRequest="400" WidthRequest="400" x:Name="GameGrid" BindableLayout.ItemsSource="{Binding Board}">
             <BindableLayout.ItemTemplate Margin="0" Padding="0">
-                
+
                 <DataTemplate x:DataType="Models:Tile">
                     <Border Grid.Column="{Binding DisplayDetails.x}"
                             Grid.Row="{Binding DisplayDetails.y}"
                             Stroke="Black"
                             Margin="0" Padding="0" Background="Transparent" StrokeThickness="0.5" VerticalOptions="StartAndExpand" HorizontalOptions="StartAndExpand">
-                        <Button Style="{DynamicResource Tile}"
+                        <buttons:SfButton Style="{DynamicResource Tile}"
                                 ImageSource="{Binding DisplayDetails.Image}"
                                 BackgroundColor="{Binding DisplayDetails.BackgroundColor}"
                                 Scale="{Binding DisplayDetails.Scale}"
@@ -31,6 +31,14 @@
                                 HorizontalOptions="Center" VerticalOptions="Center"
                                 Command="{Binding Source={x:Reference GameGrid}, Path=BindingContext.ClickTileCommand}"
                                 CommandParameter="{Binding .}" FontAutoScalingEnabled="True" FlowDirection="LeftToRight"/>
+                        <!--<Button Style="{DynamicResource Tile}"
+                                ImageSource="{Binding DisplayDetails.Image}"
+                                BackgroundColor="{Binding DisplayDetails.BackgroundColor}"
+                                Scale="{Binding DisplayDetails.Scale}"
+                                Text="{Binding DisplayDetails.Text}"
+                                HorizontalOptions="Center" VerticalOptions="Center"
+                                Command="{Binding Source={x:Reference GameGrid}, Path=BindingContext.ClickTileCommand}"
+                                CommandParameter="{Binding .}" FontAutoScalingEnabled="True" FlowDirection="LeftToRight"/>-->
                     </Border>
                 </DataTemplate>
             </BindableLayout.ItemTemplate>
@@ -40,7 +48,7 @@
             <ImageButton Style="{DynamicResource imgButton}" Source="flag.png" Command="{Binding ToggleFlagCommand}"/>
         </HorizontalStackLayout>
     </StackLayout>
-        
 
-    
+
+
 </ContentPage>

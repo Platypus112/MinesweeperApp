@@ -88,8 +88,13 @@ namespace MinesweeperApp.ViewModels
                     await UpdateCollection();
                     t.Start();
                 }
+                else
+                {
+                    if (await game.EasyDig(((Tile)obj).DisplayDetails.x, ((Tile)obj).DisplayDetails.y)) await GameOver();
+                }
                 if (!isFlagging)
                 {
+                    
                     if(await game.UnvailTile(((Tile)obj).DisplayDetails.x, ((Tile)obj).DisplayDetails.y)) await GameOver();
                     //AnimateDig(((Tile)obj), 2);
                 }

@@ -3,10 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:ViewModel="clr-namespace:MinesweeperApp.ViewModels"
              xmlns:Models="clr-namespace:MinesweeperApp.Models"
+             xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+             xmlns:Syncfusion="http://schemas.microsoft.com/netfx/2009/xaml/presentation"
              x:Class="MinesweeperApp.Views.GameView"
              x:DataType="ViewModel:GameViewModel"
              Title="GameView">
     <StackLayout HorizontalOptions="Center">
+        
         <Label HorizontalOptions="Center" Text="{Binding Timer}"/>
         <HorizontalStackLayout HorizontalOptions="Center">
             <Image Source="mine.png" HeightRequest="20" WidthRequest="20"/>

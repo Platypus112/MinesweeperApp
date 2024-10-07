@@ -11,7 +11,7 @@ namespace MinesweeperApp.Models
     public class Game
     {
         private readonly Tile[,] Board;
-        private int VailedTiles;
+        private int UnVailedTiles;
         public DateTime StartTime { get; private set; }
         public DateTime EndTime { get; private set; }   
         public bool IsPlaying { get; private set; }
@@ -28,7 +28,7 @@ namespace MinesweeperApp.Models
             Board = new Tile[width,height];
             Bombs= Bombs_;
             OBombs = Bombs_;
-            VailedTiles = width * height;
+            UnVailedTiles = width * height;
             FillBoard(xPos,yPos);
         }
         
@@ -88,65 +88,78 @@ namespace MinesweeperApp.Models
             }
 
         }
+        public async Task<bool> EasyDig(int x, int y)
+        {
+            if ((x < 0 || y < 0 || x >= Board.GetLength(0) || y >= Board.GetLength(1)) || Board[x, y] == null || !Board[x, y].Unvailed)
+            {
+                Console.WriteLine("illegal move");
+                return false;
+            }
+            if (Board[x, y].Flagged) return false;
+            if(!(await CountAdjBy(x,y, (xPos, yPos) => Board[xPos, yPos].Flagged) >= Board[x,y].Value)) return false;
+            if (await CountAdjBy(x, y, (xPos, yPos) => UnvailTile(xPos, yPos).Result) > 0) return true;
+            return false;
+            
+        }
         public async Task<bool> UnvailTile(int x,int y)//returns true when the game is done
         {
-            if ((x < 0 || y < 0 || x >= Board.GetLength(0) || y >= Board.GetLength(1))|| Board[x, y] == null)
+            if ((x < 0 || y < 0 || x >= Board.GetLength(0) || y >= Board.GetLength(1))|| Board[x, y] == null || Board[x, y].Unvailed)
             {
                 Console.WriteLine("illegal move");
                 return false;
             }
             if (Board[x,y].Flagged)return false;
-            if (Board[x, y].Unvailed) 
-            {
+            //if (Board[x, y].Unvailed) 
+            //{
                 
-                if (Board[x, y].Value != 0 && Board[x, y].FlagCount == Board[x,y].Value)
-                {
-                    for (int k = -1; k <= 1; k++)
-                    {
-                        for (int j = -1; j <= 1; j++)
-                        {
+            //    if (Board[x, y].Value != 0 && Board[x, y].FlagCount == Board[x,y].Value)
+            //    {
+            //        for (int k = -1; k <= 1; k++)
+            //        {
+            //            for (int j = -1; j <= 1; j++)
+            //            {
 
-                            if (k != 0 || j != 0)
-                            {
-                                bool withinBounds =
-                                    (x + k >= 0 && x + k < Board.GetLength(0))//checks if the k value gives a tile that exists in the board array
-                                    &&
-                                    (y + j >= 0 && y + j < Board.GetLength(1));//checks if the j value gives a tile that exists in the board array
-                                if (withinBounds)
-                                {
-                                    if (Board[x + k, y + j].Value == 0)
-                                    {
-                                        await UnvailTile(x + k, y + j);
-                                    }
-                                    else
-                                    {
-                                        if (!Board[x + k, y + j].Unvailed) VailedTiles--;
-                                        if (!await Board[x + k, y + j].Dig())
-                                        {
-                                            GameLost();
-                                            return true;
-                                        }
-                                        else if (VailedTiles <= OBombs)
-                                        {
-                                            GameWon();
-                                            return true;
-                                        }
-                                    }
-                                    //await Task.Delay(20);
-                                }
-                            }
-                        }
-                    }
-                }
-                EndTime = DateTime.Now;
-                if (VailedTiles == OBombs)
-                {
-                    GameWon();
-                    return true;
-                }
-                return false;
-            }
-            VailedTiles--;
+            //                if (k != 0 || j != 0)
+            //                {
+            //                    bool withinBounds =
+            //                        (x + k >= 0 && x + k < Board.GetLength(0))//checks if the k value gives a tile that exists in the board array
+            //                        &&
+            //                        (y + j >= 0 && y + j < Board.GetLength(1));//checks if the j value gives a tile that exists in the board array
+            //                    if (withinBounds)
+            //                    {
+            //                        if (Board[x + k, y + j].Value == 0)
+            //                        {
+            //                            await UnvailTile(x + k, y + j);
+            //                        }
+            //                        else
+            //                        {
+            //                            if (!Board[x + k, y + j].Unvailed) UnVailedTiles--;
+            //                            if (!await Board[x + k, y + j].Dig())
+            //                            {
+            //                                GameLost();
+            //                                return true;
+            //                            }
+            //                            else if (UnVailedTiles <= OBombs)
+            //                            {
+            //                                GameWon();
+            //                                return true;
+            //                            }
+            //                        }
+            //                        //await Task.Delay(20);
+            //                    }
+            //                }
+            //            }
+            //        }
+            //    }
+            //    EndTime = DateTime.Now;
+            //    if (UnVailedTiles == OBombs)
+            //    {
+            //        GameWon();
+            //        return true;
+            //    }
+            //    return false;
+            //}
+            UnVailedTiles--;
             if(!await Board[x, y].Dig())
             {
                 GameLost();
@@ -175,7 +188,7 @@ namespace MinesweeperApp.Models
                 }
             }
             EndTime = DateTime.Now;
-            if (VailedTiles == OBombs)
+            if (UnVailedTiles == OBombs)
             {
                 GameWon();
                 return true;
@@ -202,7 +215,7 @@ namespace MinesweeperApp.Models
             }
             EndTime = DateTime.Now;
         }
-        private int CountAdjBy(int x, int y, Func<int, int, bool> func)
+        private Task<int> CountAdjBy(int x, int y, Func<int, int, bool> func)
         {
             int count = 0;
             for (int k = -1; k <= 1; k++)
@@ -219,7 +232,7 @@ namespace MinesweeperApp.Models
                     }
                 }
             }
-            return count;
+            return Task<int>.FromResult(count);
         }
         public void GameLost()
         {

@@ -30,6 +30,7 @@ namespace MinesweeperApp.ViewModels
         private Game game;
         private bool isFlagging;
         private bool notStarted;
+        private bool gameFinished;
         public ICommand ClickTileCommand { get; private set; }
         public ICommand ToggleFlagCommand { get; private set; }
         public ICommand ToggleMineCommand { get; private set; }
@@ -45,8 +46,9 @@ namespace MinesweeperApp.ViewModels
             game = new Game(Width, Height, 0,null,null);
             notStarted = true;
             Board = new ObservableCollection<Tile>();
+            gameFinished = false;
             UpdateCollection();
-            ClickTileCommand = new Command(async (Object obj) => await ClickTile(obj));
+            ClickTileCommand = new Command(async (Object obj) => await ClickTile(obj), (object obj) => !gameFinished) ;
             ToggleFlagCommand = new Command(async () => await ToggleFlagging(), () => !isFlagging);
             ToggleMineCommand = new Command(async () => await ToggleFlagging(), () => isFlagging);
         }
@@ -76,6 +78,8 @@ namespace MinesweeperApp.ViewModels
         public async Task GameOver()
         {
             t.Stop();
+            gameFinished = true;
+            ((Command)ClickTileCommand).ChangeCanExecute();
         }
         public async Task ClickTile(Object obj)
         {

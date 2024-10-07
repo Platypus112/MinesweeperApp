@@ -63,6 +63,7 @@ namespace MinesweeperApp.Models
                     this.DisplayDetails.BackgroundColor = "#211e1f";
                     if (value != 0) this.DisplayDetails.Text = Value.ToString();
                     else this.DisplayDetails.Text = string.Empty;
+                    if(value!=0)this.DisplayDetails.Image = "t"+Value+"photoroom.png";
                 }
                 else
                 {

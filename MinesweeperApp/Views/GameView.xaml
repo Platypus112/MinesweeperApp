@@ -4,8 +4,6 @@ xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Bu
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:ViewModel="clr-namespace:MinesweeperApp.ViewModels"
              xmlns:Models="clr-namespace:MinesweeperApp.Models"
-             xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
-             xmlns:Syncfusion="http://schemas.microsoft.com/netfx/2009/xaml/presentation"
              x:Class="MinesweeperApp.Views.GameView"
              x:DataType="ViewModel:GameViewModel"
              Title="GameView">
@@ -23,15 +21,7 @@ xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Bu
                             Grid.Row="{Binding DisplayDetails.y}"
                             Stroke="Black"
                             Margin="0" Padding="0" Background="Transparent" StrokeThickness="0.5" VerticalOptions="StartAndExpand" HorizontalOptions="StartAndExpand">
-                        <buttons:SfButton Style="{DynamicResource Tile}"
-                                ImageSource="{Binding DisplayDetails.Image}"
-                                BackgroundColor="{Binding DisplayDetails.BackgroundColor}"
-                                Scale="{Binding DisplayDetails.Scale}"
-                                Text="{Binding DisplayDetails.Text}"
-                                HorizontalOptions="Center" VerticalOptions="Center"
-                                Command="{Binding Source={x:Reference GameGrid}, Path=BindingContext.ClickTileCommand}"
-                                CommandParameter="{Binding .}" FontAutoScalingEnabled="True" FlowDirection="LeftToRight"/>
-                        <!--<Button Style="{DynamicResource Tile}"
+                        <!--<buttons:SfButton Style="{DynamicResource Tile}"
                                 ImageSource="{Binding DisplayDetails.Image}"
                                 BackgroundColor="{Binding DisplayDetails.BackgroundColor}"
                                 Scale="{Binding DisplayDetails.Scale}"
@@ -39,6 +29,13 @@ xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Bu
                                 HorizontalOptions="Center" VerticalOptions="Center"
                                 Command="{Binding Source={x:Reference GameGrid}, Path=BindingContext.ClickTileCommand}"
                                 CommandParameter="{Binding .}" FontAutoScalingEnabled="True" FlowDirection="LeftToRight"/>-->
+                        <ImageButton Style="{DynamicResource Tile}"
+                                Source="{Binding DisplayDetails.Image}"
+                                BackgroundColor="{Binding DisplayDetails.BackgroundColor}"
+                                Scale="{Binding DisplayDetails.Scale}"
+                                HorizontalOptions="Center" VerticalOptions="Center"
+                                Command="{Binding Source={x:Reference GameGrid}, Path=BindingContext.ClickTileCommand}"
+                                CommandParameter="{Binding .}" />
                     </Border>
                 </DataTemplate>
             </BindableLayout.ItemTemplate>

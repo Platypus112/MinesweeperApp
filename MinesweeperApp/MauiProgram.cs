@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Logging;
 using MinesweeperApp.Views;
 using MinesweeperApp.ViewModels;
-using MinesweeperApp.Services;
+using MinesweeperApp.Services;  
 using Syncfusion.Maui.Core.Hosting;
 
 namespace MinesweeperApp

@@ -22,7 +22,7 @@
                     <Border Grid.Column="{Binding DisplayDetails.x}"
                             Grid.Row="{Binding DisplayDetails.y}"
                             Stroke="Black"
-                            Margin="0" Padding="0" Background="Transparent" StrokeThickness="0.5" VerticalOptions="StartAndExpand" HorizontalOptions="StartAndExpand">
+                            Margin="0" Padding="0" Background="Transparent" StrokeThickness="0.5" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
                         <!--<buttons:SfButton Style="{DynamicResource Tile}"
                                 ImageSource="{Binding DisplayDetails.Image}"
                                 ClipToBounds="True"
@@ -33,12 +33,13 @@
                                 Command="{Binding Source={x:Reference GameGrid}, Path=BindingContext.ClickTileCommand}"
                                 CommandParameter="{Binding .}"/>-->
                         <buttons:SfButton Style="{DynamicResource Tile}"
-                                ImageSource="{Binding DisplayDetails.Image}"
-                                          ImageSize="5"
-                                          Text=""
+                                Text="{Binding DisplayDetails.Text}"
+                                BackgroundImageSource="{Binding DisplayDetails.Image}"
                                 Background="{Binding DisplayDetails.Background}"
                                 Scale="{Binding DisplayDetails.Scale}"
-                                HorizontalOptions="Center" VerticalOptions="Center"
+                                         WidthRequest="43"
+                                          HeightRequest="43"
+                                HorizontalOptions="Start" VerticalOptions="Start"
                                 Command="{Binding Source={x:Reference GameGrid}, Path=BindingContext.ClickTileCommand}"
                                 CommandParameter="{Binding .}" />
                         <!--<buttons:SfButton Style="{DynamicResource Tile}"

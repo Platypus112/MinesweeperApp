@@ -35,7 +35,8 @@ namespace MinesweeperApp.Models
         public void FillBoard(int? xPos,int? yPos)
         {
             if (Board == null) return;
-            Random rnd=new Random();            List<int> heights=new List<int>();
+            Random rnd=new Random();            
+            List<int> heights=new List<int>();
             List<int> widths=new List<int>();
             for (int i = 0; i < Bombs; i++)//getting the locarions of bombs
             {

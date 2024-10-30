@@ -63,7 +63,7 @@ namespace MinesweeperApp.Models
                     this.DisplayDetails.BackgroundColor = "#211e1f";
                     if (value != 0) this.DisplayDetails.Text = Value.ToString();
                     else this.DisplayDetails.Text = string.Empty;           
-                    if(value!=0)this.DisplayDetails.Image = "t"+Value+"photoroom.png";
+                    //if(value!=0)this.DisplayDetails.Image = "t"+Value+"photoroom.png";
                 }
                 else
                 {
@@ -104,14 +104,14 @@ namespace MinesweeperApp.Models
             this.DisplayDetails.BackgroundColor = "#523750";
             int mili = ((int)(secs*1000/12));
             timer.Interval = new TimeSpan(0,0,0,0,mili);
-            timer.Tick += async (Object sender, EventArgs e) =>
+            timer.Tick += (Object sender, EventArgs e) =>
             {
                 if (this.DisplayDetails.Scale > 1 / Math.Pow(1.7, 12)) this.DisplayDetails.Scale /=1.7;
                 else
                 {
                     timer.Stop();
-                    UpdateDisplay();
                     this.DisplayDetails.Scale = 1;
+                    UpdateDisplay();
                 }
                 if(this.DisplayDetails.Scale<1/Math.Pow(1.7,8)) this.DisplayDetails.BackgroundColor = "#211e1f";
                 OnPropertyChanged("DisplayDetails");

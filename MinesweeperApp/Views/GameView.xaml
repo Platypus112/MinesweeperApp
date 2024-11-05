@@ -36,9 +36,12 @@
                                 Text="{Binding DisplayDetails.Text}"
                                 BackgroundImageSource="{Binding DisplayDetails.Image}"
                                 Background="{Binding DisplayDetails.Background}"
+                                          
                                 Scale="{Binding DisplayDetails.Scale}"
+                                         
                                          WidthRequest="43"
                                           HeightRequest="43"
+                                          
                                 HorizontalOptions="Start" VerticalOptions="Start"
                                 Command="{Binding Source={x:Reference GameGrid}, Path=BindingContext.ClickTileCommand}"
                                 CommandParameter="{Binding .}" />

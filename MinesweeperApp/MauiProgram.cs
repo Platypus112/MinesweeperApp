@@ -21,10 +21,25 @@ namespace MinesweeperApp
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
+
+            #region Syncfusion
             builder.ConfigureSyncfusionCore();
-            builder.Services.AddSingleton<GameView>();
-            builder.Services.AddSingleton<GameViewModel>();
+            #endregion
+
+            #region add Views
+            builder.Services.AddTransient<GameView>();
+            builder.Services.AddTransient<AppShell>();
+
+            #endregion
+
+            #region add Service
             builder.Services.AddSingleton<Service>();
+            #endregion
+
+            #region add ViewModels
+            builder.Services.AddTransient<GameViewModel>(); 
+            #endregion
+
 #if DEBUG
             builder.Logging.AddDebug();
 #endif

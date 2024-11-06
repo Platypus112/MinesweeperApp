@@ -26,28 +26,15 @@
                                     Grid.Row="{Binding DisplayDetails.y}"
                                     Stroke="Black"
                                     Margin="0" Padding="0" Background="Transparent" StrokeThickness="0.5" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                                <!--#region not worked -->
                                 <!--<buttons:SfButton Style="{DynamicResource Tile}"
                                         ImageSource="{Binding DisplayDetails.Image}"
                                         ClipToBounds="True"
-                                          
                                         BackgroundColor="{Binding DisplayDetails.BackgroundColor}"
                                         Scale="{Binding DisplayDetails.Scale}"
                                         HorizontalOptions="Center" VerticalOptions="Center"
                                         Command="{Binding Source={x:Reference GameGrid}, Path=BindingContext.ClickTileCommand}"
                                         CommandParameter="{Binding .}"/>-->
-                                <buttons:SfButton Style="{DynamicResource Tile}"
-                                        Text="{Binding DisplayDetails.Text}"
-                                        BackgroundImageSource="{Binding DisplayDetails.Image}"
-                                        Background="{Binding DisplayDetails.Background}"
-                                          
-                                        Scale="{Binding DisplayDetails.Scale}"
-                                         
-                                                 WidthRequest="43"
-                                                  HeightRequest="43"
-                                          
-                                        HorizontalOptions="Start" VerticalOptions="Start"
-                                        Command="{Binding Source={x:Reference GameGrid}, Path=BindingContext.ClickTileCommand}"
-                                        CommandParameter="{Binding .}" />
                                 <!--<buttons:SfButton Style="{DynamicResource Tile}"
                                         ImageSource="{Binding DisplayDetails.Image}"
                                         BackgroundColor="{Binding DisplayDetails.BackgroundColor}"
@@ -63,6 +50,20 @@
                                         HorizontalOptions="Center" VerticalOptions="Center"
                                         Command="{Binding Source={x:Reference GameGrid}, Path=BindingContext.ClickTileCommand}"
                                         CommandParameter="{Binding .}" />-->
+                                <!--#endregion-->
+                                <buttons:SfButton Style="{DynamicResource Tile}"
+                                        Text="{Binding DisplayDetails.Text}"
+                                        BackgroundImageSource="{Binding DisplayDetails.Image}"
+                                        Background="{Binding DisplayDetails.Background}"
+                                          
+                                        Scale="{Binding DisplayDetails.Scale}"
+                                         
+                                                 WidthRequest="43"
+                                                  HeightRequest="43"
+                                          
+                                        HorizontalOptions="Start" VerticalOptions="Start"
+                                        Command="{Binding Source={x:Reference GameGrid}, Path=BindingContext.ClickTileCommand}"
+                                        CommandParameter="{Binding .}" />
                             </Border>
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>

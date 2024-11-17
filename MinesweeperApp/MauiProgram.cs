@@ -26,18 +26,18 @@ namespace MinesweeperApp
             builder.ConfigureSyncfusionCore();
             #endregion
 
-            #region add Views
-            builder.Services.AddTransient<GameView>();
-            builder.Services.AddTransient<AppShell>();
-
+            #region add ViewModels
+            builder.Services.AddTransient<GameViewModel>();
+            builder.Services.AddTransient<AppShellViewModel>();
             #endregion
 
             #region add Service
             builder.Services.AddSingleton<Service>();
             #endregion
 
-            #region add ViewModels
-            builder.Services.AddTransient<GameViewModel>(); 
+            #region add Views
+            builder.Services.AddTransient<GameView>();
+            builder.Services.AddTransient<AppShell>();
             #endregion
 
 #if DEBUG

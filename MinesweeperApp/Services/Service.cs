@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace MinesweeperApp.Services
 {
-    internal class Service
+    public class Service
     {
+        public Service() { }
     }
 }

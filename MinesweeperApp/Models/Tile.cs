@@ -85,7 +85,8 @@ namespace MinesweeperApp.Models
         {
             if (Unvailed||Flagged) return true;
             Unvailed = true;
-            await this.AnimateDig(0.2);
+            //await this.AnimateDig(0.2);
+            UpdateDisplay();
             if (Value == -1) return false;
             return true;
         }

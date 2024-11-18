@@ -31,6 +31,8 @@ namespace MinesweeperApp.ViewModels
         private bool isFlagging;
         private bool notStarted;
         private bool gameFinished;
+        private bool clickingRunning;
+
         public ICommand ClickTileCommand { get; private set; }
         public ICommand ToggleFlagCommand { get; private set; }
         public ICommand ToggleMineCommand { get; private set; }
@@ -47,8 +49,9 @@ namespace MinesweeperApp.ViewModels
             notStarted = true;
             Board = new ObservableCollection<Tile>();
             gameFinished = false;
+            clickingRunning = false;
             UpdateCollection();
-            ClickTileCommand = new Command(async (Object obj) => await ClickTile(obj), (object obj) => !gameFinished) ;
+            ClickTileCommand = new Command(async (Object obj) => await ClickTile(obj), (object obj) => !gameFinished&!clickingRunning) ;
             ToggleFlagCommand = new Command(async () => await ToggleFlagging(), () => !isFlagging);
             ToggleMineCommand = new Command(async () => await ToggleFlagging(), () => isFlagging);
         }
@@ -67,12 +70,7 @@ namespace MinesweeperApp.ViewModels
         }
         public async Task UpdateCollection()
         {
-            Board.Clear();
-            List<Tile> tiles = game.GetBoardStateList();
-            foreach (Tile tile in tiles)
-            {
-                Board.Add(tile);
-            }
+            Board=new ObservableCollection<Tile>(game.GetBoardStateList());
 
         }
         public async Task GameOver()
@@ -83,10 +81,13 @@ namespace MinesweeperApp.ViewModels
         }
         public async Task ClickTile(Object obj)
         {
+            clickingRunning = true;
             try
             {
                 if(notStarted)
                 {
+
+                    //game = await new Task<Game>(() => new Game(Width, Height, Bombs, ((Tile)obj).DisplayDetails.x, ((Tile)obj).DisplayDetails.y));
                     game = new Game(Width, Height, Bombs, ((Tile)obj).DisplayDetails.x, ((Tile)obj).DisplayDetails.y);
                     notStarted = false;
                     await UpdateCollection();
@@ -103,6 +104,7 @@ namespace MinesweeperApp.ViewModels
                     //AnimateDig(((Tile)obj), 2);
                 }
                 else game.FlagTile(((Tile)obj).DisplayDetails.x, ((Tile)obj).DisplayDetails.y);
+                clickingRunning = false;
                 Bombs = game.Bombs;
             }
             catch

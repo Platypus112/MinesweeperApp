@@ -35,16 +35,17 @@ namespace MinesweeperApp.Models
         public void FillBoard(int? xPos,int? yPos)
         {
             if (Board == null) return;
-            Random rnd=new Random();            
             List<int> heights=new List<int>();
             List<int> widths=new List<int>();
             for (int i = 0; i < Bombs; i++)//getting the locarions of bombs
             {
-                int width = Randoms.Next(Board.GetLength(0));
-                int height = Randoms.Next(Board.GetLength(1));
+                int width = MersenneTwister.Randoms.Next(Board.GetLength(0)-3);
+                int height = MersenneTwister.Randoms.Next(Board.GetLength(1)-3);
                 bool within = false;
                 if (xPos != null && yPos != null)
                 {
+                    if (width >= xPos - 1) width += 3;
+                    if (height >= yPos - 1) height += 3;
                     within= (width>=xPos-1&&width<=xPos+1)&&(height>=yPos-1&&height<=yPos+1);
                 }
                 bool exists = false;
@@ -176,7 +177,8 @@ namespace MinesweeperApp.Models
                         if (k != 0 || j != 0)
                         {
                             bool withinBounds =
-                                (x + k >= 0 && x + k < Board.GetLength(0))//checks if the k value gives a tile that exists in the board array
+                                (x + k >= 0 && x + k < Board.GetLength(0))//checks if the k value gives a tile th
+                                                                          //at exists in the board array
                                 &&
                                 (y + j >= 0 && y + j < Board.GetLength(1));//checks if the j value gives a tile that exists in the board array
                             if (withinBounds)

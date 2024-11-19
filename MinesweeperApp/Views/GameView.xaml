@@ -25,6 +25,20 @@
                                 HeightRequest="15"
                                 WidthRequest="15"
                                         Margin="0" Padding="0" Background="Transparent" StrokeThickness="0.5" >
+                            <buttons:SfButton Style="{DynamicResource Tile}"
+
+                                                      Scale="{Binding DisplayDetails.Scale}"
+                                                      MaximumHeightRequest="15"
+                                                      MaximumWidthRequest="15"
+                                                      HeightRequest="15"
+                                                      WidthRequest="15"
+                                                      FontAutoScalingEnabled="True"
+                                                      HorizontalOptions="StartAndExpand" 
+                                                      VerticalOptions="StartAndExpand"
+                                                      BackgroundImageSource="{Binding DisplayDetails.Image}"
+                                                      Background="{Binding DisplayDetails.Background}"
+                                                      Command="{Binding Source={x:Reference GameGrid}, Path=BindingContext.ClickTileCommand}"
+                                                      CommandParameter="{Binding .}"/>
                             <!--#region not worked -->
                             <!--<buttons:SfButton Style="{DynamicResource Tile}"
                                             ImageSource="{Binding DisplayDetails.Image}"
@@ -51,18 +65,6 @@
                                             CommandParameter="{Binding .}" />-->
                             <!--#endregion-->
                             <!--VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"-->
-                            <buttons:SfButton Style="{DynamicResource Tile}"
-                                                      Text="{Binding DisplayDetails.Text}"
-                                                      MaximumHeightRequest="15"
-                                              
-                                                      MaximumWidthRequest="15"
-                                                      FontAutoScalingEnabled="True"
-                                                      HorizontalOptions="StartAndExpand" 
-                                                      VerticalOptions="StartAndExpand"
-                                                      BackgroundImageSource="{Binding DisplayDetails.Image}"
-                                                      Background="{Binding DisplayDetails.Background}"
-                                                      Command="{Binding Source={x:Reference GameGrid}, Path=BindingContext.ClickTileCommand}"
-                                                      CommandParameter="{Binding .}"/>
                         </Border>
                     </DataTemplate>
                 </BindableLayout.ItemTemplate>

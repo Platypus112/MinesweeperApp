@@ -39,19 +39,21 @@ namespace MinesweeperApp.Models
             List<int> widths=new List<int>();
             for (int i = 0; i < Bombs; i++)//getting the locarions of bombs
             {
-                int width = MersenneTwister.Randoms.Next(Board.GetLength(0)-3);
-                int height = MersenneTwister.Randoms.Next(Board.GetLength(1)-3);
+                int width = MersenneTwister.Randoms.Next(Board.GetLength(0));
+                int height = MersenneTwister.Randoms.Next(Board.GetLength(1));
+                
                 bool within = false;
                 if (xPos != null && yPos != null)
                 {
-                    if (width >= xPos - 1) width += 3;
-                    if (height >= yPos - 1) height += 3;
                     within= (width>=xPos-1&&width<=xPos+1)&&(height>=yPos-1&&height<=yPos+1);
                 }
                 bool exists = false;
                 if((widths.Contains(width) && heights.Contains(height)))
                 {
-                    exists = width == widths[heights.IndexOf(height)];
+                    for(int j=0; j < widths.Count; j++)
+                    {
+                        if (widths[j] == width && heights[j]==height)exists = true;
+                    }
                 }
                 if (exists||within) i--;
                 else

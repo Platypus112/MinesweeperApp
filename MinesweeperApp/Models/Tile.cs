@@ -85,8 +85,8 @@ namespace MinesweeperApp.Models
         {
             if (Unvailed||Flagged) return true;
             Unvailed = true;
-            //await this.AnimateDig(0.2);
-            UpdateDisplay();
+            await this.AnimateDig(0.2);
+            //UpdateDisplay();
             if (Value == -1) return false;
             return true;
         }
@@ -278,7 +278,7 @@ namespace MinesweeperApp.Models
         public string? BackgroundColor
         {
             get { return backgroundColor; }
-            set { OnPropertyChanged(); backgroundColor = value; if(Background!=null)Background.Color = Color.FromHex(value); }
+            set { OnPropertyChanged(); backgroundColor = value; if(Background!=null)Background.Color = Color.FromArgb(value); }
         }
         private string? backgroundColor;
         public readonly string? baseBackgroundColor;
@@ -308,7 +308,7 @@ namespace MinesweeperApp.Models
             BackgroundColor = backgroundColor_;
             baseBackgroundColor = backgroundColor_;
             Scale=scale_;
-            Background = new SolidColorBrush(Color.FromHex(BackgroundColor));
+            Background = new SolidColorBrush(Color.FromArgb(BackgroundColor));
         }
     }
 }

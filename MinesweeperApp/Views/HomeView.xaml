@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MinesweeperApp.Views.HomeView"
+             xmlns:ViewModel="clr-namespace:MinesweeperApp.ViewModels"
+             x:DataType="ViewModel:HomeViewModel"
+             Title="HomeView">
+    <VerticalStackLayout VerticalOptions="Center">
+        <Image/><!--will be app icon-->
+        <Label Text="Welcome to Minesweeper with Friends!"
+               HorizontalOptions="CenterAndExpand"
+               />
+        <Button Command="{Binding NavigateToLoginCommand}"
+                Text="Log in"
+                />
+        <Button Command="{Binding NavigateToSignupCommand}"
+                Text="Sign up"
+                />
+    </VerticalStackLayout>
+</ContentPage>

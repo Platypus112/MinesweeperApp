@@ -42,16 +42,16 @@ namespace MinesweeperApp.ViewModels
             t.Stop();
             t.Interval = new TimeSpan(0, 0, 0, 0, 200);
             t.Tick += async (object sender, EventArgs e) => Timer =  (DateTime.Now - game.StartTime).ToString().Substring(3,5);
-            Width = 5;
-            Height = 5;
-            Bombs = 1;
+            Width = 18;
+            Height = 32;
+            Bombs = 10  ;
             game = new Game(Width, Height, 0,null,null);
             notStarted = true;
             Board = new ObservableCollection<Tile>();
             gameFinished = false;
             clickingRunning = false;
             UpdateCollection();
-            ClickTileCommand = new Command(async (Object obj) => await ClickTile(obj), (object obj) => !gameFinished&!clickingRunning) ;
+            ClickTileCommand = new Command(async (Object obj) => await ClickTile(obj)/*, (object obj) => !gameFinished&!clickingRunning*/) ;
             ToggleFlagCommand = new Command(async () => await ToggleFlagging(), () => !isFlagging);
             ToggleMineCommand = new Command(async () => await ToggleFlagging(), () => isFlagging);
         }
@@ -83,6 +83,7 @@ namespace MinesweeperApp.ViewModels
         public async Task ClickTile(Object obj)
         {
             clickingRunning = true;
+            if (gameFinished) return;
             try
             {
                 if(notStarted)

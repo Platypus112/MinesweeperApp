@@ -28,6 +28,7 @@ namespace MinesweeperApp
 
             #region add ViewModels
             builder.Services.AddTransient<GameViewModel>();
+            builder.Services.AddTransient<HomeViewModel>();
             builder.Services.AddTransient<AppShellViewModel>();
             #endregion
 
@@ -37,6 +38,7 @@ namespace MinesweeperApp
 
             #region add Views
             builder.Services.AddTransient<GameView>();
+            builder.Services.AddTransient<HomeView>();
             builder.Services.AddTransient<AppShell>();
             #endregion
 

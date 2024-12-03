@@ -10,6 +10,7 @@ namespace MinesweeperApp
             this.BindingContext = vm;
             InitializeComponent();
             Routing.RegisterRoute("gamePage", typeof(GameView));
+            Routing.RegisterRoute("homePage", typeof(HomeView));
         }
     }
 }

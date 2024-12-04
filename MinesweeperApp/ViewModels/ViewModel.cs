@@ -25,5 +25,12 @@ namespace MinesweeperApp.ViewModels
         }
 
         #endregion
+
+        protected readonly Service service;
+
+        public ViewModel(Service service_)
+        {
+            this.service= service_;
+        }
     }
 }

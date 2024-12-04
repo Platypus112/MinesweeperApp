@@ -39,7 +39,7 @@
     </Shell.Resources>
     <ShellContent
         Title="Home"
-        ContentTemplate="{DataTemplate views:HomeView}"
-        Route="homePage" />
+        ContentTemplate="{DataTemplate views:GameView}"
+        Route="gamePage" />
 
 </Shell>

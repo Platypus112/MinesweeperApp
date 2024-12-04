@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MinesweeperApp.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,7 @@ namespace MinesweeperApp.ViewModels
         public ICommand NavigateToLoginCommand { get; private set; }
         public ICommand NavigateToSignupCommand { get; private set; } 
 
-        public HomeViewModel()
+        public HomeViewModel(Service service_) : base(service_)
         {
             NavigateToLoginCommand= new Command(NavigateToLogin);
             NavigateToSignupCommand= new Command(NavigateToSignup);

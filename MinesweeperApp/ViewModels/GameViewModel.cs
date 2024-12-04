@@ -36,7 +36,7 @@ namespace MinesweeperApp.ViewModels
         public ICommand ClickTileCommand { get; private set; }
         public ICommand ToggleFlagCommand { get; private set; }
         public ICommand ToggleMineCommand { get; private set; }
-        public GameViewModel()
+        public GameViewModel(Service service_) : base(service_)
         {
             t = App.Current.Dispatcher.CreateTimer();
             t.Stop();

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MinesweeperApp.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace MinesweeperApp.ViewModels
 {
     public class AppShellViewModel:ViewModel
     {
-        public AppShellViewModel() { }
+        public AppShellViewModel(Service service_) : base(service_) { }
     }
 }

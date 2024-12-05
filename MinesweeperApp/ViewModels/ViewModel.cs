@@ -28,6 +28,9 @@ namespace MinesweeperApp.ViewModels
 
         protected readonly Service service;
 
+        private bool inServerCall;
+        public bool InServerCall { get { return inServerCall; } set { inServerCall = value; OnPropertyChanged(); } }
+
         public ViewModel(Service service_)
         {
             this.service= service_;

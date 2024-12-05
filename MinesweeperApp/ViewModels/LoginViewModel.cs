@@ -27,15 +27,7 @@ namespace MinesweeperApp.ViewModels
 
         private async void Login()
         {
-            bool isEmail=await service.ValidateEmail(Name);
-            if (isEmail)
-            {
-
-            }
-            else
-            {
-
-            }
+            
 
         } 
     }

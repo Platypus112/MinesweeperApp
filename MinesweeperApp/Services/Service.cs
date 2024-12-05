@@ -1,7 +1,9 @@
-﻿using System;
+﻿using MinesweeperServer.DTO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace MinesweeperApp.Services
@@ -17,6 +19,8 @@ namespace MinesweeperApp.Services
         private static string ImageBaseAddress = "https://92b8rvh4-5074.euw.devtunnels.ms/";
         #endregion
 
+        public AppUser? LoggedUser { get; private set; }
+
         public Service()
         {
             HttpClientHandler handler = new HttpClientHandler();
@@ -25,7 +29,43 @@ namespace MinesweeperApp.Services
             this.client = new HttpClient(handler);
             this.baseUrl = BaseAddress;
         }
+        public async Task<bool> Login(string name,string password)
+        {
+            string url = BaseAddress + "Login";
+            try
+            {
+                bool IsEmail=await ValidateEmail(name);
+                LoginInfo info = new()
+                {
+                    Password = password
+                };
+                
+                if (IsEmail)info.Email = name;
+                else info.Name = name;
 
+                string json = JsonSerializer.Serialize(info);
+                HttpContent content = new StringContent(json,Encoding.UTF8,"application/json");
+                HttpResponseMessage response = await client.PostAsync(url,content);
+
+                if(response.IsSuccessStatusCode)
+                {
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    LoggedUser = JsonSerializer.Deserialize<AppUser>(await response.Content.ReadAsStringAsync(),options);
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch(Exception ex) 
+            {
+                return false;
+            }
+        }
 
         public async Task<bool> ValidateEmail(string Email)
         {

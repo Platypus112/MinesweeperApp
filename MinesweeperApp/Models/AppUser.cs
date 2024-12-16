@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-
+﻿
 namespace MinesweeperServer.DTO
 {
     public class AppUser

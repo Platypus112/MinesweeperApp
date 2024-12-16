@@ -5,12 +5,16 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:MinesweeperApp"
     xmlns:views="clr-namespace:MinesweeperApp.Views"
-    Shell.FlyoutBehavior="Disabled"
+    FlyoutBehavior="Flyout"
+    xmlns:ViewModel="clr-namespace:MinesweeperApp.ViewModels"
     xmlns:syncfusion="clr-namespace:Syncfusion;assembly=Syncfusion.Licensing"
     xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
-
+    x:DataType="ViewModel:AppShellViewModel"
     Title="MinesweeperApp">
     <Shell.Resources>
+        <ResourceDictionary>
+            <local:BoolInverter x:Key="BoolInverter" />
+        </ResourceDictionary>
         <Style TargetType="Shell">
             <Setter Property="BackgroundColor" Value="Gray"/>
         </Style>
@@ -37,9 +41,15 @@
             <Setter Property="Padding" Value="0"/>
         </Style>
     </Shell.Resources>
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate views:GameView}"
-        Route="gamePage" />
+    <ShellContent Title="Game"
+                  ContentTemplate="{DataTemplate views:GameView}"
+                  Route="GameView"/>
+    <ShellContent Title="Welcome" 
+                  IsVisible="{Binding Logged, Converter={StaticResource BoolInverter}}"
+                  ContentTemplate="{DataTemplate views:HomeView}"
+                  Route="homePage"/>
+    <FlyoutItem IsVisible="{Binding Logged}">
+        <ShellContent Title=""/>
+    </FlyoutItem>
 
 </Shell>

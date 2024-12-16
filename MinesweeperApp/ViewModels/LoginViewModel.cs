@@ -16,6 +16,9 @@ namespace MinesweeperApp.ViewModels
         private string password;
         public string Password { get { return password; } set { password = value; OnPropertyChanged();((Command)LoginCommand).ChangeCanExecute(); } }
 
+        private string errorMSG;
+        public string ErrorMSG { get { return errorMSG; } set { errorMSG = value; OnPropertyChanged();} }
+
         public ICommand LoginCommand { get; private set; }
 
         public LoginViewModel(Service service_):base(service_) 
@@ -27,8 +30,20 @@ namespace MinesweeperApp.ViewModels
 
         private async void Login()
         {
-            
 
+            ErrorMSG = "";
+            InServerCall = true;      
+            bool succeeded = await service.Login(Name, Password)&&service.LoggedUser!=null;
+            if (succeeded)
+            {
+                Logged = true;
+                AppShell.Current.GoToAsync("\\gamePage");
+            }
+            else
+            {
+                errorMSG = "Log in Failed";
+                InServerCall = false;
+            }
         } 
     }
 }

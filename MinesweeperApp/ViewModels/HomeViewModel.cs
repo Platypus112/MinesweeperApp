@@ -21,12 +21,12 @@ namespace MinesweeperApp.ViewModels
 
         public async void NavigateToLogin()
         {
-
+            await AppShell.Current.GoToAsync("loginPage");
         }
 
         public async void NavigateToSignup()
         {
-
+            await AppShell.Current.GoToAsync("registerPage");
         }
 
     }

@@ -74,7 +74,7 @@ namespace MinesweeperApp.Services
             if (!result)
             {
                 //check if email is in the correct format using regular expression
-                if (!System.Text.RegularExpressions.Regex.IsMatch(Email, @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$"))
+                if (System.Text.RegularExpressions.Regex.IsMatch(Email, @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$"))
                 {
                     result = true;
                 }

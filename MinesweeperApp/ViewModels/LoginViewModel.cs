@@ -19,13 +19,25 @@ namespace MinesweeperApp.ViewModels
         private string errorMSG;
         public string ErrorMSG { get { return errorMSG; } set { errorMSG = value; OnPropertyChanged();} }
 
+        private bool isViewingPassword;
+        public bool IsViewingPassword { get { return isViewingPassword; } set { isViewingPassword = value; OnPropertyChanged(); OnPropertyChanged(nameof(IsNotViewingPassword)); } }
+        public bool IsNotViewingPassword { get { return !isViewingPassword; } set { isViewingPassword = !value; OnPropertyChanged(); OnPropertyChanged(nameof(IsViewingPassword)); } }
+
         public ICommand LoginCommand { get; private set; }
+        public ICommand ViewPasswordCommand { get; private set; }
 
         public LoginViewModel(Service service_):base(service_) 
         {
+            LoginCommand = new Command(Login,()=>!string.IsNullOrEmpty(Name)&&!string.IsNullOrEmpty(Password));
+            ViewPasswordCommand = new Command(ViewPassword);
+            IsViewingPassword = false;
             Name = "";
             Password = "";
-            LoginCommand = new Command(Login,()=>!string.IsNullOrEmpty(Name)&&!string.IsNullOrEmpty(Password));
+        }
+        private async void ViewPassword()
+        {
+            if (IsViewingPassword) IsViewingPassword = false;
+            else IsViewingPassword = true;
         }
 
         private async void Login()
@@ -37,7 +49,8 @@ namespace MinesweeperApp.ViewModels
             if (succeeded)
             {
                 Logged = true;
-                AppShell.Current.GoToAsync("\\gamePage");
+                await AppShell.Current.GoToAsync("\\gamePage");
+                InServerCall = false;
             }
             else
             {

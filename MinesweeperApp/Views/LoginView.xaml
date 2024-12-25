@@ -5,7 +5,45 @@
              xmlns:ViewModel="clr-namespace:MinesweeperApp.ViewModels"
              x:DataType="ViewModel:LoginViewModel"
              Title="LoginView">
-    <VerticalStackLayout>
-        
+    <VerticalStackLayout><!--IsEnabled="{Binding InServerCall,Converter={StaticResource BoolInverter}}"-->
+        <Grid HorizontalOptions="CenterAndExpand" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="6*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Image
+                Grid.Row="0"/>
+            <Entry
+                Grid.Row="1"
+                Placeholder="Email or Username"
+                   Text="{Binding Name}"
+                />
+
+            <HorizontalStackLayout
+                Grid.Row="2"
+                Spacing="10">
+                <Entry
+                    Placeholder="Password"
+                    IsPassword="{Binding IsNotViewingPassword}"
+                    Text="{Binding Password}"/>
+                <ImageButton
+                    MaximumHeightRequest="30"
+                    MaximumWidthRequest="30"
+                    CornerRadius="6986543"
+                    Command="{Binding ViewPasswordCommand}"
+                    Source="t1.png"/>
+            </HorizontalStackLayout>
+
+            <Button
+                Grid.Row="3"
+                Text="Log In"
+                Command="{Binding LoginCommand}"/>
+        </Grid>
+        <ActivityIndicator IsRunning="{Binding InServerCall}" 
+               Color="Red" 
+               VerticalOptions="Center" 
+               HorizontalOptions="Center" />
     </VerticalStackLayout>
 </ContentPage>

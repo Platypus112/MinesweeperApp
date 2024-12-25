@@ -6,7 +6,9 @@ public partial class HomeView : ContentPage
 {
 	public HomeView(HomeViewModel vm)
 	{
-		this.BindingContext = vm;
+        Application.Current.UserAppTheme = AppTheme.Dark;
+
+        this.BindingContext = vm;
 		InitializeComponent();
 	}
 }

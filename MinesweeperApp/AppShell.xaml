@@ -41,15 +41,15 @@
             <Setter Property="Padding" Value="0"/>
         </Style>
     </Shell.Resources>
-    <ShellContent Title="Game"
-                  ContentTemplate="{DataTemplate views:GameView}"
-                  Route="GameView"/>
-    <ShellContent Title="Welcome" 
-                  IsVisible="{Binding Logged, Converter={StaticResource BoolInverter}}"
-                  ContentTemplate="{DataTemplate views:HomeView}"
-                  Route="homePage"/>
-    <FlyoutItem IsVisible="{Binding Logged}">
-        <ShellContent Title=""/>
+   
+    <FlyoutItem  Icon="menu.png" FlyoutDisplayOptions="AsMultipleItems">
+            <ShellContent Title="Welcome" 
+                      IsVisible="{Binding NotLogged}"
+                      ContentTemplate="{DataTemplate views:HomeView}"
+                      Route="homePage"/>
+            <ShellContent IsVisible="{Binding Logged}"
+                          Title="Minesweeper"
+                          ContentTemplate="{DataTemplate views:GameView}"
+                          Route="gamePage"/>
     </FlyoutItem>
-
 </Shell>

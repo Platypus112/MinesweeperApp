@@ -13,6 +13,8 @@ namespace MinesweeperApp
             InitializeComponent();
             Routing.RegisterRoute("gamePage", typeof(GameView));
             Routing.RegisterRoute("homePage", typeof(HomeView));
+            Routing.RegisterRoute("loginPage", typeof(LoginView));
+            Routing.RegisterRoute("registerPage", typeof(RegisterView));
         }
     }
 }

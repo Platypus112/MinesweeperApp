@@ -13,6 +13,7 @@ namespace MinesweeperServer.DTO
         public string? PicPath { get; set; }
 
         public bool IsAdmin { get; set; }
+        public AppUser() { }
 
         public AppUser(string name_,string email_,string password_,string picPath_,bool isAdmin_)
         {

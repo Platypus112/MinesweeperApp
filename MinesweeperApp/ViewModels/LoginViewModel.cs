@@ -45,7 +45,7 @@ namespace MinesweeperApp.ViewModels
 
             ErrorMSG = "";
             InServerCall = true;      
-            bool succeeded = await service.Login(Name, Password)&&service.LoggedUser!=null;
+            bool succeeded = (await service.Login(Name, Password)).Response&&service.LoggedUser!=null;
             if (succeeded)
             {
                 Logged = true;

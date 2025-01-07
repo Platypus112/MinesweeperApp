@@ -15,6 +15,7 @@ namespace MinesweeperApp.ViewModels
 
         public HomeViewModel(Service service_) : base(service_)
         {
+            Logged = false;
             NavigateToLoginCommand= new Command(NavigateToLogin);
             NavigateToSignupCommand= new Command(NavigateToSignup);
         }

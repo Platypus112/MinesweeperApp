@@ -31,6 +31,8 @@ namespace MinesweeperApp
             builder.Services.AddTransient<HomeViewModel>();
             builder.Services.AddTransient<AppShellViewModel>();
             builder.Services.AddTransient<LoginViewModel>();
+            builder.Services.AddTransient<RegisterViewModel>();
+
             #endregion
 
             #region add Service
@@ -42,6 +44,7 @@ namespace MinesweeperApp
             builder.Services.AddTransient<GameView>();
             builder.Services.AddTransient<HomeView>();
             builder.Services.AddTransient<AppShell>();
+            builder.Services.AddTransient<RegisterView>();
             #endregion
 
 #if DEBUG

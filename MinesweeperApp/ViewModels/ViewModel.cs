@@ -32,17 +32,16 @@ namespace MinesweeperApp.ViewModels
         private bool inServerCall;
         public bool InServerCall { get { return inServerCall; } set { inServerCall = value; OnPropertyChanged(); } }
 
-        private bool logged;
-        public bool Logged { get { return inServerCall; } set { inServerCall = value; OnPropertyChanged();OnPropertyChanged(nameof(NotLogged)); } }
+        private static bool logged;
+        public bool Logged { get { return logged; } set { logged = value; OnPropertyChanged();OnPropertyChanged(nameof(NotLogged)); } }
 
-        public bool NotLogged { get { return !inServerCall; } set { inServerCall = !value; OnPropertyChanged(); OnPropertyChanged(nameof(Logged)); } }
+        public bool NotLogged { get { return !logged; } set { logged = !value; OnPropertyChanged(); OnPropertyChanged(nameof(Logged)); } }
 
 
         public ViewModel(Service service_)
         {
             this.service= service_;
             InServerCall= false;
-            Logged=false;
         }
     }
 }

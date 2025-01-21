@@ -7,20 +7,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using static Java.Util.Jar.Attributes;
 
 namespace MinesweeperApp.ViewModels
 {
     public class RegisterViewModel:ViewModel
     {
         private string email;
-        public string Email { get { return email; } set { email = value; OnPropertyChanged(); } }
+        public string Email { get { return email; } set { email = value; OnPropertyChanged(); ((Command)RegisterCommand).ChangeCanExecute(); } }
 
         private string username;
-        public string Username { get { return username; } set {  username = value; OnPropertyChanged(); } }
+        public string Username { get { return username; } set {  username = value; OnPropertyChanged(); ((Command)RegisterCommand).ChangeCanExecute(); } }
 
         private string password;
-        public string Password { get { return password; } set { password = value;OnPropertyChanged(); } }
+        public string Password { get { return password; } set { password = value;OnPropertyChanged(); ((Command)RegisterCommand).ChangeCanExecute(); } }
 
         private string errorMSG;
         public string ErrorMSG { get { return errorMSG; } set { errorMSG = value; OnPropertyChanged(); } }
@@ -46,7 +45,27 @@ namespace MinesweeperApp.ViewModels
         {
             ErrorMSG = "";
             InServerCall = true;
-            ServerResponse<AppUser> response=await service.
+            ServerResponse<AppUser> response=await service.Register(Username, Email, Password);
+
+            if (response != null)
+            {
+                if (response.Response)
+                {
+                    Logged = true;
+                    await AppShell.Current.GoToAsync("startGamePage");
+                    InServerCall = false;
+                }
+                else
+                {
+                    ErrorMSG=response.ResponseMessage;
+                    InServerCall = false;
+                }
+            }
+            else
+            {
+                InServerCall= false;
+                ErrorMSG = "Register faied";
+            }
         }
     }
 }

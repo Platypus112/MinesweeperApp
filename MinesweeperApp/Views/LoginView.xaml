@@ -6,38 +6,52 @@
              x:DataType="ViewModel:LoginViewModel"
              Title="LoginView">
     <VerticalStackLayout><!--IsEnabled="{Binding InServerCall,Converter={StaticResource BoolInverter}}"-->
-        <Grid HorizontalOptions="CenterAndExpand" >
+        <Grid HorizontalOptions="CenterAndExpand" WidthRequest="400">
             <Grid.RowDefinitions>
                 <RowDefinition Height="6*"/>
+                <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Image
                 Grid.Row="0"/>
-            <Entry
+
+            <Label
                 Grid.Row="1"
+                TextColor="Red"
+                Text="{Binding ErrorMSG}"
+                />
+            
+            <Entry
+                Grid.Row="2"
                 Placeholder="Email or Username"
-                   Text="{Binding Name}"
+                Text="{Binding Name}"
                 />
 
-            <HorizontalStackLayout
-                Grid.Row="2"
-                Spacing="10">
+            <Grid
+                Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="8*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
                 <Entry
+                    Grid.Column="0"
                     Placeholder="Password"
                     IsPassword="{Binding IsNotViewingPassword}"
                     Text="{Binding Password}"/>
                 <ImageButton
+                    Grid.Column="1"
+                    HorizontalOptions="End"
                     MaximumHeightRequest="30"
                     MaximumWidthRequest="30"
                     CornerRadius="6986543"
                     Command="{Binding ViewPasswordCommand}"
                     Source="t1.png"/>
-            </HorizontalStackLayout>
+            </Grid>
 
             <Button
-                Grid.Row="3"
+                Grid.Row="4"
                 Text="Log In"
                 Command="{Binding LoginCommand}"/>
         </Grid>

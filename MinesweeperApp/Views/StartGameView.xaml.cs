@@ -2,9 +2,9 @@ using MinesweeperApp.ViewModels;
 
 namespace MinesweeperApp.Views;
 
-public partial class RegisterView : ContentPage
+public partial class StartGameView : ContentPage
 {
-	public RegisterView(RegisterViewModel vm)
+	public StartGameView(StartGameViewModel vm)
 	{
 		this.BindingContext = vm;
 		InitializeComponent();

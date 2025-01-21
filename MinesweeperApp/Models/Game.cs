@@ -16,6 +16,7 @@ namespace MinesweeperApp.Models
         public DateTime EndTime { get; private set; }   
         public bool IsPlaying { get; private set; }
         public bool? HasWon { get; private set; }
+        public Difficulty? Diff { get; private set; }
 
         public int Bombs {  get; private set; }
         private readonly int OBombs;
@@ -30,6 +31,10 @@ namespace MinesweeperApp.Models
             OBombs = Bombs_;
             UnVailedTiles = width * height;
             FillBoard(xPos,yPos);
+        }
+        public Game(Difficulty diff_, int? xPos, int? yPos):this(diff_.width, diff_.height, diff_.bombs,xPos,yPos)
+        {
+            Diff = diff_;
         }
         
         public void FillBoard(int? xPos,int? yPos)

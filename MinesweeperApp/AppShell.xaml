@@ -49,7 +49,7 @@
                       Route="homePage"/>
             <ShellContent IsVisible="{Binding Logged}"
                           Title="Minesweeper"
-                          ContentTemplate="{DataTemplate views:GameView}"
-                          Route="gamePage"/>
+                          ContentTemplate="{DataTemplate views:StartGameView}"
+                          Route="startGamePage"/>
     </FlyoutItem>
 </Shell>

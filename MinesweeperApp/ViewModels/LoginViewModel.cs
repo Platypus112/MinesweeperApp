@@ -1,4 +1,6 @@
-﻿using MinesweeperApp.Services;
+﻿using MinesweeperApp.Models;
+using MinesweeperApp.Services;
+using MinesweeperServer.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,13 +46,21 @@ namespace MinesweeperApp.ViewModels
         {
 
             ErrorMSG = "";
-            InServerCall = true;      
-            bool succeeded = (await service.Login(Name, Password)).Response&&service.LoggedUser!=null;
-            if (succeeded)
+            InServerCall = true;
+            ServerResponse<AppUser> response= await service.Login(Name, Password);
+            if (response!=null)
             {
-                Logged = true;
-                await AppShell.Current.GoToAsync("\\gamePage");
-                InServerCall = false;
+                if (response.Response)
+                {
+                    Logged = true;
+                    await AppShell.Current.GoToAsync("startGamePage");
+                    InServerCall = false;
+                }
+                else
+                {
+                    ErrorMSG = response.ResponseMessage;
+                    InServerCall = false;
+                }
             }
             else
             {

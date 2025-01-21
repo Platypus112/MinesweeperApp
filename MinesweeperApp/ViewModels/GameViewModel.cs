@@ -13,8 +13,11 @@ using System.Windows.Input;
 
 namespace MinesweeperApp.ViewModels
 {
+    [QueryProperty(nameof(Difficulty), "Difficulty")]
     public class GameViewModel:ViewModel
     {
+        private Difficulty difficulty;
+        public Difficulty Difficulty { get { return difficulty; } set { difficulty = value; OnPropertyChanged(); } }
         public ObservableCollection<Tile> Board { get { return board; } set {board=value; OnPropertyChanged();} }
         private ObservableCollection<Tile> board;
         public int Height { get { return height; } set { height = value; OnPropertyChanged(); } }
@@ -42,9 +45,9 @@ namespace MinesweeperApp.ViewModels
             t.Stop();
             t.Interval = new TimeSpan(0, 0, 0, 0, 200);
             t.Tick += async (object sender, EventArgs e) => Timer =  (DateTime.Now - game.StartTime).ToString().Substring(3,5);
-            Width = 10;
-            Height = 10;
-            Bombs = 10  ;
+            Width = Difficulty.width;
+            Height = Difficulty.height;
+            Bombs = Difficulty.bombs;
             game = new Game(Width, Height, 0,null,null);
             notStarted = true;
             Board = new ObservableCollection<Tile>();
@@ -90,7 +93,7 @@ namespace MinesweeperApp.ViewModels
                 {
 
                     //game = await new Task<Game>(() => new Game(Width, Height, Bombs, ((Tile)obj).DisplayDetails.x, ((Tile)obj).DisplayDetails.y));
-                    game = new Game(Width, Height, Bombs, ((Tile)obj).DisplayDetails.x, ((Tile)obj).DisplayDetails.y);
+                    game = new Game(Difficulty, ((Tile)obj).DisplayDetails.x, ((Tile)obj).DisplayDetails.y);
                     notStarted = false;
                     await UpdateCollection();
                     t.Start();

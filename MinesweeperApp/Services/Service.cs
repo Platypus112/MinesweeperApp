@@ -6,7 +6,6 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using static Java.Util.Jar.Attributes;
 
 namespace MinesweeperApp.Services
 {
@@ -31,19 +30,96 @@ namespace MinesweeperApp.Services
             this.client = new HttpClient(handler);
             this.baseUrl = BaseAddress;
         }
+        public async Task<ServerResponse<FinishedGame>> SendFinishedGame(Game game)
+        {
+            string url = BaseAddress + "RecordGame";
+            ServerResponse<FinishedGame> responseResult = new();
+            try
+            {
+                if (LoggedUser==null)
+                {
+                    responseResult = new("No user is logged in");
+                    return responseResult;
+                }
+
+                FinishedGame finishedGame = new()
+                {
+                    Date = game.StartTime,
+                    TimeInSeconds = (game.EndTime - game.StartTime).TotalSeconds,
+                    difficulty = game.Diff,
+                    User = new(LoggedUser)
+                };
+
+                string json = JsonSerializer.Serialize(finishedGame);
+                HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                if (response.IsSuccessStatusCode)
+                {
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    string result = await response.Content.ReadAsStringAsync();
+
+                    responseResult = new(true, response.ReasonPhrase, finishedGame);
+                    return responseResult;
+                }
+                else
+                {
+                    responseResult = new(response.ReasonPhrase);
+                    return responseResult;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                responseResult = new(ex.Message);
+                return responseResult;
+            }
+        }
+        public async Task<ServerResponse<List<Difficulty>>> GetDifficulties()
+        {
+            string url = BaseAddress + "GetDifficulties";
+            ServerResponse<List<Difficulty>> responseResult = new();
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync(url);
+                if (response.IsSuccessStatusCode)
+                {
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    string result=await response.Content.ReadAsStringAsync();
+                    List<Difficulty> difficulties = JsonSerializer.Deserialize<List<Difficulty>>(result, options);
+                    responseResult = new(true, response.ReasonPhrase, difficulties);
+                    return responseResult;
+                }
+                else
+                {
+                    responseResult = new(response.ReasonPhrase);
+                    return responseResult;
+                }
+            }
+            catch (Exception ex) 
+            {
+                responseResult = new(ex.Message);
+                return responseResult;
+            }
+        }
         public async Task<ServerResponse<AppUser>> Login(string name,string password)
         {
             string url = BaseAddress + "Login";
             ServerResponse<AppUser> responseResult = new();
             try
             {
-                bool IsEmail=await ValidateEmail(name);
+                string EmailValidation = await ValidateEmail(name);
                 LoginInfo info = new()
                 {
                     Password = password
                 };
                 
-                if (IsEmail)info.Email = name;
+                if (string.IsNullOrEmpty(EmailValidation)) info.Email = name;
                 else info.Name = name;
 
                 string json = JsonSerializer.Serialize(info);
@@ -79,19 +155,22 @@ namespace MinesweeperApp.Services
             ServerResponse<AppUser> responseResult = new();
             try
             {
-                if (await ValidateEmail(email))
+                string usernameValidation = await ValidateUsername(username);
+                if (!string.IsNullOrEmpty(usernameValidation))
                 {
-                    responseResult = new("Email isn't valid");
+                    responseResult = new(usernameValidation);
                     return responseResult;
                 }
-                if (await ValidateUsername(username))
+                string emailValidation = await ValidateEmail(email);
+                if (!string.IsNullOrEmpty(emailValidation))
                 {
-                    responseResult = new("Email isn't valid");
+                    responseResult = new(emailValidation);
                     return responseResult;
                 }
-                if (await ValidatePassowrd(password))
+                string passwordValidation = await ValidatePassword(password);
+                if (!string.IsNullOrEmpty(passwordValidation))
                 {
-                    responseResult = new("Email isn't valid");
+                    responseResult = new(passwordValidation);
                     return responseResult;
                 }
                 LoginInfo info = new()
@@ -128,48 +207,46 @@ namespace MinesweeperApp.Services
             }
         }
 
-        public async Task<bool> ValidateEmail(string Email)
+        public async Task<string> ValidateEmail(string Email)
         {
-
-            bool result = string.IsNullOrEmpty(Email);
-            if (!result)
+            string result = "";
+            if (string.IsNullOrEmpty(Email)) result = "Email can't be empty";
+            if (string.IsNullOrEmpty(result))
             {
                 //check if email is in the correct format using regular expression
-                if (System.Text.RegularExpressions.Regex.IsMatch(Email, @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$"))
+                if (!System.Text.RegularExpressions.Regex.IsMatch(Email, @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$"))
                 {
-                    result = true;
+                    result = "Email isn't valid";
                 }
-                else
-                {
-                    result = false;
-                }
+
             }
             return result;
            
         }
-        public async Task<bool> ValidateUsername(string Username)
+        public async Task<string> ValidateUsername(string Username)
         {
-            bool result = string.IsNullOrEmpty(Username);
+            string result="";
+            if (string.IsNullOrEmpty(Username)) result="Username can't be empty" ;
 
-            if (!result)
+            if (string.IsNullOrEmpty(result))
             {
                 //check if email is in the correct format using regular expression
-                if (Username.Length<=4&&Username.Length>20)
+                if (Username.Length<=4)
                 {
-                    result = true;
+                    result = "Username must be longer than 4 characters";
                 }
-                else
+                else if(Username.Length > 20)
                 {
-                    result = false;
+                    result = "Username must be shorter than 20 characters";
                 }
             }
             return result;
         }
-        public async Task<bool> ValidatePassword(string Password)
+        public async Task<string> ValidatePassword(string Password)
         {
-            bool result = string.IsNullOrEmpty(Password);
-
-            if (!result)
+            string result = "";
+            if (string.IsNullOrEmpty(Password)) result = "Password can't be empty";
+            if (string.IsNullOrEmpty(result))
             {
                 bool hasNumbers = false;
                 foreach (char c in Password)
@@ -188,13 +265,21 @@ namespace MinesweeperApp.Services
                     }
                 }
                 //check if email is in the correct format using regular expression
-                if (Password.Length <= 4 && Password.Length > 20&&hasCaps&&hasNumbers)
+                if (Password.Length <= 4)
                 {
-                    result = true;
+                    result = "Password must be longer than 4 characters";
                 }
-                else
+                else if(Password.Length > 20) 
                 {
-                    result = false;
+                    result = "Password must be shorter than 20 characters";
+                }
+                else if (!hasCaps)
+                {
+                    result = "Password must contain capital letters";
+                }
+                else if (!hasNumbers)
+                {
+                    result = "Password must contain numbers";
                 }
             }
             return result;

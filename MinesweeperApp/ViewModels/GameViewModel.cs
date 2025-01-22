@@ -13,8 +13,11 @@ using System.Windows.Input;
 
 namespace MinesweeperApp.ViewModels
 {
+    [QueryProperty(nameof(Diff), "Difficulty")]
     public class GameViewModel:ViewModel
     {
+        private Difficulty diff;
+        public Difficulty Diff { get => diff; set { diff = value; OnPropertyChanged();CreateGameBoard(); } }
         public ObservableCollection<Tile> Board { get { return board; } set {board=value; OnPropertyChanged();} }
         private ObservableCollection<Tile> board;
         public int Height { get { return height; } set { height = value; OnPropertyChanged(); } }
@@ -23,9 +26,12 @@ namespace MinesweeperApp.ViewModels
         private int width;
         public int Bombs {get { return bombs; }set { bombs=value; OnPropertyChanged(); } }
         private int bombs;
+        public RowDefinitionCollection Rows { get { return rows; } set { rows = value; OnPropertyChanged(); } }
+        private RowDefinitionCollection rows;
+        public ColumnDefinitionCollection Columns { get { return columns; } set { columns = value; OnPropertyChanged(); } }
+        private ColumnDefinitionCollection columns;
         public string Timer { get { return timer; } set {  timer = value; OnPropertyChanged(); } }
         private string timer;
-        private readonly Service service;
         private readonly IDispatcherTimer t;
         private Game game;
         private bool isFlagging;
@@ -42,20 +48,39 @@ namespace MinesweeperApp.ViewModels
             t.Stop();
             t.Interval = new TimeSpan(0, 0, 0, 0, 200);
             t.Tick += async (object sender, EventArgs e) => Timer =  (DateTime.Now - game.StartTime).ToString().Substring(3,5);
-            Width = 18;
-            Height = 32;
-            Bombs = 10  ;
-            game = new Game(Width, Height, 0,null,null);
             notStarted = true;
             Board = new ObservableCollection<Tile>();
             gameFinished = false;
             clickingRunning = false;
-            UpdateCollection();
+       
             ClickTileCommand = new Command(async (Object obj) => await ClickTile(obj)/*, (object obj) => !gameFinished&!clickingRunning*/) ;
             ToggleFlagCommand = new Command(async () => await ToggleFlagging(), () => !isFlagging);
             ToggleMineCommand = new Command(async () => await ToggleFlagging(), () => isFlagging);
         }
-        public async Task ToggleFlagging()
+        private async void CreateGameBoard()
+        {
+            Width = Diff.width;
+            Height = Diff.height;
+            Bombs = Diff.bombs;
+            game = new Game(Width, Height, 0, null, null);
+            ArranageGrid();
+            UpdateCollection();
+        }
+        private async void ArranageGrid()
+        {
+            Columns = new();
+            Rows = new();
+            for (int i = 0; i < Width; i++)
+            {
+                Columns.Add(new ColumnDefinition());
+            }
+            for (int i = 0; i < Height; i++)
+            {
+                Rows.Add(new RowDefinition());
+            }
+
+        }
+        private async Task ToggleFlagging()
         {
             if (isFlagging)
             {
@@ -68,19 +93,23 @@ namespace MinesweeperApp.ViewModels
             ((Command)ToggleFlagCommand).ChangeCanExecute();
             ((Command)ToggleMineCommand).ChangeCanExecute();
         }
-        public async Task UpdateCollection()
+        private async Task UpdateCollection()
         {
             Board=new ObservableCollection<Tile>(game.GetBoardStateList());
 
         }
-        public async Task GameOver()
+        private async Task GameOver()
         {
+            InServerCall = true;
             t.Stop();
             Timer = (DateTime.Now - game.StartTime).ToString().Substring(3, 5);
             gameFinished = true;
             ((Command)ClickTileCommand).ChangeCanExecute();
+            if (game.HasWon)await service.SendFinishedGame(game);
+            InServerCall = false;
+
         }
-        public async Task ClickTile(Object obj)
+        private async Task ClickTile(Object obj)
         {
             clickingRunning = true;
             if (gameFinished) return;
@@ -90,7 +119,7 @@ namespace MinesweeperApp.ViewModels
                 {
 
                     //game = await new Task<Game>(() => new Game(Width, Height, Bombs, ((Tile)obj).DisplayDetails.x, ((Tile)obj).DisplayDetails.y));
-                    game = new Game(Width, Height, Bombs, ((Tile)obj).DisplayDetails.x, ((Tile)obj).DisplayDetails.y);
+                    game = new Game(Diff, ((Tile)obj).DisplayDetails.x, ((Tile)obj).DisplayDetails.y);
                     notStarted = false;
                     await UpdateCollection();
                     t.Start();
@@ -102,7 +131,7 @@ namespace MinesweeperApp.ViewModels
                 if (!isFlagging)
                 {
                     
-                    if(await game.UnvailTile(((Tile)obj).DisplayDetails.x, ((Tile)obj).DisplayDetails.y)) await GameOver();
+                    if(await game.UnveilTile(((Tile)obj).DisplayDetails.x, ((Tile)obj).DisplayDetails.y)) await GameOver();
                     //AnimateDig(((Tile)obj), 2);
                 }
                 else game.FlagTile(((Tile)obj).DisplayDetails.x, ((Tile)obj).DisplayDetails.y);

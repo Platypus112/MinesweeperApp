@@ -9,6 +9,33 @@
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <!--<local:BoolInverter x:Key="BoolInverter" />-->
         </ResourceDictionary>
+        
+            <!--<Style TargetType="Shell">
+            <Setter Property="BackgroundColor" Value="Gray"/>
+        </Style>
+        <Style TargetType="ContentPage">
+            <Setter Property="BackgroundColor" Value="Gray"/>
+        </Style>
+        <Style TargetType="buttons:SfButton" x:Key="Tile">
+            <Setter Property="Background" Value="DeepPink"/>
+            --><!--<Setter Property="BorderWidth" Value="1"/>
+    <Setter Property="BorderColor" Value="Black"/>--><!--
+            <Setter Property="CornerRadius" Value="0"/>
+            <Setter Property="TextColor" Value="White"/>
+            <Setter Property="FontSize" Value="Large"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Padding" Value="0"/>
+        </Style>
+        <Style TargetType="ImageButton" x:Key="imgButton">
+            <Setter Property="HeightRequest" Value="10"/>
+            <Setter Property="WidthRequest" Value="10"/>
+            <Setter Property="BorderWidth" Value="1"/>
+            <Setter Property="BorderColor" Value="DarkGray" />
+            <Setter Property="CornerRadius" Value="0"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Padding" Value="0"/>
+        </Style>-->
     </Application.Resources>
 </Application>

@@ -1,63 +1,73 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MinesweeperApp.Views.LoginView"
+             x:Class="MinesweeperApp.Views.RegisterView"
              xmlns:ViewModel="clr-namespace:MinesweeperApp.ViewModels"
-             x:DataType="ViewModel:LoginViewModel"
-             Title="LoginView">
-    <VerticalStackLayout><!--IsEnabled="{Binding InServerCall,Converter={StaticResource BoolInverter}}"-->
-        <Grid HorizontalOptions="CenterAndExpand" WidthRequest="400">
+             x:DataType="ViewModel:RegisterViewModel"
+             Title="RegisterView">
+    <VerticalStackLayout>
+        <Grid HorizontalOptions="CenterAndExpand" WidthRequest="400" MaximumWidthRequest="400">
             <Grid.RowDefinitions>
                 <RowDefinition Height="6*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
+
             <Image
-                Grid.Row="0"/>
+                Grid.Row="0"
+                />
 
             <Label
                 Grid.Row="1"
                 TextColor="Red"
                 Text="{Binding ErrorMSG}"
                 />
-            
+
             <Entry
                 Grid.Row="2"
-                Placeholder="Email or Username"
-                Text="{Binding Name}"
+                Placeholder="Username"
+               Text="{Binding Username}"
+                />
+
+            <Entry
+                Grid.Row="3"
+                Placeholder="Email"
+                Text="{Binding Email}"
                 />
 
             <Grid
-                Grid.Row="3">
+            Grid.Row="4">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="8*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Entry
                     Grid.Column="0"
-                    Placeholder="Password"
-                    IsPassword="{Binding IsNotViewingPassword}"
-                    Text="{Binding Password}"/>
+                Placeholder="Password"
+                IsPassword="{Binding IsNotViewingPassword}"
+                Text="{Binding Password}"/>
                 <ImageButton
-                    Grid.Column="1"
+                Grid.Column="1"
+                MaximumHeightRequest="30"
+                MaximumWidthRequest="30"
+                CornerRadius="6986543"
                     HorizontalOptions="End"
-                    MaximumHeightRequest="30"
-                    MaximumWidthRequest="30"
-                    CornerRadius="6986543"
-                    Command="{Binding ViewPasswordCommand}"
-                    Source="t1.png"/>
+                Command="{Binding ViewPasswordCommand}"
+                Source="t1.png"/>
             </Grid>
 
             <Button
-                Grid.Row="4"
-                Text="Log In"
-                Command="{Binding LoginCommand}"/>
+            Grid.Row="5"
+            Text="Sign in"
+            Command="{Binding RegisterCommand}"/>
         </Grid>
         <ActivityIndicator IsRunning="{Binding InServerCall}" 
-               Color="Red" 
-               VerticalOptions="Center" 
-               HorizontalOptions="Center" />
+           Color="Red" 
+           VerticalOptions="Center" 
+           HorizontalOptions="Center" />
     </VerticalStackLayout>
+
 </ContentPage>

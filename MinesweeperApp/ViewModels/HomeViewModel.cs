@@ -15,18 +15,23 @@ namespace MinesweeperApp.ViewModels
 
         public HomeViewModel(Service service_) : base(service_)
         {
-            NavigateToLoginCommand= new Command(NavigateToLogin);
+            ((AppShellViewModel)AppShell.Current.BindingContext).NotLogged = true;
+            NavigateToLoginCommand = new Command(NavigateToLogin);
             NavigateToSignupCommand= new Command(NavigateToSignup);
+            if (service.LoggedUser == null)
+            {
+                AppShell.Current.FlyoutBehavior = FlyoutBehavior.Disabled;
+            }
         }
 
         public async void NavigateToLogin()
         {
-
+            await AppShell.Current.GoToAsync("loginPage");
         }
 
         public async void NavigateToSignup()
         {
-
+            await AppShell.Current.GoToAsync("registerPage");
         }
 
     }

@@ -10,6 +10,7 @@ using MinesweeperApp.Services;
 using System.Data;
 using System.Linq.Expressions;
 using System.Windows.Input;
+using Syncfusion.Maui.Core.Converters;
 
 namespace MinesweeperApp.ViewModels
 {
@@ -31,9 +32,11 @@ namespace MinesweeperApp.ViewModels
         private bool inServerCall;
         public bool InServerCall { get { return inServerCall; } set { inServerCall = value; OnPropertyChanged(); } }
 
+
         public ViewModel(Service service_)
         {
             this.service= service_;
+            InServerCall= false;
         }
     }
 }

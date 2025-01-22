@@ -15,7 +15,7 @@ public partial class GameView : ContentPage
 	{
 		this.BindingContext = vm;
 		InitializeComponent();
-		ArranageGrid();
+        //ArranageGrid();
         //AddPanAndZoomToGrid();
     }
 

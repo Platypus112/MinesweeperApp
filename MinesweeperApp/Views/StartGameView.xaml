@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MinesweeperApp.Views.StartGameView"
+             xmlns:ViewModel="clr-namespace:MinesweeperApp.ViewModels"
+             xmlns:Model="clr-namespace:MinesweeperApp.Models"
+             x:DataType="ViewModel:StartGameViewModel"
+             Title="StartGameView">
+    <VerticalStackLayout x:Name="layout">
+        <Picker
+            x:DataType="Model:Difficulty"
+            ItemDisplayBinding="{Binding Name}"
+            ItemsSource="{Binding BindingContext.Difficulties, Source={x:Reference layout}}"
+            SelectedItem="{Binding BindingContext.SelectedDifficulty, Source={x:Reference layout}}"/>
+        <Button
+            Text="Start"
+            Command="{Binding StartGameCommand}"/>
+    </VerticalStackLayout>
+</ContentPage>

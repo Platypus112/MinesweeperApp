@@ -9,6 +9,14 @@ namespace MinesweeperApp.ViewModels
 {
     public class AppShellViewModel:ViewModel
     {
-        public AppShellViewModel(Service service_) : base(service_) { }
+        private bool logged;
+        public bool Logged { get { return logged; } set { logged = value; OnPropertyChanged(); OnPropertyChanged(nameof(NotLogged)); } }
+        public bool NotLogged { get { return !logged; } set { logged = !value; OnPropertyChanged(); OnPropertyChanged(nameof(Logged)); } }
+        
+        public AppShellViewModel(Service service_) : base(service_)
+        {
+            Logged = false;
+        }
+
     }
 }

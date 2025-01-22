@@ -15,7 +15,7 @@ namespace MinesweeperApp.Models
         public DateTime StartTime { get; private set; }
         public DateTime EndTime { get; private set; }   
         public bool IsPlaying { get; private set; }
-        public bool? HasWon { get; private set; }
+        public bool HasWon { get; private set; }
         public Difficulty? Diff { get; private set; }
 
         public int Bombs {  get; private set; }
@@ -106,11 +106,11 @@ namespace MinesweeperApp.Models
             }
             if (Board[x, y].Flagged) return false;
             if(!(await CountAdjBy(x,y, (xPos, yPos) => Board[xPos, yPos].Flagged) >= Board[x,y].Value)) return false;
-            if (await CountAdjBy(x, y, (xPos, yPos) => UnvailTile(xPos, yPos).Result) > 0) return true;
+            if (await CountAdjBy(x, y, (xPos, yPos) => UnveilTile(xPos, yPos).Result) > 0) return true;
             return false;
             
         }
-        public async Task<bool> UnvailTile(int x,int y)//returns true when the game is done
+        public async Task<bool> UnveilTile(int x,int y)//returns true when the game is done
         {
             if ((x < 0 || y < 0 || x >= Board.GetLength(0) || y >= Board.GetLength(1))|| Board[x, y] == null || Board[x, y].Unvailed)
             {
@@ -190,7 +190,7 @@ namespace MinesweeperApp.Models
                                 (y + j >= 0 && y + j < Board.GetLength(1));//checks if the j value gives a tile that exists in the board array
                             if (withinBounds)
                             {
-                                await UnvailTile(x + k, y + j);
+                                await UnveilTile(x + k, y + j);
                             }
                             //await Task.Delay(20);
                         }
@@ -282,7 +282,7 @@ namespace MinesweeperApp.Models
                     int x = int.Parse(Console.ReadLine());
                     Console.WriteLine("write the y value of the spot you want to dig");
                     int y = int.Parse(Console.ReadLine());
-                    this.UnvailTile(x, y);
+                    this.UnveilTile(x, y);
                 }
                 else if(input==2)
                 {

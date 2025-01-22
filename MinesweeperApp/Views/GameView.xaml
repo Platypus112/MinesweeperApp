@@ -16,7 +16,7 @@
             <Label Text="{Binding Bombs}"/>
         </HorizontalStackLayout>
         <local:PinchToZoomAndPanContainer x:Name="GestureView">
-            <Grid BackgroundColor="#211e1f" HorizontalOptions="Center" x:Name="GameGrid" BindableLayout.ItemsSource="{Binding Board}">
+            <Grid BackgroundColor="#211e1f" HorizontalOptions="Center" x:Name="GameGrid" BindableLayout.ItemsSource="{Binding Board}" RowDefinitions="{Binding Rows}" ColumnDefinitions="{Binding Columns}">
                 <BindableLayout.ItemTemplate Margin="0" Padding="0">
                     <DataTemplate x:DataType="Models:Tile">
                         <Border Grid.Column="{Binding DisplayDetails.x}"

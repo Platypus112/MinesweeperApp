@@ -15,8 +15,8 @@ namespace MinesweeperApp.ViewModels
         private ObservableCollection<Difficulty> difficulties;
         public ObservableCollection<Difficulty> Difficulties {  get { return difficulties; } set { difficulties = value;OnPropertyChanged(); } }
 
-        private Difficulty selectedDifficulty;
-        public Difficulty SelectedDifficulty { get { return selectedDifficulty; } set {  selectedDifficulty = value;OnPropertyChanged(); ((Command)StartGameCommand).ChangeCanExecute(); } }
+        private Difficulty? selectedDifficulty;
+        public Difficulty? SelectedDifficulty { get { return selectedDifficulty; } set {  selectedDifficulty = value;OnPropertyChanged(); ((Command)StartGameCommand).ChangeCanExecute(); } }
         
         public ICommand StartGameCommand { get; private set;}
         public StartGameViewModel(Service service_) : base(service_)
@@ -40,10 +40,15 @@ namespace MinesweeperApp.ViewModels
 
         private async void StartGame()
         {
-            Dictionary<string, object> data = new Dictionary<string, object>();
-            data.Add("Difficulty", SelectedDifficulty);
-            await AppShell.Current.GoToAsync("gamePage", data);
-            SelectedDifficulty = null;
+            if (SelectedDifficulty != null)
+            {
+                Dictionary<string, object> data = new()
+                {
+                    {"Difficulty", SelectedDifficulty }
+                };
+                await AppShell.Current.GoToAsync("gamePage", data);
+                SelectedDifficulty = null;
+            }
         }
     }
 }

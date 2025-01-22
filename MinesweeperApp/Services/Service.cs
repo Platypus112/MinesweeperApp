@@ -61,12 +61,12 @@ namespace MinesweeperApp.Services
                     };
                     string result = await response.Content.ReadAsStringAsync();
 
-                    responseResult = new(true, response.ReasonPhrase, finishedGame);
+                    responseResult = new(true, await response.Content.ReadAsStringAsync(), finishedGame);
                     return responseResult;
                 }
                 else
                 {
-                    responseResult = new(response.ReasonPhrase);
+                    responseResult = new(await response.Content.ReadAsStringAsync());
                     return responseResult;
                 }
 
@@ -92,12 +92,12 @@ namespace MinesweeperApp.Services
                     };
                     string result=await response.Content.ReadAsStringAsync();
                     List<Difficulty> difficulties = JsonSerializer.Deserialize<List<Difficulty>>(result, options);
-                    responseResult = new(true, response.ReasonPhrase, difficulties);
+                    responseResult = new(true, result, difficulties);
                     return responseResult;
                 }
                 else
                 {
-                    responseResult = new(response.ReasonPhrase);
+                    responseResult = new(await response.Content.ReadAsStringAsync());
                     return responseResult;
                 }
             }
@@ -133,12 +133,12 @@ namespace MinesweeperApp.Services
                     };
                     string result = await response.Content.ReadAsStringAsync();
                     LoggedUser = JsonSerializer.Deserialize<AppUser>(result,options);
-                    responseResult = new(true,response.ReasonPhrase,LoggedUser);
+                    responseResult = new(true,await response.Content.ReadAsStringAsync(),LoggedUser);
                     return responseResult;
                 }
                 else
                 {
-                    responseResult = new(response.ReasonPhrase);
+                    responseResult = new(await response.Content.ReadAsStringAsync());
                     return responseResult;
                 }
             }
@@ -191,7 +191,7 @@ namespace MinesweeperApp.Services
                     };
                     string result = await response.Content.ReadAsStringAsync();
                     LoggedUser = JsonSerializer.Deserialize<AppUser>(result, options);
-                    responseResult = new(true, response.ReasonPhrase, LoggedUser);
+                    responseResult = new(true, await response.Content.ReadAsStringAsync(), LoggedUser);
                     return responseResult;
                 }
                 else

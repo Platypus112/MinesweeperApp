@@ -42,14 +42,14 @@
         </Style>
     </Shell.Resources>
    
-    <FlyoutItem  Icon="menu.png" FlyoutDisplayOptions="AsMultipleItems">
             <ShellContent Title="Welcome" 
-                      IsVisible="{Binding NotLogged}"
+                      IsEnabled="False"
+                      FlyoutItemIsVisible="False"
                       ContentTemplate="{DataTemplate views:HomeView}"
                       Route="homePage"/>
-            <ShellContent IsVisible="{Binding Logged}"
-                          Title="Minesweeper"
+    
+            <ShellContent Title="Minesweeper"
                           ContentTemplate="{DataTemplate views:StartGameView}"
                           Route="startGamePage"/>
-    </FlyoutItem>
+    
 </Shell>

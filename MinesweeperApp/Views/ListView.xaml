@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MinesweeperApp.Views.ListView"
+             xmlns:ViewModel="clr-namespace:MinesweeperApp.ViewModels"
+             xmlns:Models="clr-namespace:MinesweeperApp.Models"
+             xmlns:syncfusion="clr-namespace:Syncfusion.Maui.DataGrid;assembly=Syncfusion.Maui.DataGrid"
+             x:DataType="ViewModel:ListViewModel"
+             Title="ListView">
+    <VerticalStackLayout>
+        <syncfusion:SfDataGrid
+            x:Name="dataGrid"
+            ItemsSource="{Binding }"
+            Columns="{Binding }">
+            
+        </syncfusion:SfDataGrid>
+    </VerticalStackLayout>
+</ContentPage>

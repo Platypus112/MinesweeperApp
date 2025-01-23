@@ -9,6 +9,7 @@ namespace MinesweeperApp.ViewModels
 {
     public class ProfileViewModel:ViewModel
     {
+        
         public ProfileViewModel(Service service_) : base(service_)
         {
 

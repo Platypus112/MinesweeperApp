@@ -12,7 +12,16 @@
             x:Name="dataGrid"
             ItemsSource="{Binding }"
             Columns="{Binding }">
-            
+            <syncfusion:DataGridCell IsVisible="{Binding Admin}">
+                <Button Text="delete"/>
+            </syncfusion:DataGridCell>
+            <syncfusion:DataGridCell IsVisible="{Binding Admin}">
+                <Button Text="delete"/>
+            </syncfusion:DataGridCell>
+            <syncfusion:DataGridCell IsVisible="{Binding Reports}">
+                <Button Text="report"/>
+            </syncfusion:DataGridCell>
+
         </syncfusion:SfDataGrid>
     </VerticalStackLayout>
 </ContentPage>

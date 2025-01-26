@@ -16,13 +16,18 @@ namespace MinesweeperApp.ViewModels
         private string type;
         public string Type { get { return type; } set { type = value; CreateDataGrid(); } }
 
+        private bool admin;
+        public bool Admin { get { return admin; } set {  admin = value; OnPropertyChanged(); } }
+
+        private bool reports;
+        public bool Reports { get { return reports; } set { reports = value; OnPropertyChanged(); } }
+
         private ObservableCollection<Object> items;
         public ObservableCollection<Object> Items { get { return items; } set { items = value;OnPropertyChanged(); } }
         
         private ColumnCollection columns;
         public ColumnCollection Columns { get { return columns; } set { columns = value;OnPropertyChanged(); } }
 
-        private DataList dataList;
 
         public ListViewModel(Service service_) : base(service_)
         {
@@ -30,61 +35,59 @@ namespace MinesweeperApp.ViewModels
         }
         private async void CreateDataGrid()
         {
-            ServerResponse<DataList> responseResult = await service.GetDataList(Type);
-            if(responseResult != null)
+            GenerateColumns();
+            if (Type.Contains("admin"))
             {
-                if (responseResult.Response)
-                {
-                    dataList = responseResult.Content;
-
-                }
-                else
-                {
-                    return;
-                }
+                Admin = true;
+            }
+            if (Type.Contains("reports"))
+            {
+                Reports = true;
             }
         }
         private async void GenerateColumns()
         {
-            if (dataList.User)
+            if (Type.Contains("users"))
             {
-                Columns.Add(new DataGridTextColumn()
+                Columns.Insert(0,new DataGridTextColumn()
                 {
                     MappingName = "Name",
                     HeaderText = "Username",
                 });
-                Columns.Add(new DataGridTextColumn()
+                Columns.Insert(0, new DataGridTextColumn()
                 {
                     MappingName = "Description",
                     HeaderText = "Description",
                 });
             }
-            if (dataList.Games)
+            if (Type.Contains("games"))
             {
-                Columns.Add(new DataGridTextColumn()
+                Columns.Insert(0, new DataGridTextColumn()
                 {
                     MappingName = "difficulty.Name",
                     HeaderText = "Difficulty",
                 });
-                Columns.Add(new DataGridTextColumn()
+                Columns.Insert(0, new DataGridTextColumn()
+                {
+                    MappingName = "Name",
+                    HeaderText = "Username",
+                    ColumnWidthMode=ColumnWidthMode.FitByCell,
+                    Width=200,
+                });
+                Columns.Insert(0, new DataGridTextColumn()
                 {
                     MappingName = "Time",
                     HeaderText = "Time",
                 });
-                Columns.Add(new DataGridTextColumn()
+                Columns.Insert(0, new DataGridTextColumn()
+                {
+                    MappingName = "Date",
+                    HeaderText = "Date",
+                });
+                Columns.Insert(0, new DataGridTextColumn()
                 {
                     MappingName = "",
                     HeaderText = "",
-                });
-                Columns.Add(new DataGridTextColumn()
-                {
-                    MappingName = "",
-                    HeaderText = "",
-                });
-                Columns.Add(new DataGridTextColumn()
-                {
-                    MappingName = "Name",
-                    HeaderText = "Username",
                 });
             }
         }

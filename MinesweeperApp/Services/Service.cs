@@ -31,38 +31,7 @@ namespace MinesweeperApp.Services
             this.baseUrl = BaseAddress;
         }
 
-        public async Task<ServerResponse<DataList>> GetDataList(string name)
-        {
-            string url = BaseAddress + "GetDataList";
-            ServerResponse<DataList> responseResult = new();
-            try
-            {
-                string json = JsonSerializer.Serialize(name);
-                HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await client.PostAsync(url, content);
-                if (response.IsSuccessStatusCode)
-                {
-                    JsonSerializerOptions options = new JsonSerializerOptions
-                    {
-                        PropertyNameCaseInsensitive = true
-                    };
-                    string result = await response.Content.ReadAsStringAsync();
-                    DataList toReturn= JsonSerializer.Deserialize<DataList>(result);
-                    responseResult = new(true, await response.Content.ReadAsStringAsync(), toReturn);
-                    return responseResult;
-                }
-                else
-                {
-                    responseResult = new(await response.Content.ReadAsStringAsync());
-                    return responseResult;
-                }
-            }
-            catch (Exception ex)
-            {
-                responseResult = new(ex.Message);
-                return responseResult;
-            }
-        }
+       
         public async Task<ServerResponse<FinishedGame>> SendFinishedGame(Game game)
         {
             string url = BaseAddress + "RecordGame";

@@ -21,6 +21,9 @@
             <syncfusion:DataGridCell IsVisible="{Binding Reports}">
                 <Button Text="report"/>
             </syncfusion:DataGridCell>
+            <syncfusion:DataGridCell IsVisible="{Binding Friends}">
+                <Button Text="add/decline"/><!--will pop up a preompt based on recieved or sent-->
+            </syncfusion:DataGridCell>
 
         </syncfusion:SfDataGrid>
     </VerticalStackLayout>

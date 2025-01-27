@@ -31,7 +31,106 @@ namespace MinesweeperApp.Services
             this.baseUrl = BaseAddress;
         }
 
-       
+        public async Task<ServerResponse<List<Object>>> GetCollectionbyType(string type)
+        {
+            string url = BaseAddress + "GetCollection";
+            ServerResponse<List<Object>> responseResult = new();
+            try
+            {
+                if (LoggedUser == null)
+                {
+                    responseResult = new("No user is logged in");
+                    return responseResult;
+                }
+                url += "?type=" + type;
+                HttpResponseMessage response = await client.GetAsync(url);
+                if (response.IsSuccessStatusCode)
+                {
+                    List<object> listResult = new List<object>();
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    string result = await response.Content.ReadAsStringAsync();
+                    if (!(type.Contains("users") || type.Contains("games")) && type.Contains("social"))
+                    {
+                        List<FriendRequest> list =JsonSerializer.Deserialize<List<FriendRequest>>(result);
+                        foreach(FriendRequest f in list)
+                        {
+                            listResult.Add(f);
+                        }
+                    }
+                    if (type.Contains("games"))
+                    {
+                        if (type.Contains("reports") && type.Contains("admin"))
+                        {
+                            List<GameReport> list = JsonSerializer.Deserialize<List<GameReport>>(result);
+                            foreach (GameReport r in list)
+                            {
+                                listResult.Add(r);
+                            }
+                        }
+                        else if (type.Contains("social"))
+                        {
+                            List<GameData> list = JsonSerializer.Deserialize<List<GameData>>(result);
+                            foreach (GameData g in list)
+                            {
+                                listResult.Add(g);
+                            }
+                        }
+                        else
+                        {
+                            List<GameData> list = JsonSerializer.Deserialize<List<GameData>>(result);
+                            foreach (GameData g in list)
+                            {
+                                listResult.Add(g);
+                            }
+                        }
+                    }
+                    if (type.Contains("users"))
+                    {
+                        if (type.Contains("reports") && type.Contains("admin"))
+                        {
+                            List<UserReport> list = JsonSerializer.Deserialize<List<UserReport>>(result);
+                            foreach (UserReport r in list)
+                            {
+                                listResult.Add(r);
+                            }
+                        }
+                        else if (type.Contains("social"))
+                        {
+                            List<UserData> list = JsonSerializer.Deserialize<List<UserData>>(result);
+                            foreach (UserData u in list)
+                            {
+                                listResult.Add(u);
+                            }
+                        }
+                        else
+                        {
+                            List<UserData> list = JsonSerializer.Deserialize<List<UserData>>(result);
+                            foreach (UserData u in list)
+                            {
+                                listResult.Add(u);
+                            }
+                        }
+                    }
+                    responseResult=new(true, await response.Content.ReadAsStringAsync(),listResult);
+                }
+                else
+                {
+                    responseResult = new(await response.Content.ReadAsStringAsync());
+                }
+
+
+                return responseResult;
+            }
+            catch (Exception ex)
+            {
+                responseResult = new(ex.Message);
+                return responseResult;
+            }
+        }
+        
         public async Task<ServerResponse<FinishedGame>> SendFinishedGame(Game game)
         {
             string url = BaseAddress + "RecordGame";

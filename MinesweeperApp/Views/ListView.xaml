@@ -10,20 +10,45 @@
     <VerticalStackLayout>
         <syncfusion:SfDataGrid
             x:Name="dataGrid"
-            ItemsSource="{Binding }"
-            Columns="{Binding }">
-            <syncfusion:DataGridCell IsVisible="{Binding Admin}">
-                <Button Text="delete"/>
-            </syncfusion:DataGridCell>
-            <syncfusion:DataGridCell IsVisible="{Binding Admin}">
-                <Button Text="delete"/>
-            </syncfusion:DataGridCell>
-            <syncfusion:DataGridCell IsVisible="{Binding Reports}">
-                <Button Text="report"/>
-            </syncfusion:DataGridCell>
-            <syncfusion:DataGridCell IsVisible="{Binding Friends}">
-                <Button Text="add/decline"/><!--will pop up a preompt based on recieved or sent-->
-            </syncfusion:DataGridCell>
+            SortingMode="Single"
+            AllowTriStateSorting="false"
+            ItemsSource="{Binding }">
+            <syncfusion:SfDataGrid.Columns>
+                <syncfusion:DataGridTemplateColumn Visible="{Binding Admin}">
+                    <syncfusion:DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate x:DataType="x:Object">
+                            <Button Text="delete"
+                                    Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.DeleteUserCommand}"
+                                    CommandParameter="{Binding .}"/>
+                        </DataTemplate>
+                    </syncfusion:DataGridTemplateColumn.CellTemplate>
+                    </syncfusion:DataGridTemplateColumn>
+                
+                <syncfusion:DataGridTemplateColumn Visible="{Binding Admin}">
+                    <syncfusion:DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Text="delete"/>
+                        </DataTemplate>
+                    </syncfusion:DataGridTemplateColumn.CellTemplate>
+                    </syncfusion:DataGridTemplateColumn>
+                
+                <syncfusion:DataGridTemplateColumn Visible="{Binding Reports}">
+                    <syncfusion:DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Text="report"/>
+                        </DataTemplate>
+                    </syncfusion:DataGridTemplateColumn.CellTemplate>
+                    </syncfusion:DataGridTemplateColumn>
+                
+                <syncfusion:DataGridTemplateColumn Visible="{Binding Friends}">
+                    <syncfusion:DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Text="add/decline"/>
+                        </DataTemplate>
+                    </syncfusion:DataGridTemplateColumn.CellTemplate>
+                    <!--will pop up a preompt based on recieved or sent-->
+                </syncfusion:DataGridTemplateColumn>
+            </syncfusion:SfDataGrid.Columns>
 
         </syncfusion:SfDataGrid>
     </VerticalStackLayout>

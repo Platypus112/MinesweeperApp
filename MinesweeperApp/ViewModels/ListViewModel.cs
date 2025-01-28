@@ -7,6 +7,7 @@ using System.Text;
 using MinesweeperApp.Models;
 using System.Threading.Tasks;
 using Syncfusion.Maui.DataGrid;
+using System.Windows.Input;
 
 namespace MinesweeperApp.ViewModels
 {
@@ -31,15 +32,27 @@ namespace MinesweeperApp.ViewModels
         private ColumnCollection columns;
         public ColumnCollection Columns { get { return columns; } set { columns = value;OnPropertyChanged(); } }
         
+        public ICommand DeleteUserCommand { get; private set; }
 
         public ListViewModel(Service service_) : base(service_)
         {
             
         }
+
+        private async void ReportUser(object user)
+        {
+            
+        }
+
+        private async void DeleteUser(object user)
+        {
+            UserData u =(UserData)user;
+
+        }
+        
         private async void CreateDataGrid()
         {
             InServerCall = true;
-            GenerateColumns();
             if (Type.Contains("admin"))
             {
                 Admin = true;
@@ -71,69 +84,6 @@ namespace MinesweeperApp.ViewModels
             }
             InServerCall = false;
         }
-        private async void GenerateColumns()
-        {
-            if (Type.Contains("users"))
-            {
-                Columns.Insert(0, new DataGridTextColumn()
-                {
-                    MappingName = "Description",
-                    HeaderText = "Description",
-                });
-                Columns.Insert(0,new DataGridTextColumn()
-                {
-                    MappingName = "Name",
-                    HeaderText = "Username",
-                });
-            }
-            if (Type.Contains("games"))
-            {
-                Columns.Insert(0, new DataGridTextColumn()
-                {
-                    MappingName = "",
-                    HeaderText = "",
-                });
-                Columns.Insert(0, new DataGridTextColumn()
-                {
-                    MappingName = "Date",
-                    HeaderText = "Date",
-                });
-                Columns.Insert(0, new DataGridTextColumn()
-                {
-                    MappingName = "Time",
-                    HeaderText = "Time",
-                });
-                Columns.Insert(0, new DataGridTextColumn()
-                {
-                    MappingName = "Name",
-                    HeaderText = "Username",
-                    ColumnWidthMode=ColumnWidthMode.FitByCell,
-                    Width=200,
-                });
-                Columns.Insert(0, new DataGridTextColumn()
-                {
-                    MappingName = "difficulty.Name",
-                    HeaderText = "Difficulty",
-                });
-            }
-            if (!(type.Contains("users") || type.Contains("games")) && type.Contains("social"))
-            {
-                Columns.Insert(0, new DataGridTextColumn()
-                {
-                    MappingName = "",
-                    HeaderText = "",
-                });
-                Columns.Insert(0, new DataGridTextColumn()
-                {
-                    MappingName = "Description",
-                    HeaderText = "Description",
-                });
-                Columns.Insert(0, new DataGridTextColumn()
-                {
-                    MappingName = "Name",
-                    HeaderText = "Username",
-                });
-            }
-        }
+       
     }
 }

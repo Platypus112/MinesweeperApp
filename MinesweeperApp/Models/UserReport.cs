@@ -8,6 +8,7 @@ namespace MinesweeperApp.Models
 {
     public class UserReport
     {
+        public int Id { get; set; }
         public Status Status { get; set; }
 
         public string? Description { get; set; }
@@ -15,8 +16,9 @@ namespace MinesweeperApp.Models
         public AppUser User { get; set; }
 
         public UserReport() { }
-        public UserReport(Status status_, string description_, AppUser user_)
+        public UserReport(int id_, Status status_, string description_, AppUser user_)
         {
+            Id = id_;
             Status = status_;
             Description = description_;
             User = user_;

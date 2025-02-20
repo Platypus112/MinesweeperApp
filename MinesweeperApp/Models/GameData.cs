@@ -8,6 +8,7 @@ namespace MinesweeperApp.Models
 {
     public class GameData
     {
+        public int Id { get; set; }
         public DateTime? Date { get; set; }
         public double TimeInSeconds { get; set; }
         public Difficulty Difficulty { get; set; }
@@ -16,8 +17,9 @@ namespace MinesweeperApp.Models
 
         public GameData() { }
 
-        public GameData(DateTime date_, double timeInSeconds_, Difficulty difficulty_, UserDTO user_, List<GameReport> reports_)
+        public GameData(int id_,DateTime date_, double timeInSeconds_, Difficulty difficulty_, UserDTO user_, List<GameReport> reports_)
         {
+            Id= id_;
             Date = date_;
             TimeInSeconds = timeInSeconds_;
             Difficulty = difficulty_;

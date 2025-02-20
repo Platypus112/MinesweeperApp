@@ -8,6 +8,7 @@ namespace MinesweeperApp.Models
 {
     public class GameReport
     {
+        public int Id { get; set; }
         public Status Status { get; set; }
 
         public string? Description { get; set; }
@@ -15,8 +16,9 @@ namespace MinesweeperApp.Models
         public FinishedGame Game { get; set; }
 
         public GameReport() { }
-        public GameReport(Status status_, string description_, FinishedGame game_)
+        public GameReport(int id_,Status status_, string description_, FinishedGame game_)
         {
+            Id = id_;
             Status = status_;
             Description = description_;
             Game = game_;

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MinesweeperApp.Views.GameReportsView"
+             xmlns:ViewModel="clr-namespace:MinesweeperApp.ViewModels"
+             xmlns:Model="clr-namespace:MinesweeperApp.Models"
+             x:DataType="ViewModel:GameReportsViewModel"
+             xmlns:syncfusion="clr-namespace:Syncfusion.Maui.DataGrid;assembly=Syncfusion.Maui.DataGrid"
+             Title="GameReportsView">
+    <VerticalStackLayout>
+        <Button
+            Text="Remove game"
+            />
+        <syncfusion:SfDataGrid
+                x:Name="dataGrid"
+                SortingMode="Single"
+                AllowTriStateSorting="false"
+                ItemsSource="{Binding }">
+            <syncfusion:SfDataGrid.Columns>
+                <syncfusion:DataGridTemplateColumn Visible="{Binding Admin}">
+                    <syncfusion:DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate x:DataType="Model:GameReport">
+                            <Button Text="ResolveReport"
+                        Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.ResolveReportCommand}"
+                        CommandParameter="{Binding .}"/>
+                        </DataTemplate>
+                    </syncfusion:DataGridTemplateColumn.CellTemplate>
+                </syncfusion:DataGridTemplateColumn>
+
+                
+
+            </syncfusion:SfDataGrid.Columns>
+
+        </syncfusion:SfDataGrid>
+    </VerticalStackLayout>
+</ContentPage>

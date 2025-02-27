@@ -2,11 +2,46 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MinesweeperApp.Views.LeaderboardView"
+             xmlns:ViewModel="clr-namespace:MinesweeperApp.ViewModels"
+             xmlns:Model="clr-namespace:MinesweeperApp.Models"
+             x:DataType="ViewModel:LeaderboardViewModel"
+             xmlns:syncfusion="clr-namespace:Syncfusion.Maui.DataGrid;assembly=Syncfusion.Maui.DataGrid"
              Title="LeaderboardView">
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <syncfusion:SfDataGrid
+    x:Name="dataGrid"
+    SortingMode="Single"
+    AllowTriStateSorting="false"
+    ItemsSource="{Binding }">
+            <syncfusion:SfDataGrid.Columns>
+                <syncfusion:DataGridTemplateColumn Visible="{Binding Admin}">
+                    <syncfusion:DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate x:DataType="Model:GameData">
+                            <Button Text="Report game"
+                            Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.ReportGameCommand}"
+                            CommandParameter="{Binding .}"/>
+                        </DataTemplate>
+                    </syncfusion:DataGridTemplateColumn.CellTemplate>
+                </syncfusion:DataGridTemplateColumn>
+
+                <syncfusion:DataGridTemplateColumn Visible="{Binding Admin}">
+                    <syncfusion:DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Text="ViewReports"/>
+                        </DataTemplate>
+                    </syncfusion:DataGridTemplateColumn.CellTemplate>
+                </syncfusion:DataGridTemplateColumn>
+
+                <syncfusion:DataGridTemplateColumn Visible="{Binding Admin}">
+                    <syncfusion:DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Text="delete"/>
+                        </DataTemplate>
+                    </syncfusion:DataGridTemplateColumn.CellTemplate>
+                </syncfusion:DataGridTemplateColumn>
+
+            </syncfusion:SfDataGrid.Columns>
+
+        </syncfusion:SfDataGrid>
     </VerticalStackLayout>
 </ContentPage>

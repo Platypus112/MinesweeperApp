@@ -22,16 +22,57 @@ namespace MinesweeperApp.ViewModels
         private ObservableCollection<GameData> items;
         public ObservableCollection<GameData> Items { get { return items; } set { items = value; OnPropertyChanged(); } }
 
-        private ColumnCollection columns;
-        public ColumnCollection Columns { get { return columns; } set { columns = value; OnPropertyChanged(); } }
-
         public ICommand ReportGameCommand { get; private set; }
         public ICommand ViewGameReportsCommand { get; private set; }
         public ICommand RemoveGameCommand { get; private set; }
         public LeaderboardViewModel(Service service_) : base(service_)
         {
+            AppShell.Current.FlyoutBehavior = FlyoutBehavior.Flyout;
             Admin = service.LoggedUser!=null&&service.LoggedUser.IsAdmin;
             Type = "games";
+        }
+        private async void ViewGameReports(Object o)
+        {
+            InServerCall = true;
+            try
+            {
+                Dictionary<string, object> data = new();
+                data.Add("game", o);
+
+                await AppShell.Current.GoToAsync("gameReportsPage", data);
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+            InServerCall=false;
+        }
+        private async void RemoveGame(Object o)
+        {
+            InServerCall = true;
+            try
+            {
+                GameData game= (GameData)o;
+                if (game!=null)
+                {
+                    ServerResponse<GameData> response=await service.RemoveGame(game);
+
+                    if (response != null && response.Response)
+                    {
+                        //great! it happend and worked
+                    }
+                    else
+                    {
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            InServerCall=false;
         }
         private async void FillCollection()
         {

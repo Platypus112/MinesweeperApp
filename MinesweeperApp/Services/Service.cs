@@ -31,6 +31,44 @@ namespace MinesweeperApp.Services
             this.baseUrl = BaseAddress;
         }
 
+        public async Task<ServerResponse<GameData>> RemoveGame(GameData g)
+        {
+            string url = BaseAddress + "RemoveGame";
+            ServerResponse<GameData> responseResult = new();
+            try
+            {
+                if (g==null)
+                {
+                    responseResult = new("No game given");
+                    return responseResult;
+                }
+                url += "?id=" + g.Id;
+                HttpResponseMessage response = await client.GetAsync(url);
+                if(response.IsSuccessStatusCode)
+                {
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    string result = await response.Content.ReadAsStringAsync();
+                    GameData gameResult= JsonSerializer.Deserialize<GameData>(result);
+
+                    responseResult = new(true, "game removed successfuly", gameResult);
+
+                }
+                else
+                {
+                    responseResult = new(await response.Content.ReadAsStringAsync());
+                }
+                return responseResult;
+            }
+            catch(Exception ex) 
+            {
+                responseResult = new(ex.Message);
+                return responseResult;
+            }
+        }
+
         public async Task<ServerResponse<List<Object>>> GetCollectionbyType(string type)
         {
             string url = BaseAddress + "GetCollection";

@@ -61,6 +61,7 @@ namespace MinesweeperApp.ViewModels
                     if (response != null && response.Response)
                     {
                         //great! it happend and worked
+                        FillCollection();
                     }
                     else
                     {

@@ -17,7 +17,7 @@
                 AllowTriStateSorting="false"
                 ItemsSource="{Binding }">
             <syncfusion:SfDataGrid.Columns>
-                <syncfusion:DataGridTemplateColumn Visible="{Binding Admin}">
+                <syncfusion:DataGridTemplateColumn>
                     <syncfusion:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate x:DataType="Model:GameReport">
                             <Button Text="ResolveReport"

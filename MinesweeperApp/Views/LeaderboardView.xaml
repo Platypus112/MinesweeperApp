@@ -12,8 +12,19 @@
     x:Name="dataGrid"
     SortingMode="Single"
     AllowTriStateSorting="false"
-    ItemsSource="{Binding }">
+            AutoGenerateColumnsMode="None"
+              
+    ItemsSource="{Binding Items}">
+            <syncfusion:SfDataGrid.DefaultStyle>
+                <syncfusion:DataGridStyle HeaderRowBackground="#0074E3" HeaderRowTextColor="White" RowBackground="#AFD5FB" RowTextColor="#212121"/>
+            </syncfusion:SfDataGrid.DefaultStyle>
             <syncfusion:SfDataGrid.Columns>
+                <syncfusion:DataGridTextColumn MappingName="Difficulty.Name" HeaderText="Difficulty" AllowSorting="False">
+
+                </syncfusion:DataGridTextColumn>
+                <syncfusion:DataGridTextColumn MappingName="Time" HeaderText="Time"/>
+                <syncfusion:DataGridTextColumn MappingName="User.Name" HeaderText="User"/>
+                <syncfusion:DataGridTextColumn MappingName="Date" HeaderText="Date"/>
                 <syncfusion:DataGridTemplateColumn Visible="{Binding Admin}">
                     <syncfusion:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate x:DataType="Model:GameData">

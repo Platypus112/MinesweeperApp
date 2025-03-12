@@ -41,7 +41,7 @@
             <Setter Property="Padding" Value="0"/>
         </Style>
     </Shell.Resources>
-   
+            
             <ShellContent Title="Welcome" 
                       IsEnabled="False"
                       FlyoutItemIsVisible="False"
@@ -49,7 +49,7 @@
                       Route="homePage"/>
     
             <ShellContent Title="Minesweeper"
-                          ContentTemplate="{DataTemplate views:StartGameView}"
-                          Route="startGamePage"/>
+                          ContentTemplate="{DataTemplate views:LeaderboardView}"
+                          Route="leaderboardPage"/>
     
 </Shell>

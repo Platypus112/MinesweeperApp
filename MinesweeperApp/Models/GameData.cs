@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Maui.Platform;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,7 @@ namespace MinesweeperApp.Models
         public Difficulty Difficulty { get; set; }
         public UserDTO User { get; set; }
         public List<GameReport> Reports { get; set; }
+        public string Time { get { return TimeSpan.FromSeconds(TimeInSeconds).ToString(); } private set { this.Time = value; } }
 
         public GameData() { }
 

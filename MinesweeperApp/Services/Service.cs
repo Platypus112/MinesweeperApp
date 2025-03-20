@@ -92,7 +92,7 @@ namespace MinesweeperApp.Services
                     string result = await response.Content.ReadAsStringAsync();
                     if (!(type.Contains("users") || type.Contains("games")) && type.Contains("social"))
                     {
-                        List<FriendRequest> list =JsonSerializer.Deserialize<List<FriendRequest>>(result);
+                        List<FriendRequest> list =JsonSerializer.Deserialize<List<FriendRequest>>(result, options);
                         foreach(FriendRequest f in list)
                         {
                             listResult.Add(f);
@@ -102,7 +102,7 @@ namespace MinesweeperApp.Services
                     {
                         if (type.Contains("reports") && type.Contains("admin"))
                         {
-                            List<GameReport> list = JsonSerializer.Deserialize<List<GameReport>>(result);
+                            List<GameReport> list = JsonSerializer.Deserialize<List<GameReport>>(result, options);
                             foreach (GameReport r in list)
                             {
                                 listResult.Add(r);
@@ -110,7 +110,7 @@ namespace MinesweeperApp.Services
                         }
                         else if (type.Contains("social"))
                         {
-                            List<GameData> list = JsonSerializer.Deserialize<List<GameData>>(result);
+                            List<GameData> list = JsonSerializer.Deserialize<List<GameData>>(result, options);
                             foreach (GameData g in list)
                             {
                                 listResult.Add(g);
@@ -118,7 +118,7 @@ namespace MinesweeperApp.Services
                         }
                         else
                         {
-                            List<GameData> list = JsonSerializer.Deserialize<List<GameData>>(result);
+                            List<GameData> list = JsonSerializer.Deserialize<List<GameData>>(result, options);
                             foreach (GameData g in list)
                             {
                                 listResult.Add(g);
@@ -129,7 +129,7 @@ namespace MinesweeperApp.Services
                     {
                         if (type.Contains("reports") && type.Contains("admin"))
                         {
-                            List<UserReport> list = JsonSerializer.Deserialize<List<UserReport>>(result);
+                            List<UserReport> list = JsonSerializer.Deserialize<List<UserReport>>(result, options);
                             foreach (UserReport r in list)
                             {
                                 listResult.Add(r);
@@ -137,16 +137,16 @@ namespace MinesweeperApp.Services
                         }
                         else if (type.Contains("social"))
                         {
-                            List<UserData> list = JsonSerializer.Deserialize<List<UserData>>(result);
-                            foreach (UserData u in list)
+                            List<AppUser> list = JsonSerializer.Deserialize<List<AppUser>>(result, options);
+                            foreach (AppUser u in list)
                             {
                                 listResult.Add(u);
                             }
                         }
                         else
                         {
-                            List<UserData> list = JsonSerializer.Deserialize<List<UserData>>(result);
-                            foreach (UserData u in list)
+                            List<AppUser> list = JsonSerializer.Deserialize<List<AppUser>>(result, options);
+                            foreach (AppUser u in list)
                             {
                                 listResult.Add(u);
                             }
@@ -185,7 +185,7 @@ namespace MinesweeperApp.Services
                 {
                     Date = game.StartTime,
                     TimeInSeconds = (game.EndTime - game.StartTime).TotalSeconds,
-                    difficulty = game.Diff,
+                    Difficulty = game.Diff,
                     User = new(LoggedUser)
                 };
 

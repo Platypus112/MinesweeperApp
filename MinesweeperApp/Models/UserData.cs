@@ -21,12 +21,12 @@ namespace MinesweeperApp.Models
 
         public string? Description { get; set; }
 
-        public List<UserReport> Reports { get; set; }
+        //public List<UserReport> Reports { get; set; }
 
         //public List<GameDataDTO> Games { get; set; }
 
         public UserData() { }
-        public UserData(string name_, string email_, string password_, string picPath_, bool isAdmin_, string description_, List<UserReport> reports_/*, List<GameDataDTO> games_*/)
+        public UserData(string name_, string email_, string password_, string picPath_, bool isAdmin_, string description_/*, List<UserReport> reports_*//*, List<GameDataDTO> games_*/)
         {
             Name = name_;
             Email = email_;
@@ -34,7 +34,7 @@ namespace MinesweeperApp.Models
             PicPath = picPath_;
             IsAdmin = isAdmin_;
             Description = description_;
-            Reports = reports_;
+            //Reports = reports_;
             //Games = games_;
         }
     }

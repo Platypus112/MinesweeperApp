@@ -30,6 +30,7 @@ namespace MinesweeperApp.ViewModels
             AppShell.Current.FlyoutBehavior = FlyoutBehavior.Flyout;
             Admin = service.LoggedUser!=null&&service.LoggedUser.IsAdmin;
             Type = "games";
+            ViewGameReportsCommand = new Command((Object o) => ViewGameReports(o));
         }
         private async void ViewGameReports(Object o)
         {

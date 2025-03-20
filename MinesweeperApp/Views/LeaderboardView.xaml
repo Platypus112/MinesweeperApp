@@ -24,8 +24,8 @@
                 </syncfusion:DataGridTextColumn>
                 <syncfusion:DataGridTextColumn MappingName="Time" HeaderText="Time"/>
                 <syncfusion:DataGridTextColumn MappingName="User.Name" HeaderText="User"/>
-                <syncfusion:DataGridTextColumn MappingName="Date" HeaderText="Date"/>
-                <syncfusion:DataGridTemplateColumn Visible="{Binding Admin}">
+                <syncfusion:DataGridTextColumn MappingName="DateOnly" HeaderText="Date"/>
+                <syncfusion:DataGridTemplateColumn ColumnWidthMode="Auto">
                     <syncfusion:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate x:DataType="Model:GameData">
                             <Button Text="Report game"
@@ -38,7 +38,9 @@
                 <syncfusion:DataGridTemplateColumn Visible="{Binding Admin}">
                     <syncfusion:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Text="ViewReports"/>
+                            <Button Text="ViewReports"
+                                    Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.ViewGameReportsCommand}"
+                                    CommandParameter="{Binding .}"/>
                         </DataTemplate>
                     </syncfusion:DataGridTemplateColumn.CellTemplate>
                 </syncfusion:DataGridTemplateColumn>

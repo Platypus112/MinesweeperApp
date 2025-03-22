@@ -56,7 +56,6 @@
                 Command="{Binding LoginCommand}"/>
         </Grid>
         <ActivityIndicator IsRunning="{Binding InServerCall}" 
-               Color="Red" 
                VerticalOptions="Center" 
                HorizontalOptions="Center" />
     </VerticalStackLayout>

@@ -65,7 +65,6 @@
             Command="{Binding RegisterCommand}"/>
         </Grid>
         <ActivityIndicator IsRunning="{Binding InServerCall}" 
-           Color="Red" 
            VerticalOptions="Center" 
            HorizontalOptions="Center" />
     </VerticalStackLayout>

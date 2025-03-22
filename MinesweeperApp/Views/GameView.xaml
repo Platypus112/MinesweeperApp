@@ -75,6 +75,9 @@
             <ImageButton Style="{DynamicResource imgButton}" Source="mine.png" Command="{Binding ToggleMineCommand}"/>
             <ImageButton Style="{DynamicResource imgButton}" Source="flag.png" Command="{Binding ToggleFlagCommand}"/>
         </HorizontalStackLayout>
+        <ActivityIndicator IsRunning="{Binding InServerCall}" 
+       VerticalOptions="Center" 
+       HorizontalOptions="Center" />
     </StackLayout>
 
 

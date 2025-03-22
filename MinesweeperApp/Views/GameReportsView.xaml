@@ -8,9 +8,46 @@
              xmlns:syncfusion="clr-namespace:Syncfusion.Maui.DataGrid;assembly=Syncfusion.Maui.DataGrid"
              Title="GameReportsView">
     <VerticalStackLayout>
-        <Button
-            Text="Remove game"
-            />
+        <Label>
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="Game id:"/>
+                    <Span Text="{Binding Game.Id}"/>
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+        <Label>
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="Difficulty:"/>
+                    <Span Text="{Binding Game.Difficulty.Name}"/>
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+        <Label>
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="Time:"/>
+                    <Span Text="{Binding Game.Time}"/>
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+        <Label>
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="User:"/>
+                    <Span Text="{Binding Game.User.Name}"/>
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+        <Label>
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="Date:"/>
+                    <Span Text="{Binding Game.DateOnly}"/>
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
         <syncfusion:SfDataGrid
                 x:Name="dataGrid"
                 SortingMode="Single"
@@ -38,5 +75,8 @@
             </syncfusion:SfDataGrid.Columns>
 
         </syncfusion:SfDataGrid>
+        <ActivityIndicator IsRunning="{Binding InServerCall}" 
+       VerticalOptions="Center" 
+       HorizontalOptions="Center" />
     </VerticalStackLayout>
 </ContentPage>

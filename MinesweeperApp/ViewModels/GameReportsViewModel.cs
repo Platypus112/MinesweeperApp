@@ -17,55 +17,95 @@ namespace MinesweeperApp.ViewModels
         public GameData Game { get { return game; } set { game = value; OnPropertyChanged(); FillCollection(); } }
 
         private ObservableCollection<GameReport> gameReports;
-        public ObservableCollection<GameReport> GameReports { get { return gameReports; } set { gameReports = value; OnPropertyChanged();} } 
+        public ObservableCollection<GameReport> GameReports { get { return gameReports; } set { gameReports = value; OnPropertyChanged();} }
+
 
         public ICommand ResolveReportCommand { get; private set; }
 
         public GameReportsViewModel(Service service_):base (service_)
         {
             AppShell.Current.FlyoutBehavior = FlyoutBehavior.Disabled;
-
-
+            ResolveReportCommand = new Command((Object obj)=> ResolveReport(obj));
         }
+
         private async void ResolveReport(Object obj)
         {
-            string result = await AppShell.Current.DisplayActionSheet("Remove game from existence?", "cancel", null, "Remove game","Remove report");
+            InServerCall = true;
+            string result = await AppShell.Current.DisplayActionSheet("Accept report and remove game from leaderboard?", "cancel", null, "Accept report","Absolve report");
             if(result != null)
             {
-                if(result=="Remove Game")
+                if (result == "Accept report")
                 {
-                    await service.RemoveGame(Game);
-                    await AppShell.Current.DisplayAlert("Game removed successfuly", "", "Ok");
-                    await AppShell.Current.GoToAsync("//leaderboardPage");
+                    try
+                    {
+                        ServerResponse<GameReport> response = await service.AcceptGameReport((GameReport)obj);
+                        if (response.Response)
+                        {
+                            await AppShell.Current.DisplayAlert("Report accepted successfuly", "Game will not be shown on leaderboards", "Ok");
+                        }
+                        else
+                        {
+                            await AppShell.Current.DisplayAlert("Error occured while accepting report", response.ResponseMessage, "Ok");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        await AppShell.Current.DisplayAlert("Error occured while accepting report", ex.Message, "Ok");
+                    }
                 }
-                else if(result== "Remove Report")
+                else if (result == "Absolve report")
                 {
-
-                    await AppShell.Current.DisplayAlert("Report removed successfuly", "", "Ok");
-                    GameReports.Remove((GameReport)obj);
+                    try
+                    {
+                        ServerResponse<GameReport> response = await service.AbsolveGameReport((GameReport)obj);
+                        if (response.Response)
+                        {
+                            await AppShell.Current.DisplayAlert("Report absolved successfuly", "", "Ok");
+                        }
+                        else
+                        {
+                            await AppShell.Current.DisplayAlert("Error occured while absolving report", response.ResponseMessage, "Ok");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        await AppShell.Current.DisplayAlert("Error occured while absolving report", ex.Message, "Ok");
+                    }
                 }
             }
+            InServerCall = false;
         }
         private async void FillCollection()
         {
             InServerCall = true;
-            GameReports = new();
-            ServerResponse<List<object>> serverResponse = await service.GetCollectionbyType("games.reports.admin");
-            if(serverResponse != null&&serverResponse.Response)
+            try
             {
-                List<GameReport> list= new List<GameReport>();
-                foreach(Object report in serverResponse.Content)
+                GameReports = new();
+                ServerResponse<List<object>> serverResponse = await service.GetCollectionbyType("games.reports.admin");
+                if(serverResponse != null&&serverResponse.Response)
                 {
-                    list.Add(((GameReport)report));
+                    List<GameReport> list= new List<GameReport>();
+                    foreach(Object report in serverResponse.Content)
+                    {
+                        list.Add(((GameReport)report));
+                    }
+                    foreach(GameReport report in list)
+                    {
+                        if (report.Game.Id == Game.Id) GameReports.Add(report);
+                    }
                 }
-                foreach(GameReport report in list)
+                else
                 {
-                    if (report.Game.Id == Game.Id) GameReports.Add(report);
+                    await AppShell.Current.DisplayAlert("Error occured while loading reports", serverResponse.ResponseMessage, "Ok");
+                    InServerCall = false;
+                    await AppShell.Current.GoToAsync("//leaderboardPage");
                 }
             }
-            else
+            catch(Exception ex) 
             {
-
+                await AppShell.Current.DisplayAlert("Error occured while loading reports", ex.Message, "Ok");
+                InServerCall = false;
+                await AppShell.Current.GoToAsync("//leaderboardPage");
             }
             InServerCall = false;
         }

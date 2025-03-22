@@ -21,6 +21,9 @@
         <Style TargetType="ContentPage">
             <Setter Property="BackgroundColor" Value="Gray"/>
         </Style>
+        <Style TargetType="ActivityIndicator">
+            <Setter Property="Color" Value="DeepPink"/>
+        </Style>
         <Style TargetType="buttons:SfButton" x:Key="Tile">
             <Setter Property="Background" Value="DeepPink"/>
             <!--<Setter Property="BorderWidth" Value="1"/>

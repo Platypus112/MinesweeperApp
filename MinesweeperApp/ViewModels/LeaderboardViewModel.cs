@@ -32,6 +32,38 @@ namespace MinesweeperApp.ViewModels
             Type = "games";
             ViewGameReportsCommand = new Command((Object o) => ViewGameReports(o));
         }
+        private async void ReportGame(Object o)
+        {
+            try
+            {
+                string description = await AppShell.Current.DisplayPromptAsync("File Report","Describe the problem with the game");
+                if (description != null)
+                {
+                    InServerCall = true;
+                    ServerResponse<GameReport> serverResponse = await service.ReportGame((GameData)o, description);
+                    if(serverResponse != null)
+                    {
+                        if (serverResponse.Response)
+                        {
+                            await AppShell.Current.DisplayAlert("Report filed successfuly", "", "ok");
+                        }
+                        else
+                        {
+                            await AppShell.Current.DisplayAlert("Error occured", "Error occurred while filing report.\n" + serverResponse.ResponseMessage, "ok");
+                        }
+                    }
+                    else
+                    {
+                        await AppShell.Current.DisplayAlert("Error occured", "Error occurred while filing report.", "ok");
+                    }
+                    InServerCall=false;
+                }
+            }
+            catch (Exception ex)
+            {
+                await AppShell.Current.DisplayAlert("Error occured", "Error occurred while filing report.\n"+ex.Message, "ok");
+            }
+        }
         private async void ViewGameReports(Object o)
         {
             InServerCall = true;
@@ -45,7 +77,7 @@ namespace MinesweeperApp.ViewModels
             }
             catch (Exception ex)
             {
-
+                await AppShell.Current.DisplayAlert("Error occured", ex.Message, "ok");
             }
             InServerCall=false;
         }
@@ -61,18 +93,18 @@ namespace MinesweeperApp.ViewModels
 
                     if (response != null && response.Response)
                     {
-                        //great! it happend and worked
+                        await AppShell.Current.DisplayAlert("Game removed", "game removed successfuly", "ok");
                         FillCollection();
                     }
                     else
                     {
-
+                        await AppShell.Current.DisplayAlert("Error occured", "error occurred while trying to remove game\n" + response.ResponseMessage, "ok");
                     }
                 }
             }
             catch (Exception ex)
             {
-
+                await AppShell.Current.DisplayAlert("Error occured", "error occurred while trying to remove game\n" + ex.Message, "ok");
             }
             InServerCall=false;
         }
@@ -87,7 +119,8 @@ namespace MinesweeperApp.ViewModels
                     Items = new();
                     foreach(Object item in listResponse.Content)
                     {
-                        Items.Add((GameData)item);
+                        GameData g= (GameData)item;
+                        if(Admin||!g.IsDeleted)Items.Add((GameData)item);
                     }
                 }
             }

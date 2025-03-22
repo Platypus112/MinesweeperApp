@@ -15,5 +15,8 @@
         <Button
             Text="Start"
             Command="{Binding StartGameCommand}"/>
+        <ActivityIndicator IsRunning="{Binding InServerCall}" 
+       VerticalOptions="Center" 
+       HorizontalOptions="Center" />
     </VerticalStackLayout>
 </ContentPage>

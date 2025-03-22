@@ -9,12 +9,11 @@
              Title="LeaderboardView">
     <VerticalStackLayout>
         <syncfusion:SfDataGrid
-    x:Name="dataGrid"
-    SortingMode="Single"
-    AllowTriStateSorting="false"
+            x:Name="dataGrid"
+            SortingMode="Single"
+            AllowTriStateSorting="false"
             AutoGenerateColumnsMode="None"
-              
-    ItemsSource="{Binding Items}">
+            ItemsSource="{Binding Items}">
             <syncfusion:SfDataGrid.DefaultStyle>
                 <syncfusion:DataGridStyle HeaderRowBackground="#0074E3" HeaderRowTextColor="White" RowBackground="#AFD5FB" RowTextColor="#212121"/>
             </syncfusion:SfDataGrid.DefaultStyle>
@@ -25,12 +24,14 @@
                 <syncfusion:DataGridTextColumn MappingName="Time" HeaderText="Time"/>
                 <syncfusion:DataGridTextColumn MappingName="User.Name" HeaderText="User"/>
                 <syncfusion:DataGridTextColumn MappingName="DateOnly" HeaderText="Date"/>
+                <syncfusion:DataGridTextColumn MappingName="IsDeleted" HeaderText="Deleted" Visible="{Binding Admin}"/>
                 <syncfusion:DataGridTemplateColumn ColumnWidthMode="Auto">
                     <syncfusion:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate x:DataType="Model:GameData">
                             <Button Text="Report game"
-                            Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.ReportGameCommand}"
-                            CommandParameter="{Binding .}"/>
+                                    FontAutoScalingEnabled="True"
+                                    Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.ReportGameCommand}"
+                                    CommandParameter="{Binding .}"/>
                         </DataTemplate>
                     </syncfusion:DataGridTemplateColumn.CellTemplate>
                 </syncfusion:DataGridTemplateColumn>
@@ -38,7 +39,8 @@
                 <syncfusion:DataGridTemplateColumn Visible="{Binding Admin}">
                     <syncfusion:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Text="ViewReports"
+                            <Button Text="View reports"
+                                    FontAutoScalingEnabled="True"
                                     Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.ViewGameReportsCommand}"
                                     CommandParameter="{Binding .}"/>
                         </DataTemplate>
@@ -48,7 +50,10 @@
                 <syncfusion:DataGridTemplateColumn Visible="{Binding Admin}">
                     <syncfusion:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Text="delete"/>
+                            <Button Text="Delete"
+                                    FontAutoScalingEnabled="True"
+                                    Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.RemoveGameCommand}"
+                                    CommandParameter="{Binding .}"/>
                         </DataTemplate>
                     </syncfusion:DataGridTemplateColumn.CellTemplate>
                 </syncfusion:DataGridTemplateColumn>
@@ -56,5 +61,8 @@
             </syncfusion:SfDataGrid.Columns>
 
         </syncfusion:SfDataGrid>
+        <ActivityIndicator IsRunning="{Binding InServerCall}" 
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
     </VerticalStackLayout>
 </ContentPage>

@@ -73,6 +73,7 @@ namespace MinesweeperApp.ViewModels
                     }
                 }
             }
+            FillCollection();
             InServerCall = false;
         }
         private async void FillCollection()

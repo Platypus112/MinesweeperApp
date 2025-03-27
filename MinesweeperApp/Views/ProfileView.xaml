@@ -6,9 +6,6 @@
              x:DataType="ViewModel:ProfileViewModel"
              Title="ProfileView">
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        
     </VerticalStackLayout>
 </ContentPage>

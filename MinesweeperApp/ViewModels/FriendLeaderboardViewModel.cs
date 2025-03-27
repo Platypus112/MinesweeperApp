@@ -11,10 +11,10 @@ using System.Windows.Input;
 
 namespace MinesweeperApp.ViewModels
 {
-    public class LeaderboardViewModel:ViewModel
+    public class FriendLeaderboardViewModel:ViewModel
     {
         private string type;
-        public string Type { get { return type; } set { type = value; } }
+        public string Type { get { return type; } set { type = value;} }
 
         private bool isAdmin;
         public bool IsAdmin { get { return isAdmin; } set { isAdmin = value; OnPropertyChanged(); } }
@@ -25,31 +25,28 @@ namespace MinesweeperApp.ViewModels
         public ICommand ReportGameCommand { get; private set; }
         public ICommand ViewGameReportsCommand { get; private set; }
         public ICommand RemoveGameCommand { get; private set; }
-        public LeaderboardViewModel(Service service_) : base(service_)
+        public FriendLeaderboardViewModel(Service service_) : base(service_)
         {
             AppShell.Current.FlyoutBehavior = FlyoutBehavior.Flyout;
-            IsAdmin = service.LoggedUser!=null&&service.LoggedUser.IsAdmin;
-            Type = "games";
+            IsAdmin = service.LoggedUser != null && service.LoggedUser.IsAdmin;
+            Type = "games.social";
             FillCollection();
             ViewGameReportsCommand = new Command((Object o) => ViewGameReports(o));
-            ReportGameCommand = new Command((Object o) => ReportGame(o)) ;
-            RemoveGameCommand = new Command((Object o) => RemoveGame(o),(Object o)=>IsAdmin);
         }
         private async void ReportGame(Object o)
         {
             try
             {
-                string description = await AppShell.Current.DisplayPromptAsync("File Report","Describe the problem with the game");
+                string description = await AppShell.Current.DisplayPromptAsync("File Report", "Describe the problem with the game");
                 if (description != null)
                 {
                     InServerCall = true;
                     ServerResponse<GameReport> serverResponse = await service.ReportGame((GameData)o, description);
-                    if(serverResponse != null)
+                    if (serverResponse != null)
                     {
                         if (serverResponse.Response)
                         {
                             await AppShell.Current.DisplayAlert("Report filed successfuly", "", "ok");
-                            FillCollection();
                         }
                         else
                         {
@@ -60,12 +57,13 @@ namespace MinesweeperApp.ViewModels
                     {
                         await AppShell.Current.DisplayAlert("Error occured", "Error occurred while filing report.", "ok");
                     }
-                    InServerCall=false;
+                    FillCollection();
+                    InServerCall = false;
                 }
             }
             catch (Exception ex)
             {
-                await AppShell.Current.DisplayAlert("Error occured", "Error occurred while filing report.\n"+ex.Message, "ok");
+                await AppShell.Current.DisplayAlert("Error occured", "Error occurred while filing report.\n" + ex.Message, "ok");
             }
         }
         private async void ViewGameReports(Object o)
@@ -75,6 +73,7 @@ namespace MinesweeperApp.ViewModels
             {
                 Dictionary<string, object> data = new();
                 data.Add("game", o);
+
                 await AppShell.Current.GoToAsync("gameReportsPage", data);
 
             }
@@ -82,17 +81,18 @@ namespace MinesweeperApp.ViewModels
             {
                 await AppShell.Current.DisplayAlert("Error occured", ex.Message, "ok");
             }
-            InServerCall=false;
+            FillCollection();
+            InServerCall = false;
         }
         private async void RemoveGame(Object o)
         {
             InServerCall = true;
             try
             {
-                GameData game= (GameData)o;
-                if (game!=null)
+                GameData game = (GameData)o;
+                if (game != null)
                 {
-                    ServerResponse<GameData> response=await service.RemoveGame(game);
+                    ServerResponse<GameData> response = await service.RemoveGame(game);
 
                     if (response != null && response.Response)
                     {
@@ -109,29 +109,29 @@ namespace MinesweeperApp.ViewModels
             {
                 await AppShell.Current.DisplayAlert("Error occured", "error occurred while trying to remove game\n" + ex.Message, "ok");
             }
-            InServerCall=false;
+            InServerCall = false;
         }
         private async void FillCollection()
         {
             InServerCall = true;
             try
             {
-                ServerResponse<List<Object>> listResponse=await service.GetCollectionbyType(Type);
-                if (listResponse != null&&listResponse.Response)
+                ServerResponse<List<Object>> listResponse = await service.GetCollectionbyType(Type);
+                if (listResponse != null && listResponse.Response)
                 {
                     Items = new();
-                    foreach(Object item in listResponse.Content)
+                    foreach (Object item in listResponse.Content)
                     {
-                        GameData g= (GameData)item;
-                        if(IsAdmin||!g.IsDeleted)Items.Add((GameData)item);
+                        GameData g = (GameData)item;
+                        if (IsAdmin || !g.IsDeleted) Items.Add((GameData)item);
                     }
                 }
             }
-            catch(Exception ex) 
+            catch (Exception ex)
             {
 
             }
-            InServerCall= false;
+            InServerCall = false;
         }
     }
 }

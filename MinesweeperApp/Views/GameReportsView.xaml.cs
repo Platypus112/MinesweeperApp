@@ -12,19 +12,4 @@ public partial class GameReportsView : ContentPage
         CreateGrid();
     }
 
-    private async void CreateGrid()
-    {
-        dataGrid.Columns.Insert(0, new DataGridTextColumn()
-        {
-            MappingName = "Status.Name",
-            HeaderText = "Status",
-        });
-        dataGrid.Columns.Insert(0, new DataGridTextColumn()
-        {
-            MappingName = "Description",
-            HeaderText = "Description",
-        });
-        
-    }
-
 }

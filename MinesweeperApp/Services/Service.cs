@@ -42,8 +42,9 @@ namespace MinesweeperApp.Services
                     responseResult = new("No report given");
                     return responseResult;
                 }
-                url += "?id=" + r.Id;
-                HttpResponseMessage response = await client.GetAsync(url);
+                string json = JsonSerializer.Serialize(r);
+                HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
                 if (response.IsSuccessStatusCode)
                 {
                     JsonSerializerOptions options = new JsonSerializerOptions
@@ -51,9 +52,9 @@ namespace MinesweeperApp.Services
                         PropertyNameCaseInsensitive = true
                     };
                     string result = await response.Content.ReadAsStringAsync();
-                    GameReport gameReportResult = JsonSerializer.Deserialize<GameReport>(result, options);
+                    //GameReport gameReportResult = JsonSerializer.Deserialize<GameReport>(result, options);
 
-                    responseResult = new(true, "Report accepted successfuly, game removed from leaderboards", gameReportResult);
+                    responseResult = new(true, "Report accepted successfuly, game removed from leaderboards", r);
 
                 }
                 else
@@ -79,8 +80,9 @@ namespace MinesweeperApp.Services
                     responseResult = new("No report given");
                     return responseResult;
                 }
-                url += "?id=" + r.Id;
-                HttpResponseMessage response = await client.GetAsync(url);
+                string json = JsonSerializer.Serialize(r);
+                HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
                 if (response.IsSuccessStatusCode)
                 {
                     JsonSerializerOptions options = new JsonSerializerOptions
@@ -88,9 +90,9 @@ namespace MinesweeperApp.Services
                         PropertyNameCaseInsensitive = true
                     };
                     string result = await response.Content.ReadAsStringAsync();
-                    GameReport gameReportResult = JsonSerializer.Deserialize<GameReport>(result, options);
+                    //GameReport gameReportResult = JsonSerializer.Deserialize<GameReport>(result, options);
 
-                    responseResult = new(true, "Report Resolved successfuly", gameReportResult);
+                    responseResult = new(true, "Report Resolved successfuly", r);
 
                 }
                 else
@@ -118,7 +120,19 @@ namespace MinesweeperApp.Services
                 }
                 GameReport report = new()
                 {
-                    Game = g,
+                    Game = new FinishedGame()
+                    {
+                        Id= g.Id,
+                        User=g.User,
+                        Difficulty=g.Difficulty,
+                        Date=g.Date.Value,
+                        TimeInSeconds=g.TimeInSeconds,
+                    },
+                    Status=new Status()
+                    {
+                        Id=1,
+                        Name="",
+                    },
                     Description = Description,
                 };
                 string json = JsonSerializer.Serialize(report);
@@ -158,8 +172,9 @@ namespace MinesweeperApp.Services
                     responseResult = new("No report given");
                     return responseResult;
                 }
-                url += "?id=" + r.Id;
-                HttpResponseMessage response = await client.GetAsync(url);
+                string json = JsonSerializer.Serialize(r);
+                HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
                 if (response.IsSuccessStatusCode)
                 {
                     JsonSerializerOptions options = new JsonSerializerOptions
@@ -167,9 +182,9 @@ namespace MinesweeperApp.Services
                         PropertyNameCaseInsensitive = true
                     };
                     string result = await response.Content.ReadAsStringAsync();
-                    GameReport gameReportResult = JsonSerializer.Deserialize<GameReport>(result, options);
+                    //GameReport gameReportResult = JsonSerializer.Deserialize<GameReport>(result, options);
 
-                    responseResult = new(true, "Report removed successfuly", gameReportResult);
+                    responseResult = new(true, "Report removed successfuly", r);
 
                 }
                 else
@@ -195,18 +210,19 @@ namespace MinesweeperApp.Services
                     responseResult = new("No game given");
                     return responseResult;
                 }
-                url += "?id=" + g.Id;
-                HttpResponseMessage response = await client.GetAsync(url);
-                if(response.IsSuccessStatusCode)
+                string json = JsonSerializer.Serialize(g);
+                HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                if (response.IsSuccessStatusCode)
                 {
                     JsonSerializerOptions options = new JsonSerializerOptions
                     {
                         PropertyNameCaseInsensitive = true
                     };
                     string result = await response.Content.ReadAsStringAsync();
-                    GameData gameResult= JsonSerializer.Deserialize<GameData>(result, options);
+                    //GameData gameResult= JsonSerializer.Deserialize<GameData>(result, options);
 
-                    responseResult = new(true, "game removed successfuly", gameResult);
+                    responseResult = new(true, "game removed successfuly", g);
 
                 }
                 else

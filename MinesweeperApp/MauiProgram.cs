@@ -36,6 +36,7 @@ namespace MinesweeperApp
             builder.Services.AddTransient<ProfileViewModel>();
             builder.Services.AddTransient<LeaderboardViewModel>();
             builder.Services.AddTransient<GameReportsViewModel>();
+            builder.Services.AddTransient<FriendLeaderboardViewModel>();
             #endregion
 
             #region add Service
@@ -52,6 +53,7 @@ namespace MinesweeperApp
             builder.Services.AddTransient<ProfileView>();
             builder.Services.AddTransient<LeaderboardView>();
             builder.Services.AddTransient<GameReportsView>();
+            builder.Services.AddTransient<FriendLeaderboardView>();
             #endregion
 
 #if DEBUG

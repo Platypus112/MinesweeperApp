@@ -9,7 +9,6 @@ public partial class GameReportsView : ContentPage
     {
         this.BindingContext = vm;
         InitializeComponent();
-        CreateGrid();
     }
 
 }

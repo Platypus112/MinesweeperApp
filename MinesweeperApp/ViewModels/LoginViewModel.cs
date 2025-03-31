@@ -54,7 +54,7 @@ namespace MinesweeperApp.ViewModels
                 if (response.Response)
                 {
                     AppShell.Current.FlyoutBehavior = FlyoutBehavior.Flyout;
-                    await AppShell.Current.GoToAsync("///leaderboardPage");
+                    await AppShell.Current.GoToAsync("///startGamePage");
                     InServerCall = false;
                 }
                 else

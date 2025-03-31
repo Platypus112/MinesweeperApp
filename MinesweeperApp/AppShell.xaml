@@ -51,8 +51,14 @@
                       ContentTemplate="{DataTemplate views:HomeView}"
                       Route="homePage"/>
     
-            <ShellContent Title="Minesweeper"
-                          ContentTemplate="{DataTemplate views:LeaderboardView}"
-                          Route="leaderboardPage"/>
+            <ShellContent Title="Play"
+                          ContentTemplate="{DataTemplate views:StartGameView}"
+                          Route="startGamePage"/>
+    <ShellContent Title="Leaderboard"
+              ContentTemplate="{DataTemplate views:LeaderboardView}"
+              Route="leaderboardPage"/>
+    <ShellContent Title="Friend leaderboard"
+              ContentTemplate="{DataTemplate views:FriendLeaderboardView}"
+              Route="friendLeaderboardPage"/>
     
 </Shell>

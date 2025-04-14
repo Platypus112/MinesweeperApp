@@ -44,8 +44,10 @@
             <Setter Property="Padding" Value="0"/>
         </Style>
     </Shell.Resources>
-            
-            <ShellContent Title="Welcome" 
+    <ShellContent Title="aa"
+                          ContentTemplate="{DataTemplate views:GameView}"
+                          Route="gamePage"/>
+    <ShellContent Title="Welcome" 
                       IsEnabled="False"
                       FlyoutItemIsVisible="False"
                       ContentTemplate="{DataTemplate views:HomeView}"

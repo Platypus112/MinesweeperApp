@@ -11,12 +11,14 @@ public partial class GameView : ContentPage
     //private double startScale = 1;
     //private double xOffset = 0;
     //private double yOffset = 0;
+
     public GameView(GameViewModel vm)
 	{
 		this.BindingContext = vm;
 		InitializeComponent();
         //ArranageGrid();
         //AddPanAndZoomToGrid();
+        Task.Run(async () => { await Task.Delay(10000); vm.GridHeight = GestureView.Height; }) ;  
     }
 
 	public void ArranageGrid()

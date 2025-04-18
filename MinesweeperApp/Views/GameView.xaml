@@ -9,28 +9,37 @@
              x:Class="MinesweeperApp.Views.GameView"
              x:DataType="ViewModel:GameViewModel"
              Title="GameView">
-    <StackLayout HorizontalOptions="Center">
-        <Label HorizontalOptions="Center" Text="{Binding Timer}"/>
-        <HorizontalStackLayout HorizontalOptions="Center">
+    <Grid HorizontalOptions="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Label ZIndex="4" Grid.Row="0" HorizontalOptions="Center" Text="{Binding Timer}"/>
+        <HorizontalStackLayout ZIndex="4" Grid.Row="1" HorizontalOptions="Center">
             <Image Source="mine.png" HeightRequest="20" WidthRequest="20"/>
             <Label Text="{Binding Bombs}"/>
         </HorizontalStackLayout>
-        <local:PinchToZoomAndPanContainer  x:Name="GestureView">
-            <Grid BackgroundColor="#211e1f" HorizontalOptions="Center" x:Name="GameGrid" BindableLayout.ItemsSource="{Binding Board}" RowDefinitions="{Binding Rows}" ColumnDefinitions="{Binding Columns}">
+        <local:PinchToZoomAndPanContainer Grid.Row="2" x:Name="GestureView">
+            <Grid ZIndex="1" BackgroundColor="#211e1f" HorizontalOptions="Center" x:Name="GameGrid" BindableLayout.ItemsSource="{Binding Board}" RowDefinitions="{Binding Rows}" ColumnDefinitions="{Binding Columns}">
                 <BindableLayout.ItemTemplate Margin="0" Padding="0">
                     <DataTemplate x:DataType="Models:Tile">
                         <Border Grid.Column="{Binding DisplayDetails.x}"
                                         Grid.Row="{Binding DisplayDetails.y}"
                                         Stroke="Black"
-                                
+                                ZIndex="1"
+                                HeightRequest="{Binding Source={x:Reference GameGrid}, Path=BindingContext.SquareHeight}"
+                                WidthRequest="{Binding Source={x:Reference GameGrid}, Path=BindingContext.SquareHeight}"
                                         Margin="0" Padding="0" StrokeThickness="0.5" >
                             <buttons:SfButton Style="{DynamicResource Tile}"
-
+                                              ZIndex="1"
                                                       Scale="{Binding DisplayDetails.Scale}"
-                                                      MaximumHeightRequest="15"
-                                                      MaximumWidthRequest="15"
-                                                      HeightRequest="15"
-                                                      WidthRequest="15"
+                                                      HeightRequest="{Binding Source={x:Reference GameGrid}, Path=BindingContext.SquareHeight}"
+                                                      WidthRequest="{Binding Source={x:Reference GameGrid}, Path=BindingContext.SquareHeight}"
                                               FontSize="7"
                                               Text="{Binding DisplayDetails.Text}"
                                                       HorizontalOptions="StartAndExpand" 
@@ -70,14 +79,14 @@
                 </BindableLayout.ItemTemplate>
             </Grid>
         </local:PinchToZoomAndPanContainer>
-        <HorizontalStackLayout HorizontalOptions="Center">
+        <HorizontalStackLayout ZIndex="4" Grid.Row="3" HorizontalOptions="Center">
             <ImageButton Aspect="AspectFill" Style="{DynamicResource imgButton}" Source="mine.png" Command="{Binding ToggleMineCommand}"/>
             <ImageButton Aspect="AspectFill" Style="{DynamicResource imgButton}" Source="flag.png" Command="{Binding ToggleFlagCommand}"/>
         </HorizontalStackLayout>
         <ActivityIndicator IsRunning="{Binding InServerCall}" 
        VerticalOptions="Center" 
        HorizontalOptions="Center" />
-    </StackLayout>
+    </Grid>
 
 
 

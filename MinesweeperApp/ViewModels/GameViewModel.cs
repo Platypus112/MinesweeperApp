@@ -1,6 +1,7 @@
 ﻿using Microsoft.Maui.Graphics.Text;
 using MinesweeperApp.Models;
 using MinesweeperApp.Services;
+using Syncfusion.Maui.Core.Internals;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -26,6 +27,10 @@ namespace MinesweeperApp.ViewModels
         private int width;
         public int Bombs {get { return bombs; }set { bombs=value; OnPropertyChanged(); } }
         private int bombs;
+        public double GridHeight { get { return gridHeight; }set { gridHeight = value; SquareHeight = value / Height; OnPropertyChanged(); } }
+        private double gridHeight;
+        public double SquareHeight { get { return squareHeight; } set { squareHeight = value; OnPropertyChanged(); } }
+        private double squareHeight;
         public RowDefinitionCollection Rows { get { return rows; } set { rows = value; OnPropertyChanged(); } }
         private RowDefinitionCollection rows;
         public ColumnDefinitionCollection Columns { get { return columns; } set { columns = value; OnPropertyChanged(); } }
@@ -57,9 +62,9 @@ namespace MinesweeperApp.ViewModels
             ToggleMineCommand = new Command(async () => await ToggleFlagging(), () => isFlagging);
             Diff = new Difficulty()
             {
-                bombs = 10,
-                width = 10,
-                height = 10,
+                bombs = 12,
+                width = 12,
+                height = 22,
             };
         }
         private async void CreateGameBoard()

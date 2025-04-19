@@ -1,6 +1,5 @@
 ﻿using MinesweeperApp.Models;
 using MinesweeperApp.Services;
-using MinesweeperServer.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,5 +1,4 @@
 ﻿using MinesweeperApp.Models;
-using MinesweeperServer.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +29,153 @@ namespace MinesweeperApp.Services
             this.client = new HttpClient(handler);
             this.baseUrl = BaseAddress;
         }
+        public async Task<ServerResponse<AppUser>> RemoveFriend(AppUser user)
+        {
+            string url = BaseAddress + "RemoveFriend";
+            ServerResponse<AppUser> responseResult = new();
+            try
+            {
+                LoginInfo toBlock = new()
+                {
+                    Name = user.Name,
+                };
+                string json = JsonSerializer.Serialize(toBlock);
+                HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                if (response.IsSuccessStatusCode)
+                {
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    string resultString = await response.Content.ReadAsStringAsync();
+                    AppUser removedFriend = JsonSerializer.Deserialize<AppUser>(resultString, options);
+                    responseResult = new(true, "Friend removed successfuly", removedFriend);
 
+                }
+                else
+                {
+                    responseResult = new(await response.Content.ReadAsStringAsync());
+                }
+                return responseResult;
+            }
+            catch (Exception ex)
+            {
+                responseResult = new(ex.Message);
+                return responseResult;
+            }
+        }
+    
+        public async Task<ServerResponse<AppUser>> BlockUser(string username)
+        {
+            string url = BaseAddress + "BlockUser";
+            ServerResponse<AppUser> responseResult = new();
+            try
+            {
+                LoginInfo toBlock = new()
+                {
+                    Name = username,
+                };
+                string json = JsonSerializer.Serialize(toBlock);
+                HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                if (response.IsSuccessStatusCode)
+                {
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    string resultString = await response.Content.ReadAsStringAsync();
+                    AppUser recieved = JsonSerializer.Deserialize<AppUser>(resultString, options);
+                    responseResult = new(true, "User blocked successfuly", recieved);
+
+                }
+                else
+                {
+                    responseResult = new(await response.Content.ReadAsStringAsync());
+                }
+                return responseResult;
+            }
+            catch (Exception ex)
+            {
+                responseResult = new(ex.Message);
+                return responseResult;
+            }
+        }
+        public async Task<ServerResponse<AppUser>> AcceptFriendRequest(FriendRequest request)
+        {
+            string url = BaseAddress + "AcceptFriendRequest";
+            ServerResponse<AppUser> responseResult = new();
+            try
+            {
+                string json = JsonSerializer.Serialize(request);
+                HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                if (response.IsSuccessStatusCode)
+                {
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    string resultString = await response.Content.ReadAsStringAsync();
+                    AppUser recieved = JsonSerializer.Deserialize<AppUser>(resultString, options);
+                    responseResult = new(true, "Friend added successfuly", recieved);
+
+                }
+                else
+                {
+                    responseResult = new(await response.Content.ReadAsStringAsync());
+                }
+                return responseResult;
+            }
+            catch (Exception ex)
+            {
+                responseResult = new(ex.Message);
+                return responseResult;
+            }
+        }
+        public async Task<ServerResponse<FriendRequest>> SendFriendRequest(LoginInfo recievingUser)
+        {
+            string url = BaseAddress + "SendFriendRequest";
+            ServerResponse<FriendRequest> responseResult = new();
+            try
+            {
+                FriendRequest request = new()
+                {
+                    UserSending=new(){
+                        Name=this.LoggedUser.Name,
+                    },
+                    UserRecieving=recievingUser,
+
+                };
+
+                string json = JsonSerializer.Serialize(request);
+                HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                if (response.IsSuccessStatusCode)
+                {
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    string result = await response.Content.ReadAsStringAsync();
+                    //GameReport gameReportResult = JsonSerializer.Deserialize<GameReport>(result, options);
+
+                    responseResult = new(true, result, request);
+
+                }
+                else
+                {
+                    responseResult = new(await response.Content.ReadAsStringAsync());
+                }
+                return responseResult;
+            }
+            catch (Exception ex)
+            {
+                responseResult = new(ex.Message);
+                return responseResult;
+            }
+        }
         public async Task<ServerResponse<GameReport>> AcceptGameReport(GameReport r)
         {
             string url = BaseAddress + "AcceptGameReport";

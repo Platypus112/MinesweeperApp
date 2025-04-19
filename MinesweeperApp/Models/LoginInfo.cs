@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MinesweeperServer.DTO
+namespace MinesweeperApp.Models
 {
     public class LoginInfo
     {

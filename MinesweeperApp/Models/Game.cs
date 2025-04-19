@@ -99,7 +99,7 @@ namespace MinesweeperApp.Models
         }
         public async Task<bool> EasyDig(int x, int y)
         {
-            if ((x < 0 || y < 0 || x >= Board.GetLength(0) || y >= Board.GetLength(1)) || Board[x, y] == null || !Board[x, y].Unvailed)
+            if ((x < 0 || y < 0 || x >= Board.GetLength(0) || y >= Board.GetLength(1)) || Board[x, y] == null || !Board[x, y].Unveiled)
             {
                 Console.WriteLine("illegal move");
                 return false;
@@ -112,7 +112,7 @@ namespace MinesweeperApp.Models
         }
         public async Task<bool> UnveilTile(int x,int y)//returns true when the game is done
         {
-            if ((x < 0 || y < 0 || x >= Board.GetLength(0) || y >= Board.GetLength(1))|| Board[x, y] == null || Board[x, y].Unvailed)
+            if ((x < 0 || y < 0 || x >= Board.GetLength(0) || y >= Board.GetLength(1))|| Board[x, y] == null || Board[x, y].Unveiled)
             {
                 Console.WriteLine("illegal move");
                 return false;
@@ -212,7 +212,7 @@ namespace MinesweeperApp.Models
                 Console.WriteLine("illegal move");
                 return;
             }
-            if (Board[x, y].Unvailed) return;
+            if (Board[x, y].Unveiled) return;
             if (Board[x, y].Flag())
             {
                 Bombs--;
@@ -257,12 +257,26 @@ namespace MinesweeperApp.Models
             EndTime = DateTime.Now;
             HasWon = false;
             IsPlaying = false;
+            //foreach (Tile t in Board)
+            //{
+            //    if (t != null)
+            //    {
+            //        if (t.Value == -1&&!t.Unveiled) t.Flag();
+            //    }
+            //}
         }
         public void GameWon()
         {
             EndTime = DateTime.Now;
             IsPlaying = false;
             HasWon = true;
+            foreach(Tile t in Board)
+            {
+                if (t != null)
+                {
+                    if (t.Value == -1&&!t.Flagged) t.Flag();
+                }
+            }
         }
         public List<Tile> GetBoardStateList()
         {

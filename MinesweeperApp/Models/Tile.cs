@@ -24,8 +24,8 @@ namespace MinesweeperApp.Models
         private int value;
         public int FlagCount { get { return flagCount; } private set { UpdateDisplay(); this.flagCount = value; } }
         private int flagCount;
-        public bool Unvailed { get { return unvailed; } private set { UpdateDisplay();unvailed = value; } }//-1 is bomb
-        private bool unvailed;
+        public bool Unveiled { get { return unveiled; } private set { UpdateDisplay();unveiled = value; } }//-1 is bomb
+        private bool unveiled;
         public bool Flagged { get{ return flagged; } private set { UpdateDisplay();flagged = value; } }
         private bool flagged;
         public DisplayDetails? DisplayDetails { get { return displayDetails; } private set { OnPropertyChanged();displayDetails = value; } }
@@ -33,13 +33,13 @@ namespace MinesweeperApp.Models
         public Tile(int Value_)
         {
             Value = Value_;
-            Unvailed = false;
+            Unveiled = false;
             Flagged = false;
             FlagCount = 0;
         }
         public Tile(int Value_,bool Unvailed_) : this(Value_)
         {
-            Unvailed = Unvailed_;
+            Unveiled = Unvailed_;
 
         }
         public Tile(int Value_, int x_,int y_) : this(Value_)
@@ -55,9 +55,11 @@ namespace MinesweeperApp.Models
                 this.DisplayDetails.BackgroundColor = "#9e969e";
                 this.DisplayDetails.Text = string.Empty;
                 this.DisplayDetails.Image = "flag.png";
+                this.DisplayDetails.Scale = 0.95;
             }
-            else if (Unvailed)
+            else if (Unveiled)
             {
+                this.DisplayDetails.Scale = 1;
                 if (Value != -1)
                 {
                     this.DisplayDetails.BackgroundColor = "#211e1f";
@@ -75,6 +77,7 @@ namespace MinesweeperApp.Models
             }
             else
             {
+                this.DisplayDetails.Scale = 1;
                 this.DisplayDetails.Text = string.Empty;
                 this.DisplayDetails.Image = null;
                 this.DisplayDetails.BackgroundColor = this.DisplayDetails.baseBackgroundColor;
@@ -83,8 +86,8 @@ namespace MinesweeperApp.Models
         }
         public async Task<bool> Dig()//returns true when the move doesn't kill you
         {
-            if (Unvailed||Flagged) return true;
-            Unvailed = true;
+            if (Unveiled||Flagged) return true;
+            Unveiled = true;
             await this.AnimateDig(0.2);
             //UpdateDisplay();
             if (Value == -1) return false;

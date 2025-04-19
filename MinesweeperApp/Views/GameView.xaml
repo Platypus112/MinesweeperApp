@@ -9,41 +9,46 @@
              x:Class="MinesweeperApp.Views.GameView"
              x:DataType="ViewModel:GameViewModel"
              Title="GameView">
-    <Grid HorizontalOptions="Center">
+    <Grid HorizontalOptions="Center" x:Name="View">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="0.5*"/>
             <RowDefinition Height="8*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Label ZIndex="4" Grid.Row="0" HorizontalOptions="Center" Text="{Binding Timer}"/>
-        <HorizontalStackLayout ZIndex="4" Grid.Row="1" HorizontalOptions="Center">
-            <Image Source="mine.png" HeightRequest="20" WidthRequest="20"/>
-            <Label Text="{Binding Bombs}"/>
-        </HorizontalStackLayout>
-        <local:PinchToZoomAndPanContainer Grid.Row="2" x:Name="GestureView">
-            <Grid ZIndex="1" BackgroundColor="#211e1f" HorizontalOptions="Center" x:Name="GameGrid" BindableLayout.ItemsSource="{Binding Board}" RowDefinitions="{Binding Rows}" ColumnDefinitions="{Binding Columns}">
+        <Frame Style="{DynamicResource frame}" Grid.Row="0">
+            <Label HorizontalOptions="Center" Text="{Binding Timer}"/>
+        </Frame>
+        <Frame Style="{DynamicResource frame}"  Grid.Row="1">
+            <HorizontalStackLayout HorizontalOptions="Center">
+                <Image VerticalOptions="Center" Source="mine.png" HeightRequest="15" WidthRequest="15"/>
+                <Label VerticalOptions="Center" Text="{Binding Bombs}"/>
+            </HorizontalStackLayout>
+        </Frame>
+            <Grid Grid.Row="2" ZIndex="3" BackgroundColor="#211e1f" HorizontalOptions="Center" x:Name="GameGrid" BindableLayout.ItemsSource="{Binding Board}" RowDefinitions="{Binding Rows}" ColumnDefinitions="{Binding Columns}">
                 <BindableLayout.ItemTemplate Margin="0" Padding="0">
                     <DataTemplate x:DataType="Models:Tile">
                         <Border Grid.Column="{Binding DisplayDetails.x}"
                                         Grid.Row="{Binding DisplayDetails.y}"
                                         Stroke="Black"
-                                ZIndex="1"
+                                ZIndex="2"
                                 HeightRequest="{Binding Source={x:Reference GameGrid}, Path=BindingContext.SquareHeight}"
                                 WidthRequest="{Binding Source={x:Reference GameGrid}, Path=BindingContext.SquareHeight}"
-                                        Margin="0" Padding="0" StrokeThickness="0.5" >
+                                        Margin="0" Padding="1" StrokeThickness="0.5" >
                             <buttons:SfButton Style="{DynamicResource Tile}"
                                               ZIndex="1"
                                                       Scale="{Binding DisplayDetails.Scale}"
-                                                      HeightRequest="{Binding Source={x:Reference GameGrid}, Path=BindingContext.SquareHeight}"
-                                                      WidthRequest="{Binding Source={x:Reference GameGrid}, Path=BindingContext.SquareHeight}"
+                                                      HeightRequest="{Binding Source={x:Reference GameGrid}, Path=BindingContext.TileHeight}"
+                                                      WidthRequest="{Binding Source={x:Reference GameGrid}, Path=BindingContext.TileHeight}"
                                               FontSize="7"
+                                              FontAutoScalingEnabled="True"
+                                              
                                               Text="{Binding DisplayDetails.Text}"
-                                                      HorizontalOptions="StartAndExpand" 
-                                                      VerticalOptions="StartAndExpand"
+                                                      MaximumHeightRequest="{Binding Source={x:Reference GameGrid}, Path=BindingContext.SquareHeight}"
+                                              MaximumWidthRequest="{Binding Source={x:Reference GameGrid}, Path=BindingContext.SquareHeight}"
                                                       BackgroundImageSource="{Binding DisplayDetails.Image}"
                                                       Background="{Binding DisplayDetails.Background}"
                                                       Command="{Binding Source={x:Reference GameGrid}, Path=BindingContext.ClickTileCommand}"
@@ -73,16 +78,19 @@
                                             Command="{Binding Source={x:Reference GameGrid}, Path=BindingContext.ClickTileCommand}"
                                             CommandParameter="{Binding .}" />-->
                             <!--#endregion-->
-                            <!--VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"-->
+                            <!--VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"--><!--HorizontalOptions="StartAndExpand" 
+                                                      VerticalOptions="StartAndExpand"-->
+
                         </Border>
                     </DataTemplate>
                 </BindableLayout.ItemTemplate>
             </Grid>
-        </local:PinchToZoomAndPanContainer>
-        <HorizontalStackLayout ZIndex="4" Grid.Row="3" HorizontalOptions="Center">
-            <ImageButton Aspect="AspectFill" Style="{DynamicResource imgButton}" Source="mine.png" Command="{Binding ToggleMineCommand}"/>
-            <ImageButton Aspect="AspectFill" Style="{DynamicResource imgButton}" Source="flag.png" Command="{Binding ToggleFlagCommand}"/>
-        </HorizontalStackLayout>
+        <Frame Style="{DynamicResource frame}" Grid.Row="3">
+            <HorizontalStackLayout HorizontalOptions="Center">
+                <ImageButton WidthRequest="50" HeightRequest="50" Aspect="AspectFit" Style="{DynamicResource imgButton}" Source="mine.png" Command="{Binding ToggleMineCommand}"/>
+                <ImageButton WidthRequest="50" HeightRequest="50" Aspect="AspectFit" Style="{DynamicResource imgButton}" Source="flag.png" Command="{Binding ToggleFlagCommand}"/>
+            </HorizontalStackLayout>
+        </Frame>
         <ActivityIndicator IsRunning="{Binding InServerCall}" 
        VerticalOptions="Center" 
        HorizontalOptions="Center" />

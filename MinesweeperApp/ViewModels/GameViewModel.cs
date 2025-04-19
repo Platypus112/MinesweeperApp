@@ -29,6 +29,7 @@ namespace MinesweeperApp.ViewModels
         private int bombs;
         public double GridHeight { get { return gridHeight; }set { gridHeight = value; SquareHeight = value / Height; OnPropertyChanged(); } }
         private double gridHeight;
+        public double TileHeight { get { return squareHeight - 1; } set {  squareHeight = value+1; OnPropertyChanged(); } }
         public double SquareHeight { get { return squareHeight; } set { squareHeight = value; OnPropertyChanged(); } }
         private double squareHeight;
         public RowDefinitionCollection Rows { get { return rows; } set { rows = value; OnPropertyChanged(); } }

@@ -21,6 +21,14 @@
         <Style TargetType="ContentPage">
             <Setter Property="BackgroundColor" Value="Gray"/>
         </Style>
+        <Style TargetType="Frame" x:Key="frame">
+            <Setter Property="ZIndex" Value="4"/>
+            <Setter Property="BackgroundColor" Value="DarkSlateGrey"/>
+            <Setter Property="BorderColor" Value="Black"/>
+            <Setter Property="VerticalOptions" Value="Fill"/>
+            <Setter Property="HorizontalOptions" Value="Fill"/>
+            <Setter Property="Padding" Value="0"/>
+        </Style>
         <Style TargetType="ActivityIndicator">
             <Setter Property="Color" Value="DeepPink"/>
         </Style>

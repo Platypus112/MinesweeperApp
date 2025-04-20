@@ -27,7 +27,16 @@ namespace MinesweeperApp.Models
             Description = description_;
         }
 
-
+        public AppUser(UserData userData_)
+        {
+            Id = userData_.Id;
+            Name = userData_.Name;
+            Email = userData_.Email;
+            Password = userData_.Password;
+            PicPath = userData_.PicPath;
+            IsAdmin = userData_.IsAdmin;
+            Description = userData_.Description;
+        }
 
     }
     public class UserDTO

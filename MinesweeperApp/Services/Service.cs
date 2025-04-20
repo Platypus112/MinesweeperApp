@@ -29,6 +29,36 @@ namespace MinesweeperApp.Services
             this.client = new HttpClient(handler);
             this.baseUrl = BaseAddress;
         }
+        public async Task<ServerResponse<List<FriendRequest>>> GetFriendRequests()
+        {
+            string url = BaseAddress + "GetFriendRequests";
+            ServerResponse<List<FriendRequest>> responseResult = new();
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync(url);
+                if (response.IsSuccessStatusCode)
+                {
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    string result = await response.Content.ReadAsStringAsync();
+                    List<FriendRequest> requests = JsonSerializer.Deserialize<List<FriendRequest>>(result, options);
+                    responseResult = new(true, result, requests);
+                    return responseResult;
+                }
+                else
+                {
+                    responseResult = new(await response.Content.ReadAsStringAsync());
+                    return responseResult;
+                }
+            }
+            catch (Exception ex)
+            {
+                responseResult = new(ex.Message);
+                return responseResult;
+            }
+        }
         public async Task<ServerResponse<AppUser>> RemoveFriend(AppUser user)
         {
             string url = BaseAddress + "RemoveFriend";
@@ -65,7 +95,6 @@ namespace MinesweeperApp.Services
                 return responseResult;
             }
         }
-    
         public async Task<ServerResponse<AppUser>> BlockUser(string username)
         {
             string url = BaseAddress + "BlockUser";
@@ -88,6 +117,38 @@ namespace MinesweeperApp.Services
                     string resultString = await response.Content.ReadAsStringAsync();
                     AppUser recieved = JsonSerializer.Deserialize<AppUser>(resultString, options);
                     responseResult = new(true, "User blocked successfuly", recieved);
+
+                }
+                else
+                {
+                    responseResult = new(await response.Content.ReadAsStringAsync());
+                }
+                return responseResult;
+            }
+            catch (Exception ex)
+            {
+                responseResult = new(ex.Message);
+                return responseResult;
+            }
+        }
+        public async Task<ServerResponse<AppUser>> DeclineFriendRequest(FriendRequest request)
+        {
+            string url = BaseAddress + "DeclineFriendRequest";
+            ServerResponse<AppUser> responseResult = new();
+            try
+            {
+                string json = JsonSerializer.Serialize(request);
+                HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                if (response.IsSuccessStatusCode)
+                {
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    string resultString = await response.Content.ReadAsStringAsync();
+                    AppUser recieved = JsonSerializer.Deserialize<AppUser>(resultString, options);
+                    responseResult = new(true, "Friend request declined successfuly", recieved);
 
                 }
                 else
@@ -134,7 +195,7 @@ namespace MinesweeperApp.Services
                 return responseResult;
             }
         }
-        public async Task<ServerResponse<FriendRequest>> SendFriendRequest(LoginInfo recievingUser)
+        public async Task<ServerResponse<FriendRequest>> SendFriendRequest(string username)
         {
             string url = BaseAddress + "SendFriendRequest";
             ServerResponse<FriendRequest> responseResult = new();
@@ -145,7 +206,10 @@ namespace MinesweeperApp.Services
                     UserSending=new(){
                         Name=this.LoggedUser.Name,
                     },
-                    UserRecieving=recievingUser,
+                    UserRecieving= new()
+                    {
+                        Name = username,
+                    },
 
                 };
 
@@ -448,18 +512,10 @@ namespace MinesweeperApp.Services
                                 listResult.Add(r);
                             }
                         }
-                        else if (type.Contains("social"))
-                        {
-                            List<AppUser> list = JsonSerializer.Deserialize<List<AppUser>>(result, options);
-                            foreach (AppUser u in list)
-                            {
-                                listResult.Add(u);
-                            }
-                        }
                         else
                         {
-                            List<AppUser> list = JsonSerializer.Deserialize<List<AppUser>>(result, options);
-                            foreach (AppUser u in list)
+                            List<UserData> list = JsonSerializer.Deserialize<List<UserData>>(result, options);
+                            foreach (UserData u in list)
                             {
                                 listResult.Add(u);
                             }

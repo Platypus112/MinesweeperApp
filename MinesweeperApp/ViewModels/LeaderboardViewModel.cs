@@ -47,7 +47,7 @@ namespace MinesweeperApp.ViewModels
             try
             {
                 string description = await AppShell.Current.DisplayPromptAsync("File Report","Describe the problem with the game");
-                if (description != null)
+                if (!string.IsNullOrEmpty(description))
                 {
                     InServerCall = true;
                     ServerResponse<GameReport> serverResponse = await service.ReportGame((GameData)o, description);

@@ -241,7 +241,11 @@ namespace MinesweeperApp.Services
                     {
                         Name = username,
                     },
-
+                    Status = new()
+                    {
+                        Name="aaa",
+                        Id=0,
+                    },
                 };
 
                 string json = JsonSerializer.Serialize(request);

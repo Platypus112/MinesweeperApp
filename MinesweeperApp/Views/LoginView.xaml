@@ -6,7 +6,7 @@
              x:DataType="ViewModel:LoginViewModel"
              Title="LoginView">
     <VerticalStackLayout><!--IsEnabled="{Binding InServerCall,Converter={StaticResource BoolInverter}}"-->
-        <Grid HorizontalOptions="CenterAndExpand" WidthRequest="400">
+        <Grid HorizontalOptions="CenterAndExpand" WidthRequest="360">
             <Grid.RowDefinitions>
                 <RowDefinition Height="6*"/>
                 <RowDefinition Height="*"/>

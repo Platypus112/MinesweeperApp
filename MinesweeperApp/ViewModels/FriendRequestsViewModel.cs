@@ -94,7 +94,7 @@ namespace MinesweeperApp.ViewModels
                     Requests = new();
                     foreach (FriendRequest f in listResponse.Content)
                     {
-                        Requests.Add(f);
+                        if(f.Status.Name=="pending")Requests.Add(f);
                     }
                 }
             }

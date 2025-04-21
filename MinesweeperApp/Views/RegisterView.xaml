@@ -6,7 +6,7 @@
              x:DataType="ViewModel:RegisterViewModel"
              Title="RegisterView">
     <VerticalStackLayout>
-        <Grid HorizontalOptions="CenterAndExpand" WidthRequest="400" MaximumWidthRequest="400">
+        <Grid HorizontalOptions="CenterAndExpand" WidthRequest="360" MaximumWidthRequest="400">
             <Grid.RowDefinitions>
                 <RowDefinition Height="6*"/>
                 <RowDefinition Height="*"/>

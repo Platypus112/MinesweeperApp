@@ -9,12 +9,14 @@
     xmlns:ViewModel="clr-namespace:MinesweeperApp.ViewModels"
     xmlns:syncfusion="clr-namespace:Syncfusion;assembly=Syncfusion.Licensing"
     xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
-    x:DataType="ViewModel:AppShellViewModel"
+    x:DataType="local:AppShell"
     Title="MinesweeperApp">
     <Shell.Resources>
         <ResourceDictionary>
             <local:BoolInverter x:Key="BoolInverter" />
         </ResourceDictionary>
+        <Style TargetType="ShellContent">
+        </Style>
         <Style TargetType="Shell">
             <Setter Property="BackgroundColor" Value="Gray"/>
         </Style>
@@ -23,7 +25,7 @@
         </Style>
         <Style TargetType="Frame" x:Key="frame">
             <Setter Property="ZIndex" Value="4"/>
-            <Setter Property="BackgroundColor" Value="DarkSlateGrey"/>
+            <Setter Property="BackgroundColor" Value="DarkSlateGray"/>
             <Setter Property="BorderColor" Value="Black"/>
             <Setter Property="VerticalOptions" Value="Fill"/>
             <Setter Property="HorizontalOptions" Value="Fill"/>
@@ -52,9 +54,27 @@
             <Setter Property="Padding" Value="0"/>
         </Style>
     </Shell.Resources>
-    <ShellContent Title="aa"
-                          ContentTemplate="{DataTemplate views:GameView}"
-                          Route="gamePage"/>
+    <Shell.ItemTemplate>
+        <DataTemplate x:DataType="ShellContent">
+            <Grid
+                BackgroundColor="DarkSlateGray">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="8*"/>
+                </Grid.ColumnDefinitions>
+                <Image Grid.Row="0" Grid.Column="0"
+                       Source="{Binding FlyoutIcon}"/>
+                <Label FontAutoScalingEnabled="True" 
+                       Grid.Row="0" Grid.Column="1" Text="{Binding Title}"
+                       TextColor="DeepPink"/>
+                
+            </Grid>
+        </DataTemplate>
+    </Shell.ItemTemplate>
+
     <ShellContent Title="Welcome" 
                       IsEnabled="False"
                       FlyoutItemIsVisible="False"
@@ -70,5 +90,8 @@
     <ShellContent Title="Friend leaderboard"
               ContentTemplate="{DataTemplate views:FriendLeaderboardView}"
               Route="friendLeaderboardPage"/>
+    <ShellContent Title="Social page"
+          ContentTemplate="{DataTemplate views:SocialPageView}"
+          Route="socialPage"/>
     
 </Shell>

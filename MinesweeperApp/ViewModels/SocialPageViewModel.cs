@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace MinesweeperApp.ViewModels
 {
@@ -14,11 +15,50 @@ namespace MinesweeperApp.ViewModels
 
         public ObservableCollection<AppUser> Friends { get { return friends; } set { friends = value;OnPropertyChanged(); } }
         private ObservableCollection<AppUser> friends;
+
+        public ICommand RemoveFriendCommand { get; private set; }
+        public ICommand BlockUserCommand { get; private set; }
+        public ICommand SendFriendRequestCommand { get; private set; }
+        public ICommand ViewFriendRequestsCommand { get; private set; }
+        public ICommand ViewBlockedUsersCommand { get; private set; }
+
         public SocialPageViewModel(Service service_):base(service_) 
         {
-
+            AppShell.Current.FlyoutBehavior = FlyoutBehavior.Flyout;
+            FillCollection();
+            RemoveFriendCommand=new Command((Object o)=>RemoveFriend(o));
+            BlockUserCommand=new Command(BlockUser);
+            SendFriendRequestCommand = new Command(SendFriendRequest);
+            ViewBlockedUsersCommand = new Command(ViewBlockedUsers);
+            ViewFriendRequestsCommand=new Command(ViewFriendRequests);
         }
-        private async void BlockUser(Object o)
+        private async void ViewFriendRequests()
+        {
+            InServerCall = true;
+            try
+            {
+                await AppShell.Current.GoToAsync("friendRequestsPage");
+            }
+            catch (Exception ex)
+            {
+                await AppShell.Current.DisplayAlert("Error occured", ex.Message, "ok");
+            }
+            InServerCall = false;
+        }
+        private async void ViewBlockedUsers()
+        {
+            InServerCall = true;
+            try
+            {
+                await AppShell.Current.GoToAsync("blockedListPage");
+            }
+            catch (Exception ex)
+            {
+                await AppShell.Current.DisplayAlert("Error occured", ex.Message, "ok");
+            }
+            InServerCall = false;
+        }
+        private async void BlockUser()
         {
             InServerCall = true;
             string result = await AppShell.Current.DisplayPromptAsync("Block Users", "Type the username of the user you want to block");

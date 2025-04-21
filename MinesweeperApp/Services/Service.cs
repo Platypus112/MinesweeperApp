@@ -29,9 +29,40 @@ namespace MinesweeperApp.Services
             this.client = new HttpClient(handler);
             this.baseUrl = BaseAddress;
         }
-        public async Task<ServerResponse<List<FriendRequest>>> GetFriendRequests()
+        public async Task<ServerResponse<AppUser>> UnblockUser(AppUser user)
         {
-            string url = BaseAddress + "GetFriendRequests";
+            string url = BaseAddress + "UnblockUser";
+            ServerResponse<AppUser> responseResult = new();
+            try
+            {
+                string json = JsonSerializer.Serialize(user);
+                HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                if (response.IsSuccessStatusCode)
+                {
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    string resultString = await response.Content.ReadAsStringAsync();
+                    responseResult = new(true, "User unblocked successfuly", user);
+
+                }
+                else
+                {
+                    responseResult = new(await response.Content.ReadAsStringAsync());
+                }
+                return responseResult;
+            }
+            catch (Exception ex)
+            {
+                responseResult = new(ex.Message);
+                return responseResult;
+            }
+        }
+        public async Task<ServerResponse<List<FriendRequest>>> GetAllFriendRequests()
+        {
+            string url = BaseAddress + "GetAllFriendRequests";
             ServerResponse<List<FriendRequest>> responseResult = new();
             try
             {

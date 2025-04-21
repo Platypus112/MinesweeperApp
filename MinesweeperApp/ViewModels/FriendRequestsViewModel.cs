@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace MinesweeperApp.ViewModels
 {
@@ -13,9 +14,15 @@ namespace MinesweeperApp.ViewModels
     {
         public ObservableCollection<FriendRequest> Requests { get { return requests; } set { requests = value;OnPropertyChanged(); } }
         private ObservableCollection<FriendRequest> requests;
+        public ICommand DeclineFriendRequestCommand { get; private set; }
+        public ICommand AcceptFriendRequestCommand { get; private set; }
         public FriendRequestsViewModel(Service service_):base(service_)
         {
-        
+            AppShell.Current.FlyoutBehavior = FlyoutBehavior.Disabled;
+
+            FillCollection();
+            AcceptFriendRequestCommand = new Command((Object o) => AcceptFriendRequest(o));
+            DeclineFriendRequestCommand = new Command((Object o) => DeclineFriendRequest(o));
         }
         private async void DeclineFriendRequest(Object o)
         {
@@ -81,7 +88,7 @@ namespace MinesweeperApp.ViewModels
             InServerCall = true;
             try
             {
-                ServerResponse<List<FriendRequest>> listResponse = await service.GetFriendRequests();
+                ServerResponse<List<FriendRequest>> listResponse = await service.GetAllFriendRequests();
                 if (listResponse != null && listResponse.Response)
                 {
                     Requests = new();

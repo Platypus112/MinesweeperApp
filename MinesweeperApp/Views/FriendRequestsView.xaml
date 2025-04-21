@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MinesweeperApp.Views.FriendRequestsView"
+             xmlns:ViewModel="clr-namespace:MinesweeperApp.ViewModels"
+             xmlns:Models="clr-namespace:MinesweeperApp.Models"
+             xmlns:syncfusion="clr-namespace:Syncfusion.Maui.DataGrid;assembly=Syncfusion.Maui.DataGrid"
+             x:DataType="ViewModel:FriendRequestsViewModel"
+             Title="FriendRequestsView">
+    <VerticalStackLayout>
+        <syncfusion:SfDataGrid
+            x:Name="dataGrid"
+            SortingMode="Single"
+            AllowTriStateSorting="false"
+            AutoGenerateColumnsMode="None"
+            ItemsSource="{Binding Requests}">
+            <syncfusion:SfDataGrid.DefaultStyle>
+                <syncfusion:DataGridStyle HeaderRowBackground="#0074E3" HeaderRowTextColor="White" RowBackground="#AFD5FB" RowTextColor="#212121"/>
+            </syncfusion:SfDataGrid.DefaultStyle>
+            <syncfusion:SfDataGrid.Columns>
+                <syncfusion:DataGridTemplateColumn HeaderText="Username" ColumnWidthMode="Auto">
+                    <syncfusion:DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate x:DataType="Models:FriendRequest">
+                            <VerticalStackLayout>
+                                <Label Text="{Binding UserRecieving.Name}" IsVisible="{Binding Recieving, Converter={StaticResource InvertedBoolConverter}}"/>
+                                <Label Text="{Binding UserSending.Name}" IsVisible="{Binding Recieving}"/>
+                            </VerticalStackLayout>
+                        </DataTemplate>
+                    </syncfusion:DataGridTemplateColumn.CellTemplate>
+                </syncfusion:DataGridTemplateColumn>
+                <syncfusion:DataGridTemplateColumn HeaderText="Email" ColumnWidthMode="Auto">
+                    <syncfusion:DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate x:DataType="Models:FriendRequest">
+                            <VerticalStackLayout>
+                                <Label Text="{Binding UserRecieving.Email}" IsVisible="{Binding Recieving, Converter={StaticResource InvertedBoolConverter}}"/>
+                                <Label Text="{Binding UserSending.Email}" IsVisible="{Binding Recieving}"/>
+                            </VerticalStackLayout>
+                        </DataTemplate>
+                    </syncfusion:DataGridTemplateColumn.CellTemplate>
+                </syncfusion:DataGridTemplateColumn>
+                <syncfusion:DataGridTemplateColumn ColumnWidthMode="Auto" AllowSorting="False">
+                    <syncfusion:DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate x:DataType="Models:FriendRequest">
+                            <Button Text="Decline"
+                                    IsVisible="{Binding Recieving}"
+                        FontAutoScalingEnabled="True"
+                        Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.DeclineFriendRequestCommand}"
+                        CommandParameter="{Binding .}"/>
+                        </DataTemplate>
+                    </syncfusion:DataGridTemplateColumn.CellTemplate>
+                </syncfusion:DataGridTemplateColumn>
+                <syncfusion:DataGridTemplateColumn ColumnWidthMode="Auto" AllowSorting="False">
+                    <syncfusion:DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate x:DataType="Models:FriendRequest">
+                            <Button Text="Accept"
+                                    IsVisible="{Binding Recieving}"
+        FontAutoScalingEnabled="True"
+        Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.AcceptFriendRequestCommand}"
+        CommandParameter="{Binding .}"/>
+                        </DataTemplate>
+                    </syncfusion:DataGridTemplateColumn.CellTemplate>
+                </syncfusion:DataGridTemplateColumn>
+            </syncfusion:SfDataGrid.Columns>
+        </syncfusion:SfDataGrid>
+    </VerticalStackLayout>
+</ContentPage>

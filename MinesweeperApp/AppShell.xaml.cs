@@ -19,6 +19,9 @@ namespace MinesweeperApp
             Routing.RegisterRoute("leaderboardPage", typeof(LeaderboardView));
             Routing.RegisterRoute("friendLeaderboardPage", typeof(FriendLeaderboardView));
             Routing.RegisterRoute("gameReportsPage", typeof(GameReportsView));
+            Routing.RegisterRoute("socialPage", typeof(SocialPageView));
+            Routing.RegisterRoute("friendRequestsPage", typeof(FriendRequestsView));
+            Routing.RegisterRoute("blockedListPage", typeof(BlockedListView));
         }
     }
 }

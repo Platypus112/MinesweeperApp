@@ -29,6 +29,203 @@ namespace MinesweeperApp.Services
             this.client = new HttpClient(handler);
             this.baseUrl = BaseAddress;
         }
+        public async Task<ServerResponse<UserReport>> AcceptUserReport(UserReport r)
+        {
+            string url = BaseAddress + "AcceptUserReport";
+            ServerResponse<UserReport> responseResult = new();
+            try
+            {
+                if (r == null)
+                {
+                    responseResult = new("No report given");
+                    return responseResult;
+                }
+                string json = JsonSerializer.Serialize(r);
+                HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                if (response.IsSuccessStatusCode)
+                {
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    string result = await response.Content.ReadAsStringAsync();
+
+                    responseResult = new(true, "Report accepted successfuly, user unable to aquire new friends", r);
+
+                }
+                else
+                {
+                    responseResult = new(await response.Content.ReadAsStringAsync());
+                }
+                return responseResult;
+            }
+            catch (Exception ex)
+            {
+                responseResult = new(ex.Message);
+                return responseResult;
+            }
+        }
+        public async Task<ServerResponse<UserReport>> AbsolveGameReport(UserReport r)
+        {
+            string url = BaseAddress + "AbsolveUserReport";
+            ServerResponse<UserReport> responseResult = new();
+            try
+            {
+                if (r == null)
+                {
+                    responseResult = new("No report given");
+                    return responseResult;
+                }
+                string json = JsonSerializer.Serialize(r);
+                HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                if (response.IsSuccessStatusCode)
+                {
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    string result = await response.Content.ReadAsStringAsync();
+
+                    responseResult = new(true, "Report Absolved successfuly", r);
+
+                }
+                else
+                {
+                    responseResult = new(await response.Content.ReadAsStringAsync());
+                }
+                return responseResult;
+            }
+            catch (Exception ex)
+            {
+                responseResult = new(ex.Message);
+                return responseResult;
+            }
+        }
+        public async Task<ServerResponse<UserReport>> ReportUser(UserData u, string Description)
+        {
+            string url = BaseAddress + "ReportUser";
+            ServerResponse<UserReport> responseResult = new();
+            try
+            {
+                if (g == null)
+                {
+                    responseResult = new("No game given");
+                    return responseResult;
+                }
+                UserReport report = new()
+                {
+                    User=new AppUser(u),
+
+                    Status = new Status()
+                    {
+                        Id = 1,
+                        Name = "",
+                    },
+                    Description = Description,
+                };
+                string json = JsonSerializer.Serialize(report);
+                HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                if (response.IsSuccessStatusCode)
+                {
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    string result = await response.Content.ReadAsStringAsync();
+                    UserReport userReportResult = JsonSerializer.Deserialize<UserReport>(result, options);
+                    responseResult = new(true, "Report sent successfuly", userReportResult);
+
+                }
+                else
+                {
+                    responseResult = new(await response.Content.ReadAsStringAsync());
+                }
+                return responseResult;
+            }
+            catch (Exception ex)
+            {
+                responseResult = new(ex.Message);
+                return responseResult;
+            }
+        }
+        public async Task<ServerResponse<UserReport>> RemoveUserReport(UserReport r)
+        {
+            string url = BaseAddress + "RemoveUserReport";
+            ServerResponse<UserReport> responseResult = new();
+            try
+            {
+                if (r == null)
+                {
+                    responseResult = new("No report given");
+                    return responseResult;
+                }
+                string json = JsonSerializer.Serialize(r);
+                HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                if (response.IsSuccessStatusCode)
+                {
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    string result = await response.Content.ReadAsStringAsync();
+                    //GameReport gameReportResult = JsonSerializer.Deserialize<GameReport>(result, options);
+
+                    responseResult = new(true, "Report removed successfuly", r);
+
+                }
+                else
+                {
+                    responseResult = new(await response.Content.ReadAsStringAsync());
+                }
+                return responseResult;
+            }
+            catch (Exception ex)
+            {
+                responseResult = new(ex.Message);
+                return responseResult;
+            }
+        }
+        public async Task<ServerResponse<UserData>> RemoveGame(UserData u)
+        {
+            string url = BaseAddress + "RemoveUser";
+            ServerResponse<UserData> responseResult = new();
+            try
+            {
+                if (u == null)
+                {
+                    responseResult = new("No user given");
+                    return responseResult;
+                }
+                string json = JsonSerializer.Serialize(u);
+                HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                if (response.IsSuccessStatusCode)
+                {
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    string result = await response.Content.ReadAsStringAsync();
+
+                    responseResult = new(true, "user removed successfuly", u);
+
+                }
+                else
+                {
+                    responseResult = new(await response.Content.ReadAsStringAsync());
+                }
+                return responseResult;
+            }
+            catch (Exception ex)
+            {
+                responseResult = new(ex.Message);
+                return responseResult;
+            }
+        }
         public async Task<ServerResponse<AppUser>> UnblockUser(AppUser user)
         {
             string url = BaseAddress + "UnblockUser";
@@ -336,7 +533,7 @@ namespace MinesweeperApp.Services
                     string result = await response.Content.ReadAsStringAsync();
                     //GameReport gameReportResult = JsonSerializer.Deserialize<GameReport>(result, options);
 
-                    responseResult = new(true, "Report Resolved successfuly", r);
+                    responseResult = new(true, "Report Absolved successfuly", r);
 
                 }
                 else
@@ -407,7 +604,7 @@ namespace MinesweeperApp.Services
         }
         public async Task<ServerResponse<GameReport>> RemoveGameReport(GameReport r)
         {
-            string url = BaseAddress + "RemoveReport";
+            string url = BaseAddress + "RemoveGameReport";
             ServerResponse<GameReport> responseResult = new();
             try
             {

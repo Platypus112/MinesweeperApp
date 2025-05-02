@@ -29,6 +29,46 @@ namespace MinesweeperApp.Services
             this.client = new HttpClient(handler);
             this.baseUrl = BaseAddress;
         }
+        public string GetImagesBaseAddress()
+        {
+            return Service.ImageBaseAddress;
+        }
+        public async Task<ServerResponse<AppUser>> EditUser(AppUser user)
+        {
+            string url = BaseAddress + "EditUser";
+            ServerResponse<AppUser> responseResult = new();
+            try
+            {
+                if (user == null)
+                {
+                    responseResult = new("No user given");
+                    return responseResult;
+                }
+                string json = JsonSerializer.Serialize(user);
+                HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                if (response.IsSuccessStatusCode)
+                {
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    string result = await response.Content.ReadAsStringAsync();
+                    AppUser userResult= JsonSerializer.Deserialize<AppUser>(result);
+                    responseResult = new(true, "Report accepted successfuly, user unable to aquire new friends", userResult);
+                }
+                else
+                {
+                    responseResult = new(await response.Content.ReadAsStringAsync());
+                }
+                return responseResult;
+            }
+            catch (Exception ex)
+            {
+                responseResult = new(ex.Message);
+                return responseResult;
+            }
+        }
         public async Task<ServerResponse<UserReport>> AcceptUserReport(UserReport r)
         {
             string url = BaseAddress + "AcceptUserReport";
@@ -109,9 +149,9 @@ namespace MinesweeperApp.Services
             ServerResponse<UserReport> responseResult = new();
             try
             {
-                if (g == null)
+                if (u == null)
                 {
-                    responseResult = new("No game given");
+                    responseResult = new("No user given");
                     return responseResult;
                 }
                 UserReport report = new()
@@ -945,10 +985,46 @@ namespace MinesweeperApp.Services
                 return responseResult;
             }
         }
+        public async Task<ServerResponse<AppUser?>> UploadProfileImage(string imagePath)
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}uploadprofileimage";
+            try
+            {
+                //Create the form data
+                MultipartFormDataContent form = new MultipartFormDataContent();
+                var fileContent = new ByteArrayContent(File.ReadAllBytes(imagePath));
+                form.Add(fileContent, "file", imagePath);
+                //Call the server API
+                HttpResponseMessage response = await client.PostAsync(url, form);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Extract the content as string
+                    string resContent = await response.Content.ReadAsStringAsync();
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    AppUser? result = JsonSerializer.Deserialize<AppUser>(resContent, options);
+                    return new(true, "Successfuly uploaded image", result);
+                }
+                else
+                {
+                    return new(response.ReasonPhrase);
+                }
+            }
+            catch (Exception ex)
+            {
+                return new(ex.Message);
+            }
+        }
+
 
         public async Task<string> ValidateEmail(string Email)
         {
-            string result = "";
+            string result = string.Empty;
             if (string.IsNullOrEmpty(Email)) result = "Email can't be empty";
             if (string.IsNullOrEmpty(result))
             {
@@ -964,7 +1040,7 @@ namespace MinesweeperApp.Services
         }
         public async Task<string> ValidateUsername(string Username)
         {
-            string result="";
+            string result=string.Empty;
             if (string.IsNullOrEmpty(Username)) result="Username can't be empty" ;
 
             if (string.IsNullOrEmpty(result))
@@ -983,7 +1059,7 @@ namespace MinesweeperApp.Services
         }
         public async Task<string> ValidatePassword(string Password)
         {
-            string result = "";
+            string result = string.Empty;
             if (string.IsNullOrEmpty(Password)) result = "Password can't be empty";
             if (string.IsNullOrEmpty(result))
             {

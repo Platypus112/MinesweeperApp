@@ -26,7 +26,16 @@ namespace MinesweeperApp.Models
             IsAdmin = isAdmin_;
             Description = description_;
         }
-
+        public AppUser(AppUser appUser_)
+        {
+            Id = appUser_.Id;
+            Name = appUser_.Name;
+            Email = appUser_.Email;
+            Password = appUser_.Password;
+            PicPath = appUser_.PicPath;
+            IsAdmin = appUser_.IsAdmin;
+            Description = appUser_.Description;
+        }
         public AppUser(UserData userData_)
         {
             Id = userData_.Id;

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MinesweeperApp.Views.EditProfileView"
+             xmlns:ViewModel="clr-namespace:MinesweeperApp.ViewModels"
+             x:DataType="ViewModel:EditProfileViewModel"
+             Title="EditProfileView">
+    <Grid>
+
+
+        <!-- Main Content -->
+        <VerticalStackLayout IsEnabled="{Binding IsLoggedUser}" Padding="20">
+            <!-- Photo -->
+            <Frame BorderColor="Black" Padding="5" Margin="10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Image x:Name="theImageBug" Source="{Binding PhotoURL}"  HeightRequest="150"/>
+                    <Label Grid.Row="1"
+                       Text="Click Here To Upload Photo!"
+                       TextColor="Blue"
+                       HorizontalOptions="Center"
+                       VerticalOptions="End">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer  Command="{Binding UploadPhotoCommand}"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                </Grid>
+            </Frame>
+
+            <!-- User Name -->
+            <Label Text="Username"/>
+            <Entry Placeholder="Type Username" Text="{Binding Name}"/>
+
+
+            <!-- Password -->
+            <Label Text="Password" Grid.Column="0"/>
+            <Grid
+            Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="40"/>
+                </Grid.ColumnDefinitions>
+                <Entry
+                Placeholder="Type Password" 
+                Grid.Column="0"
+                IsPassword="{Binding IsNotViewingPassword}"
+                Text="{Binding Password}"/>
+                <ImageButton
+                Grid.Column="1"
+                HorizontalOptions="End"
+                MaximumHeightRequest="30"
+                MaximumWidthRequest="30"
+                CornerRadius="6986543"
+                Command="{Binding ViewPasswordCommand}"
+                Source="t1.png"/>
+            </Grid>
+
+            <!-- Description -->
+            <Label Text="Description"/>
+            <Entry Placeholder="Type a description for yourself" Text="{Binding Description}"/>
+
+            <!-- Save and Cancel Buttons -->
+            <Button Text="Save" Command="{Binding EditProfileCommand}"  />
+
+        </VerticalStackLayout>
+        <!-- Centered ActivityIndicator -->
+        <ActivityIndicator IsRunning="{Binding InServerCall}" />
+    </Grid>
+</ContentPage>

@@ -33,6 +33,68 @@ namespace MinesweeperApp.Services
         {
             return Service.ImageBaseAddress;
         }
+        public async Task<ServerResponse<List<GameData>>> GetUserGames(string email)
+        {
+            string url = BaseAddress + "GetUserGames";
+            ServerResponse<List<GameData>> responseResult = new();
+            try
+            {
+                url += "?email=" + email;
+                HttpResponseMessage response = await client.GetAsync(url);
+                if (response.IsSuccessStatusCode)
+                {
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    string result = await response.Content.ReadAsStringAsync();
+                    List<GameData> games = JsonSerializer.Deserialize<List<GameData>>(result, options);
+                    responseResult = new(true, result, games);
+                    return responseResult;
+                }
+                else
+                {
+                    responseResult = new(await response.Content.ReadAsStringAsync());
+                    return responseResult;
+                }
+            }
+            catch (Exception ex)
+            {
+                responseResult = new(ex.Message);
+                return responseResult;
+            }
+        }
+        public async Task<ServerResponse<List<GameData>>> GetUserRecords(string email)
+        {
+            string url = BaseAddress + "GetRecords";
+            ServerResponse<List<GameData>> responseResult = new();
+            try
+            {
+                url += "?email=" + email;
+                HttpResponseMessage response = await client.GetAsync(url);
+                if (response.IsSuccessStatusCode)
+                {
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    string result = await response.Content.ReadAsStringAsync();
+                    List<GameData> games = JsonSerializer.Deserialize<List<GameData>>(result, options);
+                    responseResult = new(true, result, games);
+                    return responseResult;
+                }
+                else
+                {
+                    responseResult = new(await response.Content.ReadAsStringAsync());
+                    return responseResult;
+                }
+            }
+            catch (Exception ex)
+            {
+                responseResult = new(ex.Message);
+                return responseResult;
+            }
+        }
         public async Task<ServerResponse<AppUser>> EditUser(AppUser user)
         {
             string url = BaseAddress + "EditUser";
@@ -106,7 +168,7 @@ namespace MinesweeperApp.Services
                 return responseResult;
             }
         }
-        public async Task<ServerResponse<UserReport>> AbsolveGameReport(UserReport r)
+        public async Task<ServerResponse<UserReport>> AbsolveUserReport(UserReport r)
         {
             string url = BaseAddress + "AbsolveUserReport";
             ServerResponse<UserReport> responseResult = new();
@@ -143,7 +205,7 @@ namespace MinesweeperApp.Services
                 return responseResult;
             }
         }
-        public async Task<ServerResponse<UserReport>> ReportUser(UserData u, string Description)
+        public async Task<ServerResponse<UserReport>> ReportUser(AppUser u, string Description)
         {
             string url = BaseAddress + "ReportUser";
             ServerResponse<UserReport> responseResult = new();
@@ -229,7 +291,7 @@ namespace MinesweeperApp.Services
                 return responseResult;
             }
         }
-        public async Task<ServerResponse<UserData>> RemoveGame(UserData u)
+        public async Task<ServerResponse<UserData>> RemoveUser(UserData u)
         {
             string url = BaseAddress + "RemoveUser";
             ServerResponse<UserData> responseResult = new();

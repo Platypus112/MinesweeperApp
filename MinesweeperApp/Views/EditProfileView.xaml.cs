@@ -2,9 +2,9 @@ using MinesweeperApp.ViewModels;
 
 namespace MinesweeperApp.Views;
 
-public partial class ProfileView : ContentPage
+public partial class EditProfileView : ContentPage
 {
-	public ProfileView(ProfileViewModel vm)
+	public EditProfileView(EditProfileViewModel vm)
 	{
 		this.BindingContext = vm;
 		InitializeComponent();

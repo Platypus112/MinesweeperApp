@@ -33,6 +33,8 @@
         </Style>
         <Style TargetType="ActivityIndicator">
             <Setter Property="Color" Value="DeepPink"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="HorizontalOptions" Value="Center"/>
         </Style>
         <Style TargetType="buttons:SfButton" x:Key="Tile">
             <Setter Property="Background" Value="DeepPink"/>

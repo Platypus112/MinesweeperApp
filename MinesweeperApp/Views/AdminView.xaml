@@ -1,26 +1,19 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MinesweeperApp.Views.LeaderboardView"
+             x:Class="MinesweeperApp.Views.AdminView"
              xmlns:ViewModel="clr-namespace:MinesweeperApp.ViewModels"
              xmlns:Model="clr-namespace:MinesweeperApp.Models"
-             x:DataType="ViewModel:LeaderboardViewModel"
+             x:DataType="ViewModel:AdminViewModel"
              xmlns:syncfusion="clr-namespace:Syncfusion.Maui.DataGrid;assembly=Syncfusion.Maui.DataGrid"
-             Title="LeaderboardView">
+             Title="AdminView">
     <VerticalStackLayout>
-        <Picker SelectedIndex="{Binding Index}" ItemsSource="{Binding DifficultyList}">
-            <BindableLayout.ItemTemplate>
-                <DataTemplate x:DataType="Model:Difficulty">
-                    <TextCell Text="{Binding Name}"/>
-                </DataTemplate>
-            </BindableLayout.ItemTemplate>
-        </Picker>
         <syncfusion:SfDataGrid
-            x:Name="dataGrid"
-            SortingMode="Single"
-            AllowTriStateSorting="false"
-            AutoGenerateColumnsMode="None"
-            ItemsSource="{Binding Items}">
+    x:Name="dataGrid"
+    SortingMode="Single"
+    AllowTriStateSorting="false"
+    AutoGenerateColumnsMode="None"
+    ItemsSource="{Binding Items}">
             <syncfusion:SfDataGrid.DefaultStyle>
                 <syncfusion:DataGridStyle HeaderRowBackground="#0074E3" HeaderRowTextColor="White" RowBackground="#AFD5FB" RowTextColor="#212121"/>
             </syncfusion:SfDataGrid.DefaultStyle>
@@ -30,36 +23,36 @@
                 <syncfusion:DataGridTextColumn MappingName="Time" HeaderText="Time"/>
                 <syncfusion:DataGridTextColumn MappingName="User.Name" HeaderText="User"/>
                 <syncfusion:DataGridTextColumn MappingName="DateOnly" HeaderText="Date"/>
-                <syncfusion:DataGridTextColumn MappingName="IsDeleted" HeaderText="Deleted" Visible="{Binding IsAdmin}"/>
+                <syncfusion:DataGridTextColumn MappingName="IsReported" HeaderText="Leaderboard denied"/>
                 <syncfusion:DataGridTemplateColumn ColumnWidthMode="Auto">
                     <syncfusion:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate x:DataType="Model:GameData">
-                            <Button Text="Report game"
-                                    FontAutoScalingEnabled="True"
-                                    Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.ReportGameCommand}"
-                                    CommandParameter="{Binding .}"/>
+                            <Button Text="Report user"
+                            FontAutoScalingEnabled="True"
+                            Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.ReportUserCommand}"
+                            CommandParameter="{Binding .}"/>
                         </DataTemplate>
                     </syncfusion:DataGridTemplateColumn.CellTemplate>
                 </syncfusion:DataGridTemplateColumn>
 
-                <syncfusion:DataGridTemplateColumn Visible="{Binding IsAdmin}">
+                <syncfusion:DataGridTemplateColumn >
                     <syncfusion:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button Text="View reports"
-                                    FontAutoScalingEnabled="True"
-                                    Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.ViewGameReportsCommand}"
-                                    CommandParameter="{Binding .}"/>
+                            FontAutoScalingEnabled="True"
+                            Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.ViewUserReportsCommand}"
+                            CommandParameter="{Binding .}"/>
                         </DataTemplate>
                     </syncfusion:DataGridTemplateColumn.CellTemplate>
                 </syncfusion:DataGridTemplateColumn>
 
-                <syncfusion:DataGridTemplateColumn Visible="{Binding IsAdmin}">
+                <syncfusion:DataGridTemplateColumn >
                     <syncfusion:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button Text="Delete"
-                                    FontAutoScalingEnabled="True"
-                                    Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.RemoveGameCommand}"
-                                    CommandParameter="{Binding .}"/>
+                            FontAutoScalingEnabled="True"
+                            Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.RemoveUserCommand}"
+                            CommandParameter="{Binding .}"/>
                         </DataTemplate>
                     </syncfusion:DataGridTemplateColumn.CellTemplate>
                 </syncfusion:DataGridTemplateColumn>
@@ -68,7 +61,7 @@
 
         </syncfusion:SfDataGrid>
         <ActivityIndicator IsRunning="{Binding InServerCall}" 
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+    VerticalOptions="Center" 
+    HorizontalOptions="Center" />
     </VerticalStackLayout>
 </ContentPage>

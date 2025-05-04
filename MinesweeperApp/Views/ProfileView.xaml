@@ -4,80 +4,54 @@
              x:Class="MinesweeperApp.Views.ProfileView"
              xmlns:ViewModel="clr-namespace:MinesweeperApp.ViewModels"
              x:DataType="ViewModel:ProfileViewModel"
+             xmlns:syncfusion="clr-namespace:Syncfusion.Maui.DataGrid;assembly=Syncfusion.Maui.DataGrid"
              Title="ProfileView">
     <Grid>
 
 
         <!-- Main Content -->
-        <VerticalStackLayout IsEnabled="{Binding IsLoggedUser}" Padding="20">
+        <VerticalStackLayout Padding="20">
             <!-- Photo -->
             <Frame BorderColor="Black" Padding="5" Margin="10">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Image x:Name="theImageBug" Source="{Binding PhotoURL}"  HeightRequest="150"/>
-                    <Label Grid.Row="1"
-                           IsEnabled="{Binding IsLoggedUser}" 
-                           Text="Click Here To Upload Photo!"
-                           TextColor="Blue"
-                           HorizontalOptions="Center"
-                           VerticalOptions="End">
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer  Command="{Binding UploadPhotoCommand}"/>
-                        </Label.GestureRecognizers>
-                    </Label>
-                </Grid>
+                <Image x:Name="theImageBug" Source="{Binding PhotoURL}"  HeightRequest="150"/>
             </Frame>
             <!-- Email -->
             <Label Text="Email"/>
-            <Entry IsEnabled="{Binding IsLoggedUser}"  Placeholder="Type Email" Text="{Binding Email}"/>
+            <Label  Text="{Binding Email}"/>
             
             <!-- User Name -->
             <Label Text="Username"/>
-            <Entry IsEnabled="{Binding IsLoggedUser}"  Placeholder="Type Username" Text="{Binding Name}"/>
-
-
-            <!-- Password -->
-            <Label Text="Password" Grid.Column="0" Style="{StaticResource labelNameStyle}" />
-            <Grid
-                Grid.Row="3">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="40"/>
-                </Grid.ColumnDefinitions>
-                <Entry
-                    IsEnabled="{Binding IsLoggedUser}" 
-                    Placeholder="Type Password" 
-                    Grid.Column="0"
-                    IsPassword="{Binding IsNotViewingPassword}"
-                    Text="{Binding Password}"/>
-                <ImageButton
-                    Grid.Column="1"
-                    HorizontalOptions="End"
-                    MaximumHeightRequest="30"
-                    MaximumWidthRequest="30"
-                    CornerRadius="6986543"
-                    Command="{Binding ViewPasswordCommand}"
-                    Source="t1.png"/>
-            </Grid>
+            <Label  Text="{Binding Name}"/>
+           
             
             <!-- Description -->
             <Label Text="Description"/>
-            <Entry IsEnabled="{Binding IsLoggedUser}"  Placeholder="Type a description for yourself" Text="{Binding Description}"/>
+            <Label Text="{Binding Description}"/>
 
-            <!-- Save and Cancel Buttons -->
-            <Button Text="Save" Command="{Binding EditProfileCommand}" IsEnabled="{Binding IsLoggedUser}" />
+            <Button IsVisible="{Binding IsLoggedUser}" Text="Edit Profile" Command="{Binding EditProfileCommand}" IsEnabled="{Binding IsLoggedUser}" />
+
+            <Button IsVisible="{Binding IsNotLoggedUser}" Text="Report" Command="{Binding ReportUserCommand}" IsEnabled="{Binding IsNotLoggedUser}" />
+            <Picker SelectedIndex="{Binding Index}" ItemsSource="{Binding Items}"/>
+            <syncfusion:SfDataGrid
+                    x:Name="dataGrid"
+                    SortingMode="Single"
+                    AllowTriStateSorting="false"
+                    AutoGenerateColumnsMode="None"
+                    ItemsSource="{Binding Items}">
+                <syncfusion:SfDataGrid.DefaultStyle>
+                    <syncfusion:DataGridStyle HeaderRowBackground="#0074E3" HeaderRowTextColor="White" RowBackground="#AFD5FB" RowTextColor="#212121"/>
+                </syncfusion:SfDataGrid.DefaultStyle>
+                <syncfusion:SfDataGrid.Columns>
+                    <syncfusion:DataGridTextColumn MappingName="Difficulty.Name" HeaderText="Difficulty" AllowSorting="False"/>
+                    <syncfusion:DataGridTextColumn MappingName="Time" HeaderText="Time"/>
+                    <syncfusion:DataGridTextColumn MappingName="DateOnly" HeaderText="Date"/>
+                    <syncfusion:DataGridTextColumn MappingName="IsDeleted" HeaderText="Deleted" Visible="{Binding IsLoggedUser}"/>
+                </syncfusion:SfDataGrid.Columns>
+
+            </syncfusion:SfDataGrid>
 
         </VerticalStackLayout>
         <!-- Centered ActivityIndicator -->
-        <ActivityIndicator IsRunning="{Binding InServerCall}" 
-               Color="Red" 
-               VerticalOptions="Center" 
-               HorizontalOptions="Center" />
+        <ActivityIndicator IsRunning="{Binding InServerCall}"/>
     </Grid>
 </ContentPage>

@@ -1,7 +1,9 @@
 ﻿using MinesweeperApp.Models;
 using MinesweeperApp.Services;
+using MinesweeperApp.Views;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,132 +11,156 @@ using System.Windows.Input;
 
 namespace MinesweeperApp.ViewModels
 {
-    [QueryProperty(nameof(User),"user")]
     public class ProfileViewModel:ViewModel
     {
-        public AppUser User { get { return user; }
+        private List<GameData> allGames;
+        private ObservableCollection<GameData> items;
+        public ObservableCollection<GameData> Items { get { return items; } set { items = value; OnPropertyChanged(); } }
+
+        private int index;
+        public int Index { get { return index; } set { index = value; OnPropertyChanged(); Filter(); } }
+
+        private List<Difficulty> difficultyList;
+        public List<Difficulty> DifficultyList { get { return difficultyList; } set { difficultyList = value; OnPropertyChanged(); } }
+        public AppUser User
+        {
+            get { return user; }
             set
             {
                 user = new(value);
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(Name));
                 OnPropertyChanged(nameof(Email));
-                OnPropertyChanged(nameof(Password));
                 OnPropertyChanged(nameof(Description));
+                OnPropertyChanged(nameof(PhotoURL));
                 OnPropertyChanged(nameof(IsLoggedUser));
-            } 
-        }   
+                OnPropertyChanged(nameof(IsNotLoggedUser));
+            }
+        }
         private AppUser user;
         public bool IsLoggedUser { get { return user.Email == service.LoggedUser.Email; } }
+        public bool IsNotLoggedUser { get { return user.Email == service.LoggedUser.Email; } }
 
-        private string photoURL;
-        public string PhotoURL { get { return photoURL; } set { photoURL = value; OnPropertyChanged(); } }
-
-        private string localPhotoPath;
-        public string LocalPhotoPath { get { return localPhotoPath; } set { localPhotoPath = value; OnPropertyChanged(); } }
-
+        public string PhotoURL { get { return User.PicPath; } set { User.PicPath = value; OnPropertyChanged(); } }
         public string Email { get { return User.Email; } set { User.Email = value; OnPropertyChanged(); } }
-        public string Name { get { return User.Name; } set { User.Name = value;OnPropertyChanged(); } }
-        public string Password { get { return User.Password; } set { User.Password=value;OnPropertyChanged(); } }
-        public string Description { get { return User.Description; } set { User.Description=value;OnPropertyChanged(); } }
+        public string Name { get { return User.Name; } set { User.Name = value; OnPropertyChanged(); } }
+        public string Password { get { return User.Password; } set { User.Password = value; OnPropertyChanged(); } }
+        public string Description { get { return User.Description; } set { User.Description = value; OnPropertyChanged(); } }
 
-        private string errorMsg;
-        public string ErrorMsg { get { return errorMsg; } set {  errorMsg = value; OnPropertyChanged(); } }
 
-        private bool isViewingPassword;
-        public bool IsViewingPassword { get { return isViewingPassword; } set { isViewingPassword = value; OnPropertyChanged(); OnPropertyChanged(nameof(IsNotViewingPassword)); } }
-        public bool IsNotViewingPassword { get { return !isViewingPassword; } set { isViewingPassword = !value; OnPropertyChanged(); OnPropertyChanged(nameof(IsViewingPassword)); } }
-
-        public ICommand ViewPasswordCommand { get; private set; }
         public ICommand EditProfileCommand { get; private set; }
-        public ICommand UploadPhotoCommand { get; private set; }
-        public ProfileViewModel(Service service_) : base(service_)
+        public ICommand ReportUserCommand { get; private set; }
+        
+        public ProfileViewModel(Service service_):base(service_) 
         {
+            AppShell.Current.FlyoutBehavior = FlyoutBehavior.Flyout;
             User = service.LoggedUser;
-            ViewPasswordCommand = new Command(ViewPassword);
-            EditProfileCommand = new Command(EditProfile);
-            UploadPhotoCommand = new Command(UploadPhoto);
+            EditProfileCommand = new Command(EditProfile,()=>!IsLoggedUser);
+            ReportUserCommand=new Command(ReportUser,()=>IsLoggedUser);
+            Index = 0;
+            FillCollection();
         }
-        private async void ViewPassword()
-        {
-            if (IsViewingPassword) IsViewingPassword = false;
-            else IsViewingPassword = true;
-        }
-        private async void EditProfile()
+        private async void FillCollection()
         {
             InServerCall = true;
-            ErrorMsg=string.Empty;
             try
             {
-                ErrorMsg += await service.ValidateUsername(Name);
-                ErrorMsg += await service.ValidatePassword(Password);
-                if (!string.IsNullOrEmpty(ErrorMsg)) return;
+                ServerResponse<List<GameData>> listResponse;
+                if (IsLoggedUser) listResponse = await service.GetUserGames(User.Email);
+                else listResponse=await service.GetUserRecords(User.Email);
 
-                ServerResponse<AppUser> response = await service.EditUser(User);
-                if (response != null)
+                if (listResponse != null && listResponse.Response)
                 {
-                    if (response.Response)
+                    Items = new();
+                    allGames = new();
+                    foreach (GameData g in listResponse.Content)
                     {
-                        if (!string.IsNullOrEmpty(LocalPhotoPath))
-                        {
-                            ServerResponse<AppUser?> updatedUserResponse = await service.UploadProfileImage(LocalPhotoPath);
-                            if (updatedUserResponse == null|| !updatedUserResponse.Response)
-                            {
-                                await Shell.Current.DisplayAlert("User Data Was Saved BUT Profile image upload failed", "", "ok");
-                            }
-                            else
-                            {
-                                User.PicPath = updatedUserResponse.Content.PicPath;
-                                UpdatePhotoURL(User.PicPath);
-                            }
-                            User = response.Content;
-                            await AppShell.Current.DisplayAlert("Profile was saved successfully", "", "ok");
-
-                        }
-                        else
-                        {
-                            ErrorMsg = response.ResponseMessage;
-                        }
+                        Items.Add(g);
+                        allGames.Add(g);
                     }
-                    else
-                    {
-                        ErrorMsg = "Failed to actualize changes. please try again";
-                    }
-                    InServerCall = false;
-
+                }
+                ServerResponse<List<Difficulty>> difficultiesResponse = await service.GetDifficulties();
+                if (difficultiesResponse != null && difficultiesResponse.Response)
+                {
+                    DifficultyList = difficultiesResponse.Content;
                 }
             }
             catch (Exception ex)
             {
                 InServerCall = false;
-                ErrorMsg = ex.Message;
+            }
+            InServerCall = false;
+        }
+        private async void Filter()
+        {
+            InServerCall = true;
+            try
+            {
+                if (index >= 0)
+                {
+                    Items = new();
+                    foreach (GameData g in allGames)
+                    {
+                        if (DifficultyList[Index].Name == g.Difficulty.Name)
+                        {
+                            Items.Add(g);
+                        }
+                    }
+                }
+                InServerCall = false;
+            }
+            catch (Exception ex)
+            {
+                InServerCall = false;
             }
         }
-        private async void UploadPhoto()
+        private async void EditProfile()
+        {
+            InServerCall = true;
+            try
+            {
+                Dictionary<string, object> data = new();
+                data.Add("user", User);
+                await AppShell.Current.GoToAsync("editProfilePage", data);
+
+            }
+            catch (Exception ex)
+            {
+                await AppShell.Current.DisplayAlert("Error occured", ex.Message, "ok");
+            }
+            InServerCall = false;
+        }
+        private async void ReportUser()
         {
             try
             {
-                var result = await MediaPicker.Default.CapturePhotoAsync(new MediaPickerOptions
+                string description = await AppShell.Current.DisplayPromptAsync("File Report", "Describe the problem with the user");
+                if (!string.IsNullOrEmpty(description))
                 {
-                    Title = "Please select a photo",
-                });
-
-                if (result != null)
-                {
-                    this.LocalPhotoPath = result.FullPath;
-                    this.PhotoURL = result.FullPath;
+                    InServerCall = true;
+                    ServerResponse<UserReport> serverResponse = await service.ReportUser(User, description);
+                    if (serverResponse != null)
+                    {
+                        if (serverResponse.Response)
+                        {
+                            await AppShell.Current.DisplayAlert("Report filed successfuly", "", "ok");
+                        }
+                        else
+                        {
+                            await AppShell.Current.DisplayAlert("Error occured", "Error occurred while filing report.\n" + serverResponse.ResponseMessage, "ok");
+                        }
+                    }
+                    else
+                    {
+                        await AppShell.Current.DisplayAlert("Error occured", "Error occurred while filing report.", "ok");
+                    }
+                    InServerCall = false;
                 }
             }
             catch (Exception ex)
             {
+                await AppShell.Current.DisplayAlert("Error occured", "Error occurred while filing report.\n" + ex.Message, "ok");
             }
-
-        }
-        private void UpdatePhotoURL(string virtualPath)
-        {
-            Random r = new Random();
-            PhotoURL = service.GetImagesBaseAddress() + virtualPath + "?v=" + r.Next();
-            LocalPhotoPath = "";
         }
     }
 }

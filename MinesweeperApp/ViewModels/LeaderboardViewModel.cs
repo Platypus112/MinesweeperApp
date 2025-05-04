@@ -13,8 +13,6 @@ namespace MinesweeperApp.ViewModels
 {
     public class LeaderboardViewModel:ViewModel
     {
-        private string type;
-        public string Type { get { return type; } set { type = value; } }
 
         private bool isAdmin;
         public bool IsAdmin { get { return isAdmin; } set { isAdmin = value; OnPropertyChanged(); } }
@@ -36,7 +34,6 @@ namespace MinesweeperApp.ViewModels
         {
             AppShell.Current.FlyoutBehavior = FlyoutBehavior.Flyout;
             IsAdmin = service.LoggedUser!=null&&service.LoggedUser.IsAdmin;
-            Type = "games";
             FillCollection();
             ViewGameReportsCommand = new Command((Object o) => ViewGameReports(o));
             ReportGameCommand = new Command((Object o) => ReportGame(o)) ;
@@ -146,7 +143,7 @@ namespace MinesweeperApp.ViewModels
             InServerCall = true;
             try
             {
-                ServerResponse<List<Object>> listResponse=await service.GetCollectionbyType(Type);
+                ServerResponse<List<Object>> listResponse=await service.GetCollectionbyType("games");
                 if (listResponse != null&&listResponse.Response)
                 {
                     Items = new();

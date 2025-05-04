@@ -32,6 +32,8 @@ namespace MinesweeperApp.ViewModels
         public ICommand ReportGameCommand { get; private set; }
         public ICommand ViewGameReportsCommand { get; private set; }
         public ICommand RemoveGameCommand { get; private set; }
+        public ICommand ViewProfileCommand { get; private set; }
+
         public FriendLeaderboardViewModel(Service service_) : base(service_)
         {
             AppShell.Current.FlyoutBehavior = FlyoutBehavior.Flyout;
@@ -39,6 +41,25 @@ namespace MinesweeperApp.ViewModels
             Type = "games.social";
             FillCollection();
             ViewGameReportsCommand = new Command((Object o) => ViewGameReports(o));
+            ViewProfileCommand = new Command((Object o) => ViewProfile(o));
+            ReportGameCommand = new Command((Object o) => ReportGame(o));
+            RemoveGameCommand = new Command((Object o) => RemoveGame(o), (Object o) => IsAdmin);
+        }
+        private async void ViewProfile(Object o)
+        {
+            InServerCall = true;
+            try
+            {
+                Dictionary<string, object> data = new();
+                data.Add("user", o);
+                await AppShell.Current.GoToAsync("profilePage", data);
+
+            }
+            catch (Exception ex)
+            {
+                await AppShell.Current.DisplayAlert("Error occured", ex.Message, "ok");
+            }
+            InServerCall = false;
         }
         private async void ReportGame(Object o)
         {
@@ -128,7 +149,7 @@ namespace MinesweeperApp.ViewModels
                     Items = new();
                     foreach (GameData g in allGames)
                     {
-                        if (DifficultyList[Index].Name == g.Difficulty.Name)
+                        if (DifficultyList[Index].Name == g.Difficulty.Name&&(IsAdmin || !g.IsDeleted))
                         {
                             Items.Add(g);
                         }
@@ -154,9 +175,9 @@ namespace MinesweeperApp.ViewModels
                     foreach (Object item in listResponse.Content)
                     {
                         GameData g = (GameData)item;
+                        Items.Add(g);
                         if (IsAdmin || !g.IsDeleted)
                         {
-                            Items.Add(g);
                             allGames.Add(g);
                         }
                     }

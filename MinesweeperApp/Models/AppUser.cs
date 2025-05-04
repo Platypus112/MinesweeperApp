@@ -56,13 +56,24 @@ namespace MinesweeperApp.Models
 
         public string Password { get; set; }
 
+        public string PicPath { get; set; } 
+
         public UserDTO() { }
+
+        public UserDTO(string name_,string email_,string password_,string picPath_)
+        {
+            Name = name_;
+            Email = email_; 
+            Password = password_;
+            PicPath = picPath_;
+        }
 
         public UserDTO(AppUser user_)
         {
             Name = user_.Name;
             Email = user_.Email;
             Password = user_.Password;
+            PicPath = user_.PicPath;
         }
     }
 

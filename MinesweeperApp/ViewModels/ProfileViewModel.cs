@@ -11,6 +11,7 @@ using System.Windows.Input;
 
 namespace MinesweeperApp.ViewModels
 {
+    [QueryProperty(nameof(User),"user")]
     public class ProfileViewModel:ViewModel
     {
         private List<GameData> allGames;
@@ -50,15 +51,49 @@ namespace MinesweeperApp.ViewModels
 
         public ICommand EditProfileCommand { get; private set; }
         public ICommand ReportUserCommand { get; private set; }
+        public ICommand AddFriendCommand { get;private set; }
         
         public ProfileViewModel(Service service_):base(service_) 
         {
             AppShell.Current.FlyoutBehavior = FlyoutBehavior.Flyout;
             User = service.LoggedUser;
-            EditProfileCommand = new Command(EditProfile,()=>!IsLoggedUser);
-            ReportUserCommand=new Command(ReportUser,()=>IsLoggedUser);
+            EditProfileCommand = new Command(EditProfile,()=>IsLoggedUser);
+            ReportUserCommand=new Command(ReportUser,()=>!IsLoggedUser);
+            AddFriendCommand=new Command(AddFriend,()=>!IsLoggedUser);
             Index = 0;
             FillCollection();
+        }
+        private async void AddFriend()
+        {
+            ServerResponse<FriendRequest> serverResponse;
+            try
+            {
+                if (User!=null)
+                {
+                    InServerCall = true;
+                    serverResponse = await service.SendFriendRequest(User.Name);
+                    if (serverResponse != null)
+                    {
+                        if (serverResponse.Response)
+                        {
+                            await AppShell.Current.DisplayAlert("Friend request sent successfuly", "", "ok");
+                        }
+                        else
+                        {
+                            await AppShell.Current.DisplayAlert("Error occured", "Error occurred while trying to add friend.\n" + serverResponse.ResponseMessage, "ok");
+                        }
+                    }
+                    else
+                    {
+                        await AppShell.Current.DisplayAlert("Error occured", "Error occurred while trying to add friend.", "ok");
+                    }
+                    InServerCall = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                await AppShell.Current.DisplayAlert("Error occured", "Error occurred while trying to add friend.\n" + ex.Message, "ok");
+            }
         }
         private async void FillCollection()
         {

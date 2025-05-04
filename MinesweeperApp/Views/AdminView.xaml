@@ -18,15 +18,13 @@
                 <syncfusion:DataGridStyle HeaderRowBackground="#0074E3" HeaderRowTextColor="White" RowBackground="#AFD5FB" RowTextColor="#212121"/>
             </syncfusion:SfDataGrid.DefaultStyle>
             <syncfusion:SfDataGrid.Columns>
-                <syncfusion:DataGridTextColumn MappingName="Difficulty.Name" HeaderText="Difficulty" AllowSorting="False">
-                </syncfusion:DataGridTextColumn>
-                <syncfusion:DataGridTextColumn MappingName="Time" HeaderText="Time"/>
-                <syncfusion:DataGridTextColumn MappingName="User.Name" HeaderText="User"/>
-                <syncfusion:DataGridTextColumn MappingName="DateOnly" HeaderText="Date"/>
-                <syncfusion:DataGridTextColumn MappingName="IsReported" HeaderText="Leaderboard denied"/>
+                <syncfusion:DataGridImageColumn Width="40" MappingName="PicPath" HeaderText="Pic" AllowSorting="False"/>
+                <syncfusion:DataGridTextColumn MappingName="Name" HeaderText="User"/>
+                <syncfusion:DataGridTextColumn MappingName="Email" HeaderText="Email"/>
+                <syncfusion:DataGridTextColumn MappingName="IsReported" HeaderText="Leaderboard denied" AllowSorting="False"/>
                 <syncfusion:DataGridTemplateColumn ColumnWidthMode="Auto">
-                    <syncfusion:DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate x:DataType="Model:GameData">
+                    <syncfusion:DataGridTemplateColumn.CellTemplate AllowSorting="False">
+                        <DataTemplate x:DataType="Model:UserData">
                             <Button Text="Report user"
                             FontAutoScalingEnabled="True"
                             Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.ReportUserCommand}"
@@ -35,9 +33,9 @@
                     </syncfusion:DataGridTemplateColumn.CellTemplate>
                 </syncfusion:DataGridTemplateColumn>
 
-                <syncfusion:DataGridTemplateColumn >
+                <syncfusion:DataGridTemplateColumn AllowSorting="False">
                     <syncfusion:DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
+                        <DataTemplate  x:DataType="Model:UserData">
                             <Button Text="View reports"
                             FontAutoScalingEnabled="True"
                             Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.ViewUserReportsCommand}"
@@ -46,10 +44,10 @@
                     </syncfusion:DataGridTemplateColumn.CellTemplate>
                 </syncfusion:DataGridTemplateColumn>
 
-                <syncfusion:DataGridTemplateColumn >
+                <syncfusion:DataGridTemplateColumn AllowSorting="False">
                     <syncfusion:DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button Text="Delete"
+                        <DataTemplate  x:DataType="Model:UserData">
+                            <Button Text="Remove"
                             FontAutoScalingEnabled="True"
                             Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.RemoveUserCommand}"
                             CommandParameter="{Binding .}"/>
@@ -60,8 +58,6 @@
             </syncfusion:SfDataGrid.Columns>
 
         </syncfusion:SfDataGrid>
-        <ActivityIndicator IsRunning="{Binding InServerCall}" 
-    VerticalOptions="Center" 
-    HorizontalOptions="Center" />
+        <ActivityIndicator IsRunning="{Binding InServerCall}" />
     </VerticalStackLayout>
 </ContentPage>

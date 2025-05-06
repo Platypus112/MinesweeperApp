@@ -33,6 +33,36 @@ namespace MinesweeperApp.Services
         {
             return Service.ImageBaseAddress;
         }
+        public async Task<ServerResponse<AppUser>> Logout()
+        {
+            string url = BaseAddress + "Logout";
+            ServerResponse<AppUser> responseResult = new();
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync(url);
+                if (response.IsSuccessStatusCode)
+                {
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    string result = await response.Content.ReadAsStringAsync();
+                    responseResult = new(true, result, LoggedUser);
+                    LoggedUser = null;
+                    return responseResult;
+                }
+                else
+                {
+                    responseResult = new(await response.Content.ReadAsStringAsync());
+                    return responseResult;
+                }
+            }
+            catch (Exception ex)
+            {
+                responseResult = new(ex.Message);
+                return responseResult;
+            }
+        }
         public async Task<ServerResponse<List<GameData>>> GetUserGames(string email)
         {
             string url = BaseAddress + "GetUserGames";

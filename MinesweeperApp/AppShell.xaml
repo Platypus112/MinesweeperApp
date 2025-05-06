@@ -9,7 +9,7 @@
     xmlns:ViewModel="clr-namespace:MinesweeperApp.ViewModels"
     xmlns:syncfusion="clr-namespace:Syncfusion;assembly=Syncfusion.Licensing"
     xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
-    x:DataType="local:AppShell"
+    x:DataType="ViewModel:AppShellViewModel"
     Title="MinesweeperApp">
     <Shell.Resources>
         <ResourceDictionary>
@@ -61,7 +61,7 @@
             <Grid
                 BackgroundColor="DarkSlateGray">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="40"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"/>
@@ -83,17 +83,39 @@
                       ContentTemplate="{DataTemplate views:HomeView}"
                       Route="homePage"/>
     
-            <ShellContent Title="Play"
-                          ContentTemplate="{DataTemplate views:StartGameView}"
-                          Route="startGamePage"/>
-    <ShellContent Title="Leaderboard"
-              ContentTemplate="{DataTemplate views:LeaderboardView}"
-              Route="leaderboardPage"/>
-    <ShellContent Title="Friend leaderboard"
-              ContentTemplate="{DataTemplate views:FriendLeaderboardView}"
-              Route="friendLeaderboardPage"/>
+    <ShellContent Title="Play"
+                  ContentTemplate="{DataTemplate views:StartGameView}"
+                  Route="startGamePage"/>
+
+    <TabBar>
+        <ShellContent Title="Leaderboard"
+                      ContentTemplate="{DataTemplate views:LeaderboardView}"
+                      Route="leaderboardPage"/>
+
+        <ShellContent Title="Friend leaderboard"
+                      ContentTemplate="{DataTemplate views:FriendLeaderboardView}"
+                      Route="friendLeaderboardPage"/>
+
+        <ShellContent Title="timely leaderboard"
+                      ContentTemplate="{DataTemplate views:TimelyLeaderboardView}"
+                      Route="timelyLeaderboardPage"/>
+    </TabBar>
+    
     <ShellContent Title="Social page"
-          ContentTemplate="{DataTemplate views:SocialPageView}"
-          Route="socialPage"/>
+                  ContentTemplate="{DataTemplate views:SocialPageView}"
+                  Route="socialPage"/>
+    
+    <ShellContent Title="Profile"
+                  ContentTemplate="{DataTemplate views:ProfileView}"
+                  Route="profilePage"/>
+    
+    <ShellContent Title="Admin page"
+                  IsVisible="{Binding IsAdmin}"
+                  ContentTemplate="{DataTemplate views:AdminView}"
+                  Route="adminPage"/>
+
+    <ShellContent Title="Log Out"
+                  ContentTemplate="{DataTemplate views:LogoutView}"
+                  Route="logoutPage"/>
     
 </Shell>

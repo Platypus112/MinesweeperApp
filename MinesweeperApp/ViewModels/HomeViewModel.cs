@@ -15,7 +15,7 @@ namespace MinesweeperApp.ViewModels
 
         public HomeViewModel(Service service_) : base(service_)
         {
-            ((AppShellViewModel)AppShell.Current.BindingContext).NotLogged = true;
+            
             NavigateToLoginCommand = new Command(NavigateToLogin);
             NavigateToSignupCommand= new Command(NavigateToSignup);
             if (service.LoggedUser == null)

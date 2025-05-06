@@ -9,7 +9,7 @@
 
 
         <!-- Main Content -->
-        <VerticalStackLayout IsEnabled="{Binding IsLoggedUser}" Padding="20">
+        <VerticalStackLayout Padding="20">
             <!-- Photo -->
             <Frame BorderColor="Black" Padding="5" Margin="10">
                 <Grid>

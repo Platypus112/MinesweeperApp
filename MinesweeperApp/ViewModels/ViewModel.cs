@@ -32,6 +32,9 @@ namespace MinesweeperApp.ViewModels
         private bool inServerCall;
         public bool InServerCall { get { return inServerCall; } set { inServerCall = value; OnPropertyChanged(); } }
 
+        private static bool isAdmin;
+        public bool IsAdmin { get { return isAdmin; } set { isAdmin = value; OnPropertyChanged(); } }
+
 
         public ViewModel(Service service_)
         {

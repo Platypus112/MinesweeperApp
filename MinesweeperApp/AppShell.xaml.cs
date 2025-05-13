@@ -26,7 +26,6 @@ namespace MinesweeperApp
             Routing.RegisterRoute("editProfilePage", typeof(EditProfileView));
             Routing.RegisterRoute("logoutPage", typeof(LogoutView));
             Routing.RegisterRoute("adminPage", typeof(AdminView));
-            Routing.RegisterRoute("timelyLeaderboardPage", typeof(TimelyLeaderboardView));
             Routing.RegisterRoute("userReportsPage", typeof(UserReportsView));
         }
     }

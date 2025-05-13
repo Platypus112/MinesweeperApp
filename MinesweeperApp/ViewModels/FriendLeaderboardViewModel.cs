@@ -23,11 +23,17 @@ namespace MinesweeperApp.ViewModels
         private ObservableCollection<GameData> items;
         public ObservableCollection<GameData> Items { get { return items; } set { items = value; OnPropertyChanged(); } }
 
-        private int index;
-        public int Index { get { return index; } set { index = value; OnPropertyChanged(); Filter(); } }
+        private int diffIndex;
+        public int DiffIndex { get { return diffIndex; } set { diffIndex = value; OnPropertyChanged(); Filter(); } }
 
         private List<Difficulty> difficultyList;
         public List<Difficulty> DifficultyList { get { return difficultyList; } set { difficultyList = value; OnPropertyChanged(); } }
+
+        private int timesIndex;
+        public int TimesIndex { get { return timesIndex; } set { timesIndex = value; OnPropertyChanged(); Filter(); } }
+
+        private List<string> timesList;
+        public List<string> TimesList { get { return timesList; } set { timesList = value; OnPropertyChanged(); } }
 
         public ICommand ReportGameCommand { get; private set; }
         public ICommand ViewGameReportsCommand { get; private set; }
@@ -144,14 +150,18 @@ namespace MinesweeperApp.ViewModels
             InServerCall = true;
             try
             {
-                if (index >= 0)
+                if (timesIndex >= 0)
                 {
                     Items = new();
                     foreach (GameData g in allGames)
                     {
-                        if (DifficultyList[Index].Name == g.Difficulty.Name&&(IsAdmin || !g.IsDeleted))
+                        if (DifficultyList[DiffIndex].Name == g.Difficulty.Name && (IsAdmin || !g.IsDeleted))
                         {
-                            Items.Add(g);
+                            if (TimesList[TimesIndex] == "Daily" && g.Date.Value.AddDays(1) > DateTime.Now) Items.Add(g);
+                            else if (TimesList[TimesIndex] == "Weekly" && g.Date.Value.AddDays(7) > DateTime.Now) Items.Add(g);
+                            else if (TimesList[TimesIndex] == "Monthly" && g.Date.Value.AddMonths(1) > DateTime.Now) Items.Add(g);
+                            else if (TimesList[TimesIndex] == "Yearly" && g.Date.Value.AddYears(1) > DateTime.Now) Items.Add(g);
+                            else Items.Add(g);
                         }
                     }
                 }
@@ -175,17 +185,28 @@ namespace MinesweeperApp.ViewModels
                     foreach (Object item in listResponse.Content)
                     {
                         GameData g = (GameData)item;
-                        Items.Add(g);
+                        allGames.Add(g);
                         if (IsAdmin || !g.IsDeleted)
                         {
-                            allGames.Add(g);
+                            Items.Add(g);
                         }
                     }
                 }
+                ServerResponse<List<Difficulty>> difficultiesResponse = await service.GetDifficulties();
+                if (difficultiesResponse != null && difficultiesResponse.Response)
+                {
+                    DifficultyList = difficultiesResponse.Content;
+                }
+                TimesList = new();
+                TimesList.Add("All time");
+                TimesList.Add("Daily");
+                TimesList.Add("Weekly");
+                TimesList.Add("Monthly");
+                TimesList.Add("Yearly");
             }
             catch (Exception ex)
             {
-
+                InServerCall = false;
             }
             InServerCall = false;
         }

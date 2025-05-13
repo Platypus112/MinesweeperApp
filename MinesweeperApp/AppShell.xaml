@@ -95,10 +95,6 @@
         <ShellContent Title="Friend leaderboard"
                       ContentTemplate="{DataTemplate views:FriendLeaderboardView}"
                       Route="friendLeaderboardPage"/>
-
-        <ShellContent Title="timely leaderboard"
-                      ContentTemplate="{DataTemplate views:TimelyLeaderboardView}"
-                      Route="timelyLeaderboardPage"/>
     </TabBar>
     
     <ShellContent Title="Social page"

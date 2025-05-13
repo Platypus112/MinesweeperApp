@@ -8,6 +8,7 @@
              xmlns:syncfusion="clr-namespace:Syncfusion.Maui.DataGrid;assembly=Syncfusion.Maui.DataGrid"
              Title="FriendLeaderboardView">
     <VerticalStackLayout>
+        <Picker SelectedIndex="{Binding TimesIndex}" ItemsSource="{Binding TimesList}"/>
         <Picker SelectedIndex="{Binding Index}" ItemsSource="{Binding Items}"/>
         <syncfusion:SfDataGrid
         x:Name="dataGrid"

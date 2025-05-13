@@ -8,6 +8,7 @@
              xmlns:syncfusion="clr-namespace:Syncfusion.Maui.DataGrid;assembly=Syncfusion.Maui.DataGrid"
              Title="LeaderboardView">
     <VerticalStackLayout>
+        <Picker SelectedIndex="{Binding TimesIndex}" ItemsSource="{Binding TimesList}"/>
         <Picker SelectedIndex="{Binding Index}" ItemsSource="{Binding DifficultyList}">
             <BindableLayout.ItemTemplate>
                 <DataTemplate x:DataType="Model:Difficulty">

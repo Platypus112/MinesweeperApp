@@ -42,6 +42,8 @@ namespace MinesweeperApp.ViewModels
             AppShell.Current.FlyoutBehavior = FlyoutBehavior.Flyout;
             IsAdmin = service.LoggedUser!=null&&service.LoggedUser.IsAdmin;
             FillCollection();
+            TimesIndex = 0;
+            DiffIndex = 0;
             ViewGameReportsCommand = new Command((Object o) => ViewGameReports(o));
             ViewProfileCommand=new Command((Object o) => ViewProfile(o));
             ReportGameCommand = new Command((Object o) => ReportGame(o));
@@ -155,7 +157,7 @@ namespace MinesweeperApp.ViewModels
                             else if (TimesList[TimesIndex] == "Weekly" && g.Date.Value.AddDays(7) > DateTime.Now) Items.Add(g);
                             else if (TimesList[TimesIndex] == "Monthly" && g.Date.Value.AddMonths(1) > DateTime.Now) Items.Add(g);
                             else if (TimesList[TimesIndex] == "Yearly" && g.Date.Value.AddYears(1) > DateTime.Now) Items.Add(g);
-                            else Items.Add(g);
+                            else if (TimesList[TimesIndex]=="All time")Items.Add(g);
                         }
                     }
                 }
@@ -171,6 +173,19 @@ namespace MinesweeperApp.ViewModels
             InServerCall = true;
             try
             {
+                ServerResponse<List<Difficulty>> difficultiesResponse = await service.GetDifficulties();
+                if (difficultiesResponse != null && difficultiesResponse.Response)
+                {
+                    DifficultyList = difficultiesResponse.Content;
+                }
+                OnPropertyChanged(nameof(DifficultyList));
+                TimesList = new();
+                TimesList.Add("All time");
+                TimesList.Add("Daily");
+                TimesList.Add("Weekly");
+                TimesList.Add("Monthly");
+                TimesList.Add("Yearly");
+                OnPropertyChanged(nameof(TimesList));
                 ServerResponse<List<Object>> listResponse = await service.GetCollectionbyType("games");
                 if (listResponse != null && listResponse.Response)
                 {
@@ -186,17 +201,6 @@ namespace MinesweeperApp.ViewModels
                         }
                     }
                 }
-                ServerResponse<List<Difficulty>> difficultiesResponse = await service.GetDifficulties();
-                if (difficultiesResponse != null && difficultiesResponse.Response)
-                {
-                    DifficultyList = difficultiesResponse.Content;
-                }
-                TimesList = new();
-                TimesList.Add("All time");
-                TimesList.Add("Daily");
-                TimesList.Add("Weekly");
-                TimesList.Add("Monthly");
-                TimesList.Add("Yearly");
             }
             catch (Exception ex)
             {

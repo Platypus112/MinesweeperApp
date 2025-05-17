@@ -10,6 +10,7 @@ namespace MinesweeperApp.Models
 
         public string Password { get; set; }
 
+
         public LoginInfo():this(string.Empty, string.Empty, string.Empty)
         {
 

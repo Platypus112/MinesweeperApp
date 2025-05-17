@@ -87,7 +87,7 @@
                   ContentTemplate="{DataTemplate views:StartGameView}"
                   Route="startGamePage"/>
 
-    <TabBar>
+    <FlyoutItem Title="LeaderBoards" FlyoutDisplayOptions="AsSingleItem">
         <ShellContent Title="Leaderboard"
                       ContentTemplate="{DataTemplate views:LeaderboardView}"
                       Route="leaderboardPage"/>
@@ -95,7 +95,7 @@
         <ShellContent Title="Friend leaderboard"
                       ContentTemplate="{DataTemplate views:FriendLeaderboardView}"
                       Route="friendLeaderboardPage"/>
-    </TabBar>
+    </FlyoutItem>
     
     <ShellContent Title="Social page"
                   ContentTemplate="{DataTemplate views:SocialPageView}"
@@ -111,7 +111,7 @@
                   Route="adminPage"/>
 
     <ShellContent Title="Log Out"
-                  ContentTemplate="{DataTemplate views:LogoutView}"
-                  Route="logoutPage"/>
+                  ContentTemplate="{DataTemplate views:HomeView}"
+                  Route="///homePage"/>
     
 </Shell>

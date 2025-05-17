@@ -46,6 +46,8 @@ namespace MinesweeperApp.ViewModels
             IsAdmin = service.LoggedUser != null && service.LoggedUser.IsAdmin;
             Type = "games.social";
             FillCollection();
+            TimesIndex = 0;
+            DiffIndex = 0;
             ViewGameReportsCommand = new Command((Object o) => ViewGameReports(o));
             ViewProfileCommand = new Command((Object o) => ViewProfile(o));
             ReportGameCommand = new Command((Object o) => ReportGame(o));

@@ -696,7 +696,7 @@ namespace MinesweeperApp.Services
                     Game = new FinishedGame()
                     {
                         Id= g.Id,
-                        User=g.User,
+                        User=new(g.User),
                         Difficulty=g.Difficulty,
                         Date=g.Date.Value,
                         TimeInSeconds=g.TimeInSeconds,

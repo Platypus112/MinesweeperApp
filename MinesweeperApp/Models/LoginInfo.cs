@@ -22,5 +22,11 @@ namespace MinesweeperApp.Models
             Email = email_;
             Password = password_;
         }
+        public LoginInfo(AppUser user)
+        {
+            Name=user.Name;
+            Email = user.Email;
+            Password = user.Password;
+        }
     }
 }

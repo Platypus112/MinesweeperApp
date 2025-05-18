@@ -21,13 +21,13 @@ namespace MinesweeperApp.Models
         }
         public Difficulty Difficulty { get; set; }
 
-        public UserDTO User { get; set; }
+        public LoginInfo User { get; set; }
 
         public FinishedGame()
         {
 
         }
-        public FinishedGame(int id_, DateTime date_, double timeInSeconds_, Difficulty difficulty_,UserDTO user_)
+        public FinishedGame(int id_, DateTime date_, double timeInSeconds_, Difficulty difficulty_,LoginInfo user_)
         {
             Id = id_;
             Date = date_;

@@ -111,6 +111,8 @@ namespace MinesweeperApp.ViewModels
         }
         private async Task GameOver()
         {
+            //add alert for finishing game
+            //add try and catch
             InServerCall = true;
             t.Stop();
             Timer = (DateTime.Now - game.StartTime).ToString().Substring(3, 5);
@@ -118,7 +120,6 @@ namespace MinesweeperApp.ViewModels
             ((Command)ClickTileCommand).ChangeCanExecute();
             if (game.HasWon)await service.SendFinishedGame(game);
             InServerCall = false;
-
         }
         private async Task ClickTile(Object obj)
         {

@@ -13,7 +13,7 @@ namespace MinesweeperApp.Models
         public DateTime? Date { get; set; }
         public double TimeInSeconds { get; set; }
         public Difficulty Difficulty { get; set; }
-        public UserDTO User { get; set; }
+        public AppUser User { get; set; }
         //public List<GameReport> Reports { get; set; }
         public string Time { get { return TimeSpan.FromSeconds(TimeInSeconds).ToString(); } private set { this.Time = value; } }
 
@@ -23,7 +23,7 @@ namespace MinesweeperApp.Models
 
         public GameData() { }
 
-        public GameData(int id_, DateTime date_, double timeInSeconds_, Difficulty difficulty_, UserDTO user_,bool isDeleted_/*, List<GameReport> reports_*/)
+        public GameData(int id_, DateTime date_, double timeInSeconds_, Difficulty difficulty_, AppUser user_,bool isDeleted_/*, List<GameReport> reports_*/)
         {
             Id = id_;
             Date = date_;

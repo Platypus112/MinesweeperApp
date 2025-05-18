@@ -85,6 +85,7 @@ namespace MinesweeperApp.ViewModels
         }
         private async void FillCollection()
         {
+            //add option to view users profile before accepting
             InServerCall = true;
             try
             {

@@ -24,26 +24,30 @@ namespace MinesweeperApp.ViewModels
         private int diffIndex;
         public int DiffIndex { get { return diffIndex; } set { diffIndex = value; OnPropertyChanged(); Filter(); } }
 
-        private List<Difficulty> difficultyList;
-        public List<Difficulty> DifficultyList { get { return difficultyList; } set { difficultyList = value; OnPropertyChanged(); } }
+        private ObservableCollection<Difficulty> difficultyList;
+        public ObservableCollection<Difficulty> DifficultyList { get { return difficultyList; } set { difficultyList = value; OnPropertyChanged(); } }
 
         private int timesIndex;
         public int TimesIndex { get { return timesIndex; } set { timesIndex = value; OnPropertyChanged(); Filter(); } }
 
-        private List<string> timesList;
-        public List<string> TimesList { get { return timesList; } set { timesList = value; OnPropertyChanged(); } }
+        private ObservableCollection<string> timesList;
+        public ObservableCollection<string> TimesList { get { return timesList; } set { timesList = value; OnPropertyChanged(); } }
+
+        private bool isRefreshing;
+        public bool IsRefreshing { get { return isRefreshing; } set { isRefreshing = value;OnPropertyChanged(); } }
 
         public ICommand ReportGameCommand { get; private set; }
         public ICommand ViewGameReportsCommand { get; private set; }
         public ICommand RemoveGameCommand { get; private set; }
         public ICommand ViewProfileCommand { get;private set; } 
+        public ICommand RefreshCommand { get; private set; }
         public LeaderboardViewModel(Service service_) : base(service_)
         {
             AppShell.Current.FlyoutBehavior = FlyoutBehavior.Flyout;
             IsAdmin = service.LoggedUser!=null&&service.LoggedUser.IsAdmin;
             FillCollection();
-            TimesIndex = 0;
-            DiffIndex = 0;
+            IsRefreshing = false;
+            RefreshCommand = new Command(FillCollection,()=>!InServerCall&&!IsRefreshing);
             ViewGameReportsCommand = new Command((Object o) => ViewGameReports(o));
             ViewProfileCommand=new Command((Object o) => ViewProfile(o));
             ReportGameCommand = new Command((Object o) => ReportGame(o));
@@ -170,22 +174,21 @@ namespace MinesweeperApp.ViewModels
         }
         private async void FillCollection()
         {
+            IsRefreshing = true;
             InServerCall = true;
             try
             {
                 ServerResponse<List<Difficulty>> difficultiesResponse = await service.GetDifficulties();
                 if (difficultiesResponse != null && difficultiesResponse.Response)
                 {
-                    DifficultyList = difficultiesResponse.Content;
+                    DifficultyList = new(difficultiesResponse.Content);
                 }
-                OnPropertyChanged(nameof(DifficultyList));
                 TimesList = new();
                 TimesList.Add("All time");
                 TimesList.Add("Daily");
                 TimesList.Add("Weekly");
                 TimesList.Add("Monthly");
                 TimesList.Add("Yearly");
-                OnPropertyChanged(nameof(TimesList));
                 ServerResponse<List<Object>> listResponse = await service.GetCollectionbyType("games");
                 if (listResponse != null && listResponse.Response)
                 {
@@ -201,12 +204,18 @@ namespace MinesweeperApp.ViewModels
                         }
                     }
                 }
+                TimesIndex = 1;
+                DiffIndex = 1;
             }
             catch (Exception ex)
             {
                 InServerCall = false;
+                IsRefreshing = false;
+
             }
             InServerCall = false;
+            IsRefreshing = false;
+
         }
     }
 }

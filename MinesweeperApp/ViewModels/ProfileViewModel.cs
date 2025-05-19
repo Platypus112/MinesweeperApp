@@ -18,17 +18,18 @@ namespace MinesweeperApp.ViewModels
         private ObservableCollection<GameData> items;
         public ObservableCollection<GameData> Items { get { return items; } set { items = value; OnPropertyChanged(); } }
 
-        private int index;
-        public int Index { get { return index; } set { index = value; OnPropertyChanged(); Filter(); } }
+        private int diffIndex;
+        public int DiffIndex { get { return diffIndex; } set { diffIndex = value; OnPropertyChanged(); Filter(); } }
 
-        private List<Difficulty> difficultyList;
-        public List<Difficulty> DifficultyList { get { return difficultyList; } set { difficultyList = value; OnPropertyChanged(); } }
+        private ObservableCollection<Difficulty> difficultyList;
+        public ObservableCollection<Difficulty> DifficultyList { get { return difficultyList; } set { difficultyList = value; OnPropertyChanged(); } }
         public AppUser User
         {
             get { return user; }
             set
             {
                 user = new(value);
+                user.FullPicPath = service.GetImagesBaseAddress() + user.PicPath;
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(Name));
                 OnPropertyChanged(nameof(Email));
@@ -40,9 +41,9 @@ namespace MinesweeperApp.ViewModels
         }
         private AppUser user;
         public bool IsLoggedUser { get { return user.Email == service.LoggedUser.Email; } }
-        public bool IsNotLoggedUser { get { return user.Email == service.LoggedUser.Email; } }
+        public bool IsNotLoggedUser { get { return user.Email != service.LoggedUser.Email; } }
 
-        public string PhotoURL { get { return User.PicPath; } set { User.PicPath = value; OnPropertyChanged(); } }
+        public string PhotoURL { get { return User.FullPicPath; } set { User.FullPicPath = value; OnPropertyChanged(); } }
         public string Email { get { return User.Email; } set { User.Email = value; OnPropertyChanged(); } }
         public string Name { get { return User.Name; } set { User.Name = value; OnPropertyChanged(); } }
         public string Password { get { return User.Password; } set { User.Password = value; OnPropertyChanged(); } }
@@ -55,12 +56,11 @@ namespace MinesweeperApp.ViewModels
         
         public ProfileViewModel(Service service_):base(service_) 
         {
-            AppShell.Current.FlyoutBehavior = FlyoutBehavior.Flyout;
             User = service.LoggedUser;
             EditProfileCommand = new Command(EditProfile,()=>IsLoggedUser);
             ReportUserCommand=new Command(ReportUser,()=>!IsLoggedUser);
             AddFriendCommand=new Command(AddFriend,()=>!IsLoggedUser);
-            Index = 0;
+            DiffIndex = 0;
             FillCollection();
         }
         private async void AddFriend()
@@ -117,7 +117,7 @@ namespace MinesweeperApp.ViewModels
                 ServerResponse<List<Difficulty>> difficultiesResponse = await service.GetDifficulties();
                 if (difficultiesResponse != null && difficultiesResponse.Response)
                 {
-                    DifficultyList = difficultiesResponse.Content;
+                    DifficultyList = new(difficultiesResponse.Content);
                 }
             }
             catch (Exception ex)
@@ -131,12 +131,12 @@ namespace MinesweeperApp.ViewModels
             InServerCall = true;
             try
             {
-                if (index >= 0)
+                if (diffIndex >= 0)
                 {
                     Items = new();
                     foreach (GameData g in allGames)
                     {
-                        if (DifficultyList[Index].Name == g.Difficulty.Name)
+                        if (DifficultyList[DiffIndex].Name == g.Difficulty.Name)
                         {
                             Items.Add(g);
                         }

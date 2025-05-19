@@ -39,7 +39,7 @@ namespace MinesweeperApp.Services
             ServerResponse<AppUser> responseResult = new();
             try
             {
-                HttpResponseMessage response = await client.GetAsync(url);
+                HttpResponseMessage response = await client.PostAsync(url,null);
                 if (response.IsSuccessStatusCode)
                 {
                     JsonSerializerOptions options = new JsonSerializerOptions
@@ -147,7 +147,7 @@ namespace MinesweeperApp.Services
                     };
                     string result = await response.Content.ReadAsStringAsync();
                     AppUser userResult= JsonSerializer.Deserialize<AppUser>(result);
-                    responseResult = new(true, "Report accepted successfuly, user unable to aquire new friends", userResult);
+                    responseResult = new(true, "user edited successfuly", userResult);
                 }
                 else
                 {
@@ -1112,8 +1112,6 @@ namespace MinesweeperApp.Services
                 return new(ex.Message);
             }
         }
-
-
         public async Task<string> ValidateEmail(string Email)
         {
             string result = string.Empty;

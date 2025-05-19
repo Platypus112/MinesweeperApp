@@ -18,7 +18,6 @@ namespace MinesweeperApp.ViewModels
         public ICommand AcceptFriendRequestCommand { get; private set; }
         public FriendRequestsViewModel(Service service_):base(service_)
         {
-            AppShell.Current.FlyoutBehavior = FlyoutBehavior.Disabled;
 
             FillCollection();
             AcceptFriendRequestCommand = new Command((Object o) => AcceptFriendRequest(o));

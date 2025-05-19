@@ -24,7 +24,6 @@ namespace MinesweeperApp.ViewModels
 
         public UserReportsViewModel(Service service_) : base(service_)
         {
-            AppShell.Current.FlyoutBehavior = FlyoutBehavior.Disabled;
             ResolveReportCommand = new Command((Object obj) => ResolveReport(obj));
         }
         private async void ResolveReport(Object obj)

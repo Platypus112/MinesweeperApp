@@ -18,16 +18,49 @@ namespace MinesweeperApp.ViewModels
         public ObservableCollection<UserData> Items { get { return items; } set { items = value; OnPropertyChanged(); } }
 
 
-        public ICommand ViewGameUserCommand { get; private set; }
+        public ICommand ViewUserReportsCommand { get; private set; }
+        public ICommand ReportUserCommand { get; private set; }
         public ICommand RemoveUserCommand { get; private set; }
         public AdminViewModel(Service service_) : base(service_)
         {
-            AppShell.Current.FlyoutBehavior = FlyoutBehavior.Flyout;
             FillCollection();
-            ViewGameUserCommand = new Command((Object o) => ViewUserReports(o));
+            ViewUserReportsCommand = new Command((Object o) => ViewUserReports(o));
             RemoveUserCommand = new Command((Object o) => RemoveUser(o));
+            ReportUserCommand = new Command((Object o)=>ReportUser(o));
         }
-        
+        private async void ReportUser(Object o)
+        {
+            try
+            {
+                string description = await AppShell.Current.DisplayPromptAsync("File Report", "Describe the problem with the user");
+                if (!string.IsNullOrEmpty(description))
+                {
+                    InServerCall = true;
+                    ServerResponse<UserReport> serverResponse = await service.ReportUser(new((UserData)o), description);
+                    if (serverResponse != null)
+                    {
+                        if (serverResponse.Response)
+                        {
+                            await AppShell.Current.DisplayAlert("Report filed successfuly", "", "ok");
+                            FillCollection();
+                        }
+                        else
+                        {
+                            await AppShell.Current.DisplayAlert("Error occured", "Error occurred while filing report.\n" + serverResponse.ResponseMessage, "ok");
+                        }
+                    }
+                    else
+                    {
+                        await AppShell.Current.DisplayAlert("Error occured", "Error occurred while filing report.", "ok");
+                    }
+                    InServerCall = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                await AppShell.Current.DisplayAlert("Error occured", "Error occurred while filing report.\n" + ex.Message, "ok");
+            }
+        }
         private async void ViewUserReports(Object o)
         {
             InServerCall = true;
@@ -61,13 +94,13 @@ namespace MinesweeperApp.ViewModels
                     }
                     else
                     {
-                        await AppShell.Current.DisplayAlert("Error occured", "error occurred while trying to remove game\n" + response.ResponseMessage, "ok");
+                        await AppShell.Current.DisplayAlert("Error occured", "error occurred while trying to remove user\n" + response.ResponseMessage, "ok");
                     }
                 }
             }
             catch (Exception ex)
             {
-                await AppShell.Current.DisplayAlert("Error occured", "error occurred while trying to remove game\n" + ex.Message, "ok");
+                await AppShell.Current.DisplayAlert("Error occured", "error occurred while trying to remove user\n" + ex.Message, "ok");
             }
             InServerCall = false;
         }
@@ -76,17 +109,15 @@ namespace MinesweeperApp.ViewModels
             InServerCall = true;
             try
             {
-                ServerResponse<List<Object>> listResponse = await service.GetCollectionbyType("games");
+                ServerResponse<List<Object>> listResponse = await service.GetCollectionbyType("users");
                 if (listResponse != null && listResponse.Response)
                 {
                     Items = new();
                     foreach (Object item in listResponse.Content)
                     {
                         UserData u = (UserData)item;
-                        if (!u.IsReported)
-                        {
-                            Items.Add(u);
-                        }
+                        u.FullPicPath = service.GetImagesBaseAddress() + u.PicPath;
+                        Items.Add(u);
                     }
                 }
             }

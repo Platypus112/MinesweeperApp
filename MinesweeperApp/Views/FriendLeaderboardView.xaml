@@ -7,84 +7,88 @@
              x:DataType="ViewModel:FriendLeaderboardViewModel"
              xmlns:syncfusion="clr-namespace:Syncfusion.Maui.DataGrid;assembly=Syncfusion.Maui.DataGrid"
              Title="FriendLeaderboardView">
-    <VerticalStackLayout>
-        <Picker
-            x:DataType="x:String"
-            ItemDisplayBinding="{Binding .}"
-            SelectedIndex="{Binding BindingContext.TimesIndex, Source={x:Reference dataGrid}}"
-            ItemsSource="{Binding BindingContext.TimesList, Source={x:Reference dataGrid}}"/>
-        <Picker
-            x:DataType="Model:Difficulty"
-            ItemDisplayBinding="{Binding Name}"
-            SelectedIndex="{Binding BindingContext.DiffIndex, Source={x:Reference dataGrid}}" 
-            ItemsSource="{Binding BindingContext.DifficultyList, Source={x:Reference dataGrid}}"/>
-        <syncfusion:SfDataGrid
-        x:Name="dataGrid"
-        SortingMode="Single"
-        AllowTriStateSorting="false"
-        AutoGenerateColumnsMode="None"
-        ItemsSource="{Binding Items}">
-            <syncfusion:SfDataGrid.DefaultStyle>
-                <syncfusion:DataGridStyle HeaderRowBackground="#0074E3" HeaderRowTextColor="White" RowBackground="#AFD5FB" RowTextColor="#212121"/>
-            </syncfusion:SfDataGrid.DefaultStyle>
-            <syncfusion:SfDataGrid.Columns>
-                <syncfusion:DataGridTextColumn MappingName="Difficulty.Name" HeaderText="Difficulty" AllowSorting="False">
-                </syncfusion:DataGridTextColumn>
-                <syncfusion:DataGridTextColumn MappingName="Time" HeaderText="Time"/>
-                <syncfusion:DataGridTemplateColumn HeaderText="User" AllowSorting="False">
-                    <syncfusion:DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate x:DataType="Model:GameData">
-                            <Border>
-                                <Border.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.ViewProfileCommand}"/>
-                                </Border.GestureRecognizers>
-                                <HorizontalStackLayout>
-                                    <Image Source="{Binding User.PicPath}" HorizontalOptions="Start" WidthRequest="40" HeightRequest="40"/>
-                                    <Label Text="{Binding User.Name}"/>
-                                </HorizontalStackLayout>
-                            </Border>
-                        </DataTemplate>
-                    </syncfusion:DataGridTemplateColumn.CellTemplate>
-                </syncfusion:DataGridTemplateColumn>
-                <syncfusion:DataGridTextColumn MappingName="DateOnly" HeaderText="Date"/>
-                <syncfusion:DataGridTextColumn MappingName="IsDeleted" HeaderText="Deleted" Visible="{Binding IsAdmin}"/>
-                <syncfusion:DataGridTemplateColumn ColumnWidthMode="Auto">
-                    <syncfusion:DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate x:DataType="Model:GameData">
-                            <Button Text="Report game"
-                                FontAutoScalingEnabled="True"
-                                Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.ReportGameCommand}"
-                                CommandParameter="{Binding .}"/>
-                        </DataTemplate>
-                    </syncfusion:DataGridTemplateColumn.CellTemplate>
-                </syncfusion:DataGridTemplateColumn>
+    <RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}" RefreshColor="Transparent">
+        <ScrollView>
+            <VerticalStackLayout>
+                <Picker
+                    Margin="0,40,0,0"
+                x:DataType="x:String"
+                ItemDisplayBinding="{Binding .}"
+                SelectedIndex="{Binding BindingContext.TimesIndex, Source={x:Reference dataGrid}}"
+                ItemsSource="{Binding BindingContext.TimesList, Source={x:Reference dataGrid}}"/>
+                <Picker
+                x:DataType="Model:Difficulty"
+                ItemDisplayBinding="{Binding Name}"
+                SelectedIndex="{Binding BindingContext.DiffIndex, Source={x:Reference dataGrid}}" 
+                ItemsSource="{Binding BindingContext.DifficultyList, Source={x:Reference dataGrid}}"/>
+                <syncfusion:SfDataGrid
+            x:Name="dataGrid"
+            SortingMode="Single"
+            AllowTriStateSorting="false"
+            AutoGenerateColumnsMode="None"
+            ItemsSource="{Binding Items}">
+                    <syncfusion:SfDataGrid.DefaultStyle>
+                        <syncfusion:DataGridStyle HeaderRowBackground="#0074E3" HeaderRowTextColor="White" RowBackground="#AFD5FB" RowTextColor="#212121"/>
+                    </syncfusion:SfDataGrid.DefaultStyle>
+                    <syncfusion:SfDataGrid.Columns>
+                        <syncfusion:DataGridTextColumn MappingName="Difficulty.Name" HeaderText="Difficulty" AllowSorting="False">
+                        </syncfusion:DataGridTextColumn>
+                        <syncfusion:DataGridTextColumn MappingName="Time" HeaderText="Time"/>
+                        <syncfusion:DataGridTemplateColumn HeaderText="User" AllowSorting="False">
+                            <syncfusion:DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate x:DataType="Model:GameData">
+                                    <Border>
+                                        <Border.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.ViewProfileCommand}"
+                                                                  CommandParameter="{Binding .}"/>
+                                        </Border.GestureRecognizers>
+                                        <HorizontalStackLayout>
+                                            <Image Source="{Binding User.FullPicPath}" HorizontalOptions="Start" WidthRequest="40" HeightRequest="40"/>
+                                            <Label Text="{Binding User.Name}"/>
+                                        </HorizontalStackLayout>
+                                    </Border>
+                                </DataTemplate>
+                            </syncfusion:DataGridTemplateColumn.CellTemplate>
+                        </syncfusion:DataGridTemplateColumn>
+                        <syncfusion:DataGridTextColumn MappingName="DateOnly" HeaderText="Date"/>
+                        <syncfusion:DataGridTextColumn MappingName="IsDeleted" HeaderText="Deleted" Visible="{Binding IsAdmin}"/>
+                        <syncfusion:DataGridTemplateColumn ColumnWidthMode="Auto">
+                            <syncfusion:DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate x:DataType="Model:GameData">
+                                    <Button Text="Report game"
+                                    FontAutoScalingEnabled="True"
+                                    Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.ReportGameCommand}"
+                                    CommandParameter="{Binding .}"/>
+                                </DataTemplate>
+                            </syncfusion:DataGridTemplateColumn.CellTemplate>
+                        </syncfusion:DataGridTemplateColumn>
 
-                <syncfusion:DataGridTemplateColumn Visible="{Binding IsAdmin}">
-                    <syncfusion:DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button Text="View reports"
-                                FontAutoScalingEnabled="True"
-                                Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.ViewGameReportsCommand}"
-                                CommandParameter="{Binding .}"/>
-                        </DataTemplate>
-                    </syncfusion:DataGridTemplateColumn.CellTemplate>
-                </syncfusion:DataGridTemplateColumn>
+                        <syncfusion:DataGridTemplateColumn Visible="{Binding IsAdmin}">
+                            <syncfusion:DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Text="View reports"
+                                    FontAutoScalingEnabled="True"
+                                    Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.ViewGameReportsCommand}"
+                                    CommandParameter="{Binding .}"/>
+                                </DataTemplate>
+                            </syncfusion:DataGridTemplateColumn.CellTemplate>
+                        </syncfusion:DataGridTemplateColumn>
 
-                <syncfusion:DataGridTemplateColumn Visible="{Binding IsAdmin}">
-                    <syncfusion:DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button Text="Delete"
-                                FontAutoScalingEnabled="True"
-                                Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.RemoveGameCommand}"
-                                CommandParameter="{Binding .}"/>
-                        </DataTemplate>
-                    </syncfusion:DataGridTemplateColumn.CellTemplate>
-                </syncfusion:DataGridTemplateColumn>
-            </syncfusion:SfDataGrid.Columns>
+                        <syncfusion:DataGridTemplateColumn Visible="{Binding IsAdmin}">
+                            <syncfusion:DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Text="Delete"
+                                    FontAutoScalingEnabled="True"
+                                    Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.RemoveGameCommand}"
+                                    CommandParameter="{Binding .}"/>
+                                </DataTemplate>
+                            </syncfusion:DataGridTemplateColumn.CellTemplate>
+                        </syncfusion:DataGridTemplateColumn>
+                    </syncfusion:SfDataGrid.Columns>
 
-        </syncfusion:SfDataGrid>
-        <ActivityIndicator IsRunning="{Binding InServerCall}" 
-        VerticalOptions="Center" 
-        HorizontalOptions="Center" />
-    </VerticalStackLayout>
+                </syncfusion:SfDataGrid>
+                <ActivityIndicator IsRunning="{Binding InServerCall}"/>
+            </VerticalStackLayout>
+        </ScrollView>
+            </RefreshView>
 </ContentPage>

@@ -61,12 +61,12 @@ namespace MinesweeperApp.ViewModels
             ClickTileCommand = new Command(async (Object obj) => await ClickTile(obj)/*, (object obj) => !gameFinished&!clickingRunning*/) ;
             ToggleFlagCommand = new Command(async () => await ToggleFlagging(), () => !isFlagging);
             ToggleMineCommand = new Command(async () => await ToggleFlagging(), () => isFlagging);
-            Diff = new Difficulty()
-            {
-                bombs = 12,
-                width = 12,
-                height = 22,
-            };
+            //Diff = new Difficulty()
+            //{
+            //    bombs = 12,
+            //    width = 12,
+            //    height = 22,
+            //};
         }
         private async void CreateGameBoard()
         {

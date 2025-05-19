@@ -12,9 +12,8 @@ namespace MinesweeperApp.ViewModels
     {
         public LogoutViewModel(Service service_):base(service_)
         {
-            Logout();
         }
-        private async void Logout()
+        public async void Logout()
         {
             InServerCall = true;
             try
@@ -26,6 +25,7 @@ namespace MinesweeperApp.ViewModels
                     if (serverResponse.Response)
                     {
                         await AppShell.Current.DisplayAlert("Logout succeded", "Have a good day " +serverResponse.Content.Name, "ok");
+                        AppShell.Current.FlyoutBehavior = FlyoutBehavior.Disabled;
                         await AppShell.Current.GoToAsync("///homePage");
                     }
                     else

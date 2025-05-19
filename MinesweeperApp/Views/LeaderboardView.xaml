@@ -39,10 +39,11 @@
                                 <DataTemplate x:DataType="Model:GameData">
                                     <Border>
                                         <Border.GestureRecognizers>
-                                            <TapGestureRecognizer Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.ViewProfileCommand}"/>
+                                            <TapGestureRecognizer Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.ViewProfileCommand}"
+                                                                  CommandParameter="{Binding .}"/>
                                         </Border.GestureRecognizers>
                                         <HorizontalStackLayout>
-                                            <Image Source="{Binding User.PicPath}" HorizontalOptions="Start" WidthRequest="40" HeightRequest="40"/>
+                                            <Image Source="{Binding User.FullPicPath}" HorizontalOptions="Start" WidthRequest="40" HeightRequest="40"/>
                                             <Label Text="{Binding User.Name}"/>
                                         </HorizontalStackLayout>
                                     </Border>
@@ -91,5 +92,5 @@
                 <ActivityIndicator IsRunning="{Binding InServerCall}" />
             </VerticalStackLayout>
     </ScrollView>
-        </RefreshView>
+     </RefreshView>
 </ContentPage>

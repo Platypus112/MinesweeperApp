@@ -5,9 +5,14 @@ namespace MinesweeperApp.Views;
 
 public partial class LogoutView : ContentPage
 {
-	public LogoutView(Service service_)
+	public LogoutView(LogoutViewModel vm)
 	{
-		this.BindingContext = new LogoutViewModel(service_);
+		this.BindingContext = vm;
 		InitializeComponent();
 	}
+    protected override void OnAppearing()
+    {
+		((LogoutViewModel)this.BindingContext).Logout();
+    }
+
 }

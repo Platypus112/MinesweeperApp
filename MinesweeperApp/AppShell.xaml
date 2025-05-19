@@ -111,7 +111,7 @@
                   Route="adminPage"/>
 
     <ShellContent Title="Log Out"
-                  ContentTemplate="{DataTemplate views:HomeView}"
-                  Route="///homePage"/>
+                  ContentTemplate="{DataTemplate views:LogoutView}"
+                  Route="logoutPage"/>
     
 </Shell>

@@ -34,7 +34,7 @@ namespace MinesweeperApp.ViewModels
         public ObservableCollection<string> TimesList { get { return timesList; } set { timesList = value; OnPropertyChanged(); } }
 
         private bool isRefreshing;
-        public bool IsRefreshing { get { return isRefreshing; } set { isRefreshing = value;OnPropertyChanged(); } }
+        public bool IsRefreshing { get { return isRefreshing; } set { isRefreshing = value;OnPropertyChanged(); ((Command)RefreshCommand).ChangeCanExecute(); } }
 
         public ICommand ReportGameCommand { get; private set; }
         public ICommand ViewGameReportsCommand { get; private set; }
@@ -45,9 +45,8 @@ namespace MinesweeperApp.ViewModels
         {
             AppShell.Current.FlyoutBehavior = FlyoutBehavior.Flyout;
             IsAdmin = service.LoggedUser!=null&&service.LoggedUser.IsAdmin;
-            FillCollection();
-            IsRefreshing = false;
             RefreshCommand = new Command(FillCollection,()=>!InServerCall&&!IsRefreshing);
+            FillCollection();
             ViewGameReportsCommand = new Command((Object o) => ViewGameReports(o));
             ViewProfileCommand=new Command((Object o) => ViewProfile(o));
             ReportGameCommand = new Command((Object o) => ReportGame(o));
@@ -58,14 +57,17 @@ namespace MinesweeperApp.ViewModels
             InServerCall = true;
             try
             {
+                AppUser user = ((GameData)o).User;
                 Dictionary<string, object> data = new();
-                data.Add("user", o);
-                await AppShell.Current.GoToAsync("profilePage", data);
+                data.Add("user", user);
+                if (user.Id==service.LoggedUser.Id) await AppShell.Current.GoToAsync("///profilePage", data);
+                else await AppShell.Current.GoToAsync("profilePage", data);
 
             }
             catch (Exception ex)
             {
                 await AppShell.Current.DisplayAlert("Error occured", ex.Message, "ok");
+
             }
             InServerCall = false;
         }
@@ -110,6 +112,7 @@ namespace MinesweeperApp.ViewModels
                 Dictionary<string, object> data = new();
                 data.Add("game", o);
                 await AppShell.Current.GoToAsync("gameReportsPage", data);
+
 
             }
             catch (Exception ex)
@@ -198,14 +201,15 @@ namespace MinesweeperApp.ViewModels
                     {
                         GameData g = (GameData)item;
                         allGames.Add(g);
+                        g.User.FullPicPath = service.GetImagesBaseAddress() + g.User.PicPath;
                         if (IsAdmin || !g.IsDeleted)
                         {
                             Items.Add(g);
                         }
                     }
                 }
-                TimesIndex = 1;
-                DiffIndex = 1;
+                TimesIndex = 0;
+                DiffIndex = 0;
             }
             catch (Exception ex)
             {

@@ -24,7 +24,6 @@ namespace MinesweeperApp.ViewModels
 
         public SocialPageViewModel(Service service_):base(service_) 
         {
-            AppShell.Current.FlyoutBehavior = FlyoutBehavior.Flyout;
             FillCollection();
             RemoveFriendCommand=new Command((Object o)=>RemoveFriend(o));
             BlockUserCommand=new Command(BlockUser);

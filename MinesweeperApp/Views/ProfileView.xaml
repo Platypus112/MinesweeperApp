@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MinesweeperApp.Views.ProfileView"
              xmlns:ViewModel="clr-namespace:MinesweeperApp.ViewModels"
+             xmlns:Model="clr-namespace:MinesweeperApp.Models"
              x:DataType="ViewModel:ProfileViewModel"
              xmlns:syncfusion="clr-namespace:Syncfusion.Maui.DataGrid;assembly=Syncfusion.Maui.DataGrid"
              Title="ProfileView">
@@ -31,7 +32,11 @@
             <Button IsVisible="{Binding IsLoggedUser}" Text="Edit Profile" Command="{Binding EditProfileCommand}" IsEnabled="{Binding IsLoggedUser}" />
 
             <Button IsVisible="{Binding IsNotLoggedUser}" Text="Report" Command="{Binding ReportUserCommand}" IsEnabled="{Binding IsNotLoggedUser}" />
-            <Picker SelectedIndex="{Binding Index}" ItemsSource="{Binding Items}"/>
+            <Picker
+                x:DataType="Model:Difficulty"
+                ItemDisplayBinding="{Binding Name}"
+                SelectedIndex="{Binding BindingContext.DiffIndex, Source={x:Reference dataGrid}}" 
+                ItemsSource="{Binding BindingContext.DifficultyList, Source={x:Reference dataGrid}}"/>
             <syncfusion:SfDataGrid
                     x:Name="dataGrid"
                     SortingMode="Single"

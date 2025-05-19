@@ -17,7 +17,6 @@ namespace MinesweeperApp.ViewModels
         public ICommand UnblockUserCommand { get; private set; }
         public BlockedListViewModel(Service service_) : base(service_)
         {
-            AppShell.Current.FlyoutBehavior = FlyoutBehavior.Disabled;
 
             FillCollection();
             UnblockUserCommand=new Command((Object o)=>UnblockUser(o));

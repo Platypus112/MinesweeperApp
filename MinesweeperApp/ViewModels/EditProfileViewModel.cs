@@ -46,6 +46,7 @@ namespace MinesweeperApp.ViewModels
         public EditProfileViewModel(Service service_) : base(service_)
         {
             User = service.LoggedUser;
+            UpdatePhotoURL(User.PicPath);
             ViewPasswordCommand = new Command(ViewPassword);
             EditProfileCommand = new Command(EditProfile);
             UploadPhotoCommand = new Command(UploadPhoto);
@@ -63,7 +64,11 @@ namespace MinesweeperApp.ViewModels
             {
                 ErrorMsg += await service.ValidateUsername(Name);
                 ErrorMsg += await service.ValidatePassword(Password);
-                if (!string.IsNullOrEmpty(ErrorMsg)) return;
+                if (!string.IsNullOrEmpty(ErrorMsg))
+                {
+                    InServerCall= false;
+                    return;
+                }
 
                 ServerResponse<AppUser> response = await service.EditUser(User);
                 if (response != null)
@@ -95,9 +100,9 @@ namespace MinesweeperApp.ViewModels
                     {
                         ErrorMsg = "Failed to actualize changes. please try again";
                     }
-                    InServerCall = false;
-
                 }
+                InServerCall = false;
+
             }
             catch (Exception ex)
             {

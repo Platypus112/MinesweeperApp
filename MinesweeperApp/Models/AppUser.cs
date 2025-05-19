@@ -12,17 +12,20 @@ namespace MinesweeperApp.Models
 
         public string? PicPath { get; set; }
 
+        public string? FullPicPath {  get; set; }
+
         public bool IsAdmin { get; set; }
 
         public string? Description { get; set; }
 
         public AppUser() { }
-        public AppUser(string name_, string email_, string password_, string picPath_, bool isAdmin_, string description_)
+        public AppUser(string name_, string email_, string password_, string picPath_,string fullPicPath_, bool isAdmin_, string description_)
         {
             Name = name_;
             Email = email_;
             Password = password_;
             PicPath = picPath_;
+            FullPicPath = fullPicPath_;
             IsAdmin = isAdmin_;
             Description = description_;
         }
@@ -33,6 +36,7 @@ namespace MinesweeperApp.Models
             Email = appUser_.Email;
             Password = appUser_.Password;
             PicPath = appUser_.PicPath;
+            FullPicPath= appUser_.FullPicPath;
             IsAdmin = appUser_.IsAdmin;
             Description = appUser_.Description;
         }

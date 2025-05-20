@@ -5,8 +5,14 @@
              xmlns:ViewModel="clr-namespace:MinesweeperApp.ViewModels"
              xmlns:Models="clr-namespace:MinesweeperApp.Models"
              xmlns:syncfusion="clr-namespace:Syncfusion.Maui.DataGrid;assembly=Syncfusion.Maui.DataGrid"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:DataType="ViewModel:FriendRequestsViewModel"
              Title="FriendRequestsView">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <VerticalStackLayout>
         <syncfusion:SfDataGrid
             x:Name="dataGrid"

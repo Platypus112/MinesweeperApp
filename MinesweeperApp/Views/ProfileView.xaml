@@ -32,6 +32,7 @@
             <Button IsVisible="{Binding IsLoggedUser}" Text="Edit Profile" Command="{Binding EditProfileCommand}" IsEnabled="{Binding IsLoggedUser}" />
 
             <Button IsVisible="{Binding IsNotLoggedUser}" Text="Report" Command="{Binding ReportUserCommand}" IsEnabled="{Binding IsNotLoggedUser}" />
+            <Button IsVisible="{Binding IsNotLoggedUser}" Text="Add Friend" Command="{Binding AddFriendCommand}" IsEnabled="{Binding IsNotLoggedUser}" />
             <Picker
                 x:DataType="Model:Difficulty"
                 ItemDisplayBinding="{Binding Name}"

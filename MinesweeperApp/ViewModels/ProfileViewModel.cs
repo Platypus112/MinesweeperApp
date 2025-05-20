@@ -37,6 +37,7 @@ namespace MinesweeperApp.ViewModels
                 OnPropertyChanged(nameof(PhotoURL));
                 OnPropertyChanged(nameof(IsLoggedUser));
                 OnPropertyChanged(nameof(IsNotLoggedUser));
+                FillCollection();
             }
         }
         private AppUser user;
@@ -61,7 +62,6 @@ namespace MinesweeperApp.ViewModels
             ReportUserCommand=new Command(ReportUser,()=>!IsLoggedUser);
             AddFriendCommand=new Command(AddFriend,()=>!IsLoggedUser);
             DiffIndex = 0;
-            FillCollection();
         }
         private async void AddFriend()
         {

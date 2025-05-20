@@ -3,6 +3,7 @@ using MinesweeperApp.Views;
 using MinesweeperApp.ViewModels;
 using MinesweeperApp.Services;  
 using Syncfusion.Maui.Core.Hosting;
+using CommunityToolkit.Maui;
 
 namespace MinesweeperApp
 {
@@ -20,7 +21,10 @@ namespace MinesweeperApp
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-                });
+                })
+                .UseMauiCommunityToolkit();
+
+            builder.UseMauiCommunityToolkit();
 
             #region Syncfusion
             builder.ConfigureSyncfusionCore();

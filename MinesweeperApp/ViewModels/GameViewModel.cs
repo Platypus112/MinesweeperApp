@@ -14,9 +14,54 @@ using System.Windows.Input;
 
 namespace MinesweeperApp.ViewModels
 {
-    [QueryProperty(nameof(Diff), "Difficulty")]
+    //[QueryProperty(nameof(Diff), "Difficulty")]
     public class GameViewModel:ViewModel
     {
+        private ObservableCollection<Difficulty> difficulties;
+        public ObservableCollection<Difficulty> Difficulties { get { return difficulties; } set { difficulties = value; OnPropertyChanged(); } }
+
+        private Difficulty? selectedDifficulty;
+        public Difficulty? SelectedDifficulty { get { return selectedDifficulty; } set { selectedDifficulty = value; OnPropertyChanged(); ((Command)StartGameCommand).ChangeCanExecute(); } }
+
+        public ICommand StartGameCommand { get; private set; }
+
+        private bool isRunning;
+        public bool IsRunning { get { return isRunning; } set { isRunning = value; OnPropertyChanged(); OnPropertyChanged(nameof(IsNotRunning)); } }
+        public bool IsNotRunning { get { return !isRunning; } set { isRunning = !value; OnPropertyChanged(); OnPropertyChanged(nameof(IsRunning)); } }
+
+
+        private async void FillDifficulties()
+        {
+            List<Difficulty>? difficultyList = (await service.GetDifficulties()).Content;
+            Difficulties = new();
+            if (difficultyList != null)
+            {
+                foreach (Difficulty d in difficultyList)
+                {
+                    Difficulties.Add(d);
+                }
+            }
+        }
+
+        private async void StartGame()
+        {
+            if (SelectedDifficulty != null)
+            {
+                IsRunning = true;
+                //AppShell.Current.FlyoutBehavior = FlyoutBehavior.Disabled;
+                t = App.Current.Dispatcher.CreateTimer();
+                t.Stop();
+                t.Interval = new TimeSpan(0, 0, 0, 0, 200);
+                t.Tick += async (object sender, EventArgs e) => Timer = (DateTime.Now - game.StartTime).ToString().Substring(3, 5);
+                notStarted = true;
+                Board = new ObservableCollection<Tile>();
+                isFlagging = false;
+                gameFinished = false;
+                clickingRunning = false;
+                Diff=SelectedDifficulty;
+                SelectedDifficulty = null;
+            }
+        }
         private Difficulty diff;
         public Difficulty Diff { get => diff; set { diff = value; CreateGameBoard(); OnPropertyChanged(); OnPropertyChanged(nameof(Board)); } }
         public ObservableCollection<Tile> Board { get { return board; } set {board=value; OnPropertyChanged();} }
@@ -38,7 +83,7 @@ namespace MinesweeperApp.ViewModels
         private ColumnDefinitionCollection columns;
         public string Timer { get { return timer; } set {  timer = value; OnPropertyChanged(); } }
         private string timer;
-        private readonly IDispatcherTimer t;
+        private IDispatcherTimer t;
         private Game game;
         private bool isFlagging;
         private bool notStarted;
@@ -50,18 +95,12 @@ namespace MinesweeperApp.ViewModels
         public ICommand ToggleMineCommand { get; private set; }
         public GameViewModel(Service service_) : base(service_)
         {
-            t = App.Current.Dispatcher.CreateTimer();
-            t.Stop();
-            t.Interval = new TimeSpan(0, 0, 0, 0, 200);
-            t.Tick += async (object sender, EventArgs e) => Timer =  (DateTime.Now - game.StartTime).ToString().Substring(3,5);
-            notStarted = true;
-            Board = new ObservableCollection<Tile>();
-            gameFinished = false;
-            clickingRunning = false;
-            ClickTileCommand = new Command(async (Object obj) => await ClickTile(obj)/*, (object obj) => !gameFinished&!clickingRunning*/) ;
+            IsRunning = false;
+            StartGameCommand = new Command(StartGame, () => SelectedDifficulty != null);
+            ClickTileCommand = new Command(async (Object obj) => await ClickTile(obj)/*, (object obj) => !gameFinished&!clickingRunning*/);
             ToggleFlagCommand = new Command(async () => await ToggleFlagging(), () => !isFlagging);
             ToggleMineCommand = new Command(async () => await ToggleFlagging(), () => isFlagging);
-            Diff = new Difficulty();
+            FillDifficulties();
         }
         private async void CreateGameBoard()
         {
@@ -76,6 +115,7 @@ namespace MinesweeperApp.ViewModels
         {
             Columns = new();
             Rows = new();
+            GridHeight = DeviceDisplay.Current.MainDisplayInfo.Height * 0.25;
             for (int i = 0; i < Width; i++)
             {
                 Columns.Add(new ColumnDefinition());
@@ -98,7 +138,6 @@ namespace MinesweeperApp.ViewModels
             }
             ((Command)ToggleFlagCommand).ChangeCanExecute();
             ((Command)ToggleMineCommand).ChangeCanExecute();
-            OnPropertyChanged(nameof(Board));
         }
         private async Task UpdateCollection()
         {
@@ -114,7 +153,18 @@ namespace MinesweeperApp.ViewModels
             Timer = (DateTime.Now - game.StartTime).ToString().Substring(3, 5);
             gameFinished = true;
             ((Command)ClickTileCommand).ChangeCanExecute();
-            if (game.HasWon)await service.SendFinishedGame(game);
+            await Task.Delay(2000);//let them have a bit of time to see
+            if (game.HasWon)
+            {
+                await service.SendFinishedGame(game);
+                await AppShell.Current.DisplayAlert("Game won", "Game won in " + Timer, "Ok");
+            }
+            else
+            {
+                await AppShell.Current.DisplayAlert("Game over", "maybe next time!", "Ok");
+            }
+            AppShell.Current.FlyoutBehavior = FlyoutBehavior.Flyout;
+            IsRunning = false;
             InServerCall = false;
         }
         private async Task ClickTile(Object obj)

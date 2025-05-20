@@ -84,8 +84,8 @@
                       Route="homePage"/>
     
     <ShellContent Title="Play"
-                  ContentTemplate="{DataTemplate views:StartGameView}"
-                  Route="startGamePage"/>
+                  ContentTemplate="{DataTemplate views:GameView}"
+                  Route="gamePage"/>
 
     <FlyoutItem Title="LeaderBoards" FlyoutDisplayOptions="AsSingleItem">
         <ShellContent Title="Leaderboard"

@@ -54,7 +54,7 @@ namespace MinesweeperApp.ViewModels
                 {
                     AppShell.Current.FlyoutBehavior = FlyoutBehavior.Flyout;
                     ((AppShellViewModel)AppShell.Current.BindingContext).IsAdmin = service.LoggedUser.IsAdmin;
-                    await AppShell.Current.GoToAsync("///startGamePage");
+                    await AppShell.Current.GoToAsync("///gamePage");
                     InServerCall = false;
                 }
                 else

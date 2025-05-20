@@ -19,7 +19,6 @@ public partial class GameView : ContentPage
         InitializeComponent();
         //ArranageGrid();
         //AddPanAndZoomToGrid();
-        Task.Run(async () => { vm.InServerCall = true; await Task.Delay(10000); vm.GridHeight = GameGrid.Height; vm.InServerCall = false; });
         PinchGestureRecognizer pinchGesture = new PinchGestureRecognizer();
         pinchGesture.PinchUpdated += OnPinchUpdated;
         View.GestureRecognizers.Add(pinchGesture);

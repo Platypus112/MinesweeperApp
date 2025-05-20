@@ -31,19 +31,19 @@ namespace MinesweeperApp.ViewModels
                     else
                     {
                         await AppShell.Current.DisplayAlert("Logout failed", serverResponse.ResponseMessage, "ok");
-                        await AppShell.Current.GoToAsync("///startGamePage");
+                        await AppShell.Current.GoToAsync("///gamePage");
                     }
                 }
                 else
                 {
                     await AppShell.Current.DisplayAlert("Logout failed", "", "ok");
-                    await AppShell.Current.GoToAsync("///startGamePage");
+                    await AppShell.Current.GoToAsync("///gamePage");
                 }
             }
             catch (Exception ex)
             {
                 await AppShell.Current.DisplayAlert("Logout failed",ex.Message,"ok");
-                await AppShell.Current.GoToAsync("///startGamePage");
+                await AppShell.Current.GoToAsync("///gamePage");
                 InServerCall = true;
             }
         }

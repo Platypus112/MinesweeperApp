@@ -18,7 +18,7 @@ namespace MinesweeperApp.ViewModels
     public class GameViewModel:ViewModel
     {
         private Difficulty diff;
-        public Difficulty Diff { get => diff; set { diff = value; OnPropertyChanged();CreateGameBoard(); } }
+        public Difficulty Diff { get => diff; set { diff = value; CreateGameBoard(); OnPropertyChanged(); OnPropertyChanged(nameof(Board)); } }
         public ObservableCollection<Tile> Board { get { return board; } set {board=value; OnPropertyChanged();} }
         private ObservableCollection<Tile> board;
         public int Height { get { return height; } set { height = value; OnPropertyChanged(); } }
@@ -61,12 +61,7 @@ namespace MinesweeperApp.ViewModels
             ClickTileCommand = new Command(async (Object obj) => await ClickTile(obj)/*, (object obj) => !gameFinished&!clickingRunning*/) ;
             ToggleFlagCommand = new Command(async () => await ToggleFlagging(), () => !isFlagging);
             ToggleMineCommand = new Command(async () => await ToggleFlagging(), () => isFlagging);
-            //Diff = new Difficulty()
-            //{
-            //    bombs = 12,
-            //    width = 12,
-            //    height = 22,
-            //};
+            Diff = new Difficulty();
         }
         private async void CreateGameBoard()
         {
@@ -103,6 +98,7 @@ namespace MinesweeperApp.ViewModels
             }
             ((Command)ToggleFlagCommand).ChangeCanExecute();
             ((Command)ToggleMineCommand).ChangeCanExecute();
+            OnPropertyChanged(nameof(Board));
         }
         private async Task UpdateCollection()
         {

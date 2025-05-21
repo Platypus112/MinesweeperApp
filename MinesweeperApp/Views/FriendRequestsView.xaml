@@ -20,9 +20,7 @@
             AllowTriStateSorting="false"
             AutoGenerateColumnsMode="None"
             ItemsSource="{Binding Requests}">
-            <syncfusion:SfDataGrid.DefaultStyle>
-                <syncfusion:DataGridStyle HeaderRowBackground="#0074E3" HeaderRowTextColor="White" RowBackground="#AFD5FB" RowTextColor="#212121"/>
-            </syncfusion:SfDataGrid.DefaultStyle>
+
             <syncfusion:SfDataGrid.Columns>
                 <syncfusion:DataGridTemplateColumn HeaderText="Username" ColumnWidthMode="Auto">
                     <syncfusion:DataGridTemplateColumn.CellTemplate>

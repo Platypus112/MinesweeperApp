@@ -44,7 +44,7 @@ namespace MinesweeperApp.Models
         }
         public Tile(int Value_, int x_,int y_) : this(Value_)
         {
-            DisplayDetails = new DisplayDetails(x_,y_,1,string.Empty, "#e014b1"/*,((SolidColorBrush)((Style)AppShell.Current.Resources.First(x =>x.Key=="Tile").Value).Setters.First(x=> x.Property.PropertyName== "Background").Value).Color.ToHex()*/);
+            DisplayDetails = new DisplayDetails(x_,y_,1,string.Empty, "#dddea0"/*,((SolidColorBrush)((Style)AppShell.Current.Resources.First(x =>x.Key=="Tile").Value).Setters.First(x=> x.Property.PropertyName== "Background").Value).Color.ToHex()*/);
             UpdateDisplay();
         }
         public void UpdateDisplay()
@@ -52,9 +52,9 @@ namespace MinesweeperApp.Models
             if (DisplayDetails == null) return;
             if (Flagged)
             {
-                this.DisplayDetails.BackgroundColor = "#9e969e";
+                this.DisplayDetails.BackgroundColor = "#96969e";
                 this.DisplayDetails.Text = string.Empty;
-                this.DisplayDetails.Image = "flag.png";
+                this.DisplayDetails.Image = "flag2.png";
                 this.DisplayDetails.Scale = 0.95;
             }
             else if (Unveiled)
@@ -62,15 +62,15 @@ namespace MinesweeperApp.Models
                 this.DisplayDetails.Scale = 1;
                 if (Value != -1)
                 {
-                    this.DisplayDetails.BackgroundColor = "#211e1f";
+                    this.DisplayDetails.BackgroundColor = "#24262b";
                     if (value != 0) this.DisplayDetails.Text = Value.ToString();
                     else this.DisplayDetails.Text = string.Empty;           
                     //if(value!=0)this.DisplayDetails.Image = "t"+Value+"photoroom.png";
                 }
                 else
                 {
-                    this.DisplayDetails.BackgroundColor = "#e61531";
-                    this.DisplayDetails.Image = "mine.png";
+                    this.DisplayDetails.BackgroundColor = "#f0163a";
+                    this.DisplayDetails.Image = "mine2.png";
                     this.DisplayDetails.Text = string.Empty;
                 }
 
@@ -105,7 +105,7 @@ namespace MinesweeperApp.Models
         {
             IDispatcherTimer timer = App.Current.Dispatcher.CreateTimer();
             timer.Stop();
-            this.DisplayDetails.BackgroundColor = "#523750";
+            this.DisplayDetails.BackgroundColor = "#24262b";
             int mili = ((int)(secs*1000/12));
             timer.Interval = new TimeSpan(0,0,0,0,mili);
             timer.Tick += (Object sender, EventArgs e) =>
@@ -117,7 +117,7 @@ namespace MinesweeperApp.Models
                     this.DisplayDetails.Scale = 1;
                     UpdateDisplay();
                 }
-                if(this.DisplayDetails.Scale<1/Math.Pow(1.7,8)) this.DisplayDetails.BackgroundColor = "#211e1f";
+                if(this.DisplayDetails.Scale<1/Math.Pow(1.7,8)) this.DisplayDetails.BackgroundColor = "#162330";
                 OnPropertyChanged("DisplayDetails");
             };
             

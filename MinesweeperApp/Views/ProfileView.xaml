@@ -44,9 +44,7 @@
                     AllowTriStateSorting="false"
                     AutoGenerateColumnsMode="None"
                     ItemsSource="{Binding Items}">
-                <syncfusion:SfDataGrid.DefaultStyle>
-                    <syncfusion:DataGridStyle HeaderRowBackground="#0074E3" HeaderRowTextColor="White" RowBackground="#AFD5FB" RowTextColor="#212121"/>
-                </syncfusion:SfDataGrid.DefaultStyle>
+
                 <syncfusion:SfDataGrid.Columns>
                     <syncfusion:DataGridTextColumn MappingName="Difficulty.Name" HeaderText="Difficulty" AllowSorting="False"/>
                     <syncfusion:DataGridTextColumn MappingName="Time" HeaderText="Time"/>

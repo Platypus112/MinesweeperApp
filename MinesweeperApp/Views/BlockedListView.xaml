@@ -14,9 +14,7 @@
                     AllowTriStateSorting="false"
                     AutoGenerateColumnsMode="None"
                     ItemsSource="{Binding BlockedUsers}">
-            <syncfusion:SfDataGrid.DefaultStyle>
-                <syncfusion:DataGridStyle HeaderRowBackground="#0074E3" HeaderRowTextColor="White" RowBackground="#AFD5FB" RowTextColor="#212121"/>
-            </syncfusion:SfDataGrid.DefaultStyle>
+
             <syncfusion:SfDataGrid.Columns>
                 <syncfusion:DataGridTextColumn MappingName="Name" HeaderText="Username"/>
                 <syncfusion:DataGridTextColumn MappingName="Email" HeaderText="Email"/>

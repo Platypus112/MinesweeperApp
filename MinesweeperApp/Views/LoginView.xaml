@@ -47,7 +47,7 @@
                     MaximumWidthRequest="30"
                     CornerRadius="6986543"
                     Command="{Binding ViewPasswordCommand}"
-                    Source="t1.png"/>
+                    Source="viewpass.png"/>
             </Grid>
 
             <Button

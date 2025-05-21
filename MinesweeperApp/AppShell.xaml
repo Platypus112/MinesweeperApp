@@ -9,6 +9,8 @@
     xmlns:ViewModel="clr-namespace:MinesweeperApp.ViewModels"
     xmlns:syncfusion="clr-namespace:Syncfusion;assembly=Syncfusion.Licensing"
     xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
+    xmlns:datagrid="clr-namespace:Syncfusion.Maui.DataGrid;assembly=Syncfusion.Maui.DataGrid"
+
     x:DataType="ViewModel:AppShellViewModel"
     Title="MinesweeperApp">
     <Shell.Resources>
@@ -17,31 +19,40 @@
         </ResourceDictionary>
         <Style TargetType="ShellContent">
         </Style>
-        <Style TargetType="Shell">
-            <Setter Property="BackgroundColor" Value="Gray"/>
+        <Style TargetType="Shell" ApplyToDerivedTypes="True">
+            <Setter Property="Shell.BackgroundColor" Value="#141a24" />
+            <Setter Property="Shell.NavBarHasShadow" Value="False" />
+            <!--<Setter Property="Shell.ForegroundColor" Value="{OnPlatform WinUI={StaticResource Primary}, Default={StaticResource White}}" />
+            <Setter Property="Shell.TitleColor" Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource SecondaryDarkText}}" />
+            <Setter Property="Shell.DisabledColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray950}}" />
+            <Setter Property="Shell.UnselectedColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray200}}" />
+            <Setter Property="Shell.TabBarBackgroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}" />
+            <Setter Property="Shell.TabBarForegroundColor" Value="{AppThemeBinding Light={StaticResource Magenta}, Dark={StaticResource White}}" />
+            <Setter Property="Shell.TabBarTitleColor" Value="{AppThemeBinding Light={StaticResource Magenta}, Dark={StaticResource White}}" />
+            <Setter Property="Shell.TabBarUnselectedColor" Value="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource Gray200}}" />-->
         </Style>
-        <Style TargetType="ContentPage">
-            <Setter Property="BackgroundColor" Value="Gray"/>
+        <Style TargetType="Page" ApplyToDerivedTypes="True">
+            <Setter Property="Background" Value="#25344f"/>
         </Style>
         <Style TargetType="Frame" x:Key="frame">
             <Setter Property="ZIndex" Value="4"/>
-            <Setter Property="BackgroundColor" Value="DarkSlateGray"/>
+            <Setter Property="BackgroundColor" Value="#141a24"/>
             <Setter Property="BorderColor" Value="Black"/>
             <Setter Property="VerticalOptions" Value="Fill"/>
             <Setter Property="HorizontalOptions" Value="Fill"/>
             <Setter Property="Padding" Value="0"/>
         </Style>
         <Style TargetType="ActivityIndicator">
-            <Setter Property="Color" Value="DeepPink"/>
+            <Setter Property="Color" Value="#dddea0"/>
             <Setter Property="VerticalOptions" Value="Center"/>
             <Setter Property="HorizontalOptions" Value="Center"/>
         </Style>
         <Style TargetType="buttons:SfButton" x:Key="Tile">
-            <Setter Property="Background" Value="DeepPink"/>
+            <Setter Property="Background" Value="#dddea0"/>
             <!--<Setter Property="BorderWidth" Value="1"/>
             <Setter Property="BorderColor" Value="Black"/>-->
             <Setter Property="CornerRadius" Value="0"/>
-            <Setter Property="TextColor" Value="White"/>
+            <Setter Property="TextColor" Value="#dddea0"/>
             <Setter Property="FontSize" Value="Large"/>
             <Setter Property="Margin" Value="0"/>
             <Setter Property="Padding" Value="0"/>
@@ -55,11 +66,30 @@
             <Setter Property="Margin" Value="0"/>
             <Setter Property="Padding" Value="0"/>
         </Style>
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="#dddea0"/>
+            
+        </Style>
+        <Style TargetType="Entry">
+            <Setter Property="TextColor" Value="#dddea0"/>
+            <Setter Property="PlaceholderColor" Value="#f9fab6"/>
+        </Style>
+        <Style TargetType="datagrid:SfDataGrid">
+            <Setter Property="DefaultStyle">
+                <Setter.Value>
+                    <datagrid:DataGridStyle 
+                        HeaderRowBackground="#141a24" 
+                        HeaderRowTextColor="#afb056" 
+                        RowBackground="#25344f" 
+                        RowTextColor="#dddea0"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Shell.Resources>
     <Shell.ItemTemplate>
         <DataTemplate x:DataType="ShellContent">
             <Grid
-                BackgroundColor="DarkSlateGray">
+                BackgroundColor="#25344f">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40"/>
                 </Grid.RowDefinitions>
@@ -71,7 +101,7 @@
                        Source="{Binding FlyoutIcon}"/>
                 <Label FontAutoScalingEnabled="True" 
                        Grid.Row="0" Grid.Column="1" Text="{Binding Title}"
-                       TextColor="DeepPink"/>
+                       TextColor="#dddea0"/>
                 
             </Grid>
         </DataTemplate>

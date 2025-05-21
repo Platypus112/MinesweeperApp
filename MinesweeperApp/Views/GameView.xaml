@@ -108,8 +108,8 @@ Command="{Binding StartGameCommand}"/>
             </Grid>
             <Frame Style="{DynamicResource frame}" Grid.Row="3">
                 <HorizontalStackLayout HorizontalOptions="Center">
-                    <ImageButton WidthRequest="50" HeightRequest="50" Aspect="AspectFit" Style="{DynamicResource imgButton}" Source="mine.png" Command="{Binding ToggleMineCommand}"/>
-                    <ImageButton WidthRequest="50" HeightRequest="50" Aspect="AspectFit" Style="{DynamicResource imgButton}" Source="flag.png" Command="{Binding ToggleFlagCommand}"/>
+                    <ImageButton WidthRequest="50" HeightRequest="50" Aspect="AspectFit" Style="{DynamicResource imgButton}" Source="mine2.png" Command="{Binding ToggleMineCommand}"/>
+                    <ImageButton WidthRequest="50" HeightRequest="50" Aspect="AspectFit" Style="{DynamicResource imgButton}" Source="flag2.png" Command="{Binding ToggleFlagCommand}"/>
                 </HorizontalStackLayout>
             </Frame>
         </Grid>

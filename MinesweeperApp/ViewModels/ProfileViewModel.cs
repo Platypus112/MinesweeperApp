@@ -50,10 +50,14 @@ namespace MinesweeperApp.ViewModels
         public string Password { get { return User.Password; } set { User.Password = value; OnPropertyChanged(); } }
         public string Description { get { return User.Description; } set { User.Description = value; OnPropertyChanged(); } }
 
+        private bool isRefreshing;
+        public bool IsRefreshing { get { return isRefreshing; } set { isRefreshing = value; OnPropertyChanged(); ((Command)RefreshCommand).ChangeCanExecute(); } }
+
 
         public ICommand EditProfileCommand { get; private set; }
         public ICommand ReportUserCommand { get; private set; }
         public ICommand AddFriendCommand { get;private set; }
+        public ICommand RefreshCommand { get; private set; }
         
         public ProfileViewModel(Service service_):base(service_) 
         {
@@ -61,6 +65,7 @@ namespace MinesweeperApp.ViewModels
             EditProfileCommand = new Command(EditProfile,()=>IsLoggedUser);
             ReportUserCommand=new Command(ReportUser,()=>!IsLoggedUser);
             AddFriendCommand=new Command(AddFriend,()=>!IsLoggedUser);
+            RefreshCommand = new Command(FillCollection, () => !InServerCall && !IsRefreshing);
             DiffIndex = 0;
         }
         private async void AddFriend()

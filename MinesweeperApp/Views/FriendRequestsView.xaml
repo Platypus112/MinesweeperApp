@@ -4,7 +4,7 @@
              x:Class="MinesweeperApp.Views.FriendRequestsView"
              xmlns:ViewModel="clr-namespace:MinesweeperApp.ViewModels"
              xmlns:Models="clr-namespace:MinesweeperApp.Models"
-             xmlns:syncfusion="clr-namespace:Syncfusion.Maui.DataGrid;assembly=Syncfusion.Maui.DataGrid"
+             xmlns:datagrid="clr-namespace:Syncfusion.Maui.DataGrid;assembly=Syncfusion.Maui.DataGrid"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:DataType="ViewModel:FriendRequestsViewModel"
              Title="FriendRequestsView">
@@ -14,36 +14,36 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <VerticalStackLayout>
-        <syncfusion:SfDataGrid
+        <datagrid:SfDataGrid
             x:Name="dataGrid"
             SortingMode="Single"
             AllowTriStateSorting="false"
             AutoGenerateColumnsMode="None"
             ItemsSource="{Binding Requests}">
 
-            <syncfusion:SfDataGrid.Columns>
-                <syncfusion:DataGridTemplateColumn HeaderText="Username" ColumnWidthMode="Auto">
-                    <syncfusion:DataGridTemplateColumn.CellTemplate>
+            <datagrid:SfDataGrid.Columns>
+                <datagrid:DataGridTemplateColumn HeaderText="Username" ColumnWidthMode="Auto">
+                    <datagrid:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate x:DataType="Models:FriendRequest">
                             <VerticalStackLayout>
                                 <Label Text="{Binding UserRecieving.Name}" IsVisible="{Binding Recieving, Converter={StaticResource InvertedBoolConverter}}"/>
                                 <Label Text="{Binding UserSending.Name}" IsVisible="{Binding Recieving}"/>
                             </VerticalStackLayout>
                         </DataTemplate>
-                    </syncfusion:DataGridTemplateColumn.CellTemplate>
-                </syncfusion:DataGridTemplateColumn>
-                <syncfusion:DataGridTemplateColumn HeaderText="Email" ColumnWidthMode="Auto">
-                    <syncfusion:DataGridTemplateColumn.CellTemplate>
+                    </datagrid:DataGridTemplateColumn.CellTemplate>
+                </datagrid:DataGridTemplateColumn>
+                <datagrid:DataGridTemplateColumn HeaderText="Email" ColumnWidthMode="Auto">
+                    <datagrid:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate x:DataType="Models:FriendRequest">
                             <VerticalStackLayout>
                                 <Label Text="{Binding UserRecieving.Email}" IsVisible="{Binding Recieving, Converter={StaticResource InvertedBoolConverter}}"/>
                                 <Label Text="{Binding UserSending.Email}" IsVisible="{Binding Recieving}"/>
                             </VerticalStackLayout>
                         </DataTemplate>
-                    </syncfusion:DataGridTemplateColumn.CellTemplate>
-                </syncfusion:DataGridTemplateColumn>
-                <syncfusion:DataGridTemplateColumn ColumnWidthMode="Auto" AllowSorting="False">
-                    <syncfusion:DataGridTemplateColumn.CellTemplate>
+                    </datagrid:DataGridTemplateColumn.CellTemplate>
+                </datagrid:DataGridTemplateColumn>
+                <datagrid:DataGridTemplateColumn ColumnWidthMode="Auto" AllowSorting="False">
+                    <datagrid:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate x:DataType="Models:FriendRequest">
                             <Button Text="Decline"
                                     IsVisible="{Binding Recieving}"
@@ -51,10 +51,10 @@
                         Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.DeclineFriendRequestCommand}"
                         CommandParameter="{Binding .}"/>
                         </DataTemplate>
-                    </syncfusion:DataGridTemplateColumn.CellTemplate>
-                </syncfusion:DataGridTemplateColumn>
-                <syncfusion:DataGridTemplateColumn ColumnWidthMode="Auto" AllowSorting="False">
-                    <syncfusion:DataGridTemplateColumn.CellTemplate>
+                    </datagrid:DataGridTemplateColumn.CellTemplate>
+                </datagrid:DataGridTemplateColumn>
+                <datagrid:DataGridTemplateColumn ColumnWidthMode="Auto" AllowSorting="False">
+                    <datagrid:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate x:DataType="Models:FriendRequest">
                             <Button Text="Accept"
                                     IsVisible="{Binding Recieving}"
@@ -62,9 +62,9 @@
         Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.AcceptFriendRequestCommand}"
         CommandParameter="{Binding .}"/>
                         </DataTemplate>
-                    </syncfusion:DataGridTemplateColumn.CellTemplate>
-                </syncfusion:DataGridTemplateColumn>
-            </syncfusion:SfDataGrid.Columns>
-        </syncfusion:SfDataGrid>
+                    </datagrid:DataGridTemplateColumn.CellTemplate>
+                </datagrid:DataGridTemplateColumn>
+            </datagrid:SfDataGrid.Columns>
+        </datagrid:SfDataGrid>
     </VerticalStackLayout>
 </ContentPage>

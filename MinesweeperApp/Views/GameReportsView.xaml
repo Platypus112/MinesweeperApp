@@ -5,76 +5,79 @@
              xmlns:ViewModel="clr-namespace:MinesweeperApp.ViewModels"
              xmlns:Model="clr-namespace:MinesweeperApp.Models"
              x:DataType="ViewModel:GameReportsViewModel"
-             xmlns:syncfusion="clr-namespace:Syncfusion.Maui.DataGrid;assembly=Syncfusion.Maui.DataGrid"
+             xmlns:datagrid="clr-namespace:Syncfusion.Maui.DataGrid;assembly=Syncfusion.Maui.DataGrid"
              Title="GameReportsView">
-    <VerticalStackLayout>
-        <Label>
-            <Label.FormattedText>
-                <FormattedString>
-                    <Span Text="Game id:"/>
-                    <Span Text="{Binding Game.Id}"/>
-                </FormattedString>
-            </Label.FormattedText>
-        </Label>
-        <Label>
-            <Label.FormattedText>
-                <FormattedString>
-                    <Span Text="Difficulty:"/>
-                    <Span Text="{Binding Game.Difficulty.Name}"/>
-                </FormattedString>
-            </Label.FormattedText>
-        </Label>
-        <Label>
-            <Label.FormattedText>
-                <FormattedString>
-                    <Span Text="Time:"/>
-                    <Span Text="{Binding Game.Time}"/>
-                </FormattedString>
-            </Label.FormattedText>
-        </Label>
-        <Label>
-            <Label.FormattedText>
-                <FormattedString>
-                    <Span Text="User:"/>
-                    <Span Text="{Binding Game.User.Name}"/>
-                </FormattedString>
-            </Label.FormattedText>
-        </Label>
-        <Label>
-            <Label.FormattedText>
-                <FormattedString>
-                    <Span Text="Date:"/>
-                    <Span Text="{Binding Game.DateOnly}"/>
-                </FormattedString>
-            </Label.FormattedText>
-        </Label>
-        <syncfusion:SfDataGrid
-                x:Name="dataGrid"
-                SortingMode="Single"
-                AllowTriStateSorting="false"
-                AutoGenerateColumnsMode="None"
-                ItemsSource="{Binding GameReports}">
+    <VerticalStackLayout Padding="15">
 
-            <syncfusion:SfDataGrid.Columns>
-                <syncfusion:DataGridTextColumn HeaderText="Description" MappingName="Description"/>
-                <syncfusion:DataGridTextColumn HeaderText="Status" MappingName="Status.Name"/>
-                <syncfusion:DataGridTemplateColumn>
-                    <syncfusion:DataGridTemplateColumn.CellTemplate>
+        <Label Style="{StaticResource DataLabelStyle}">
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="Game id: " Style="{StaticResource LabelHeaderSpanStyle}" />
+                    <Span Text="{Binding Game.Id}" Style="{StaticResource LabelValueSpanStyle}" />
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+
+        <Label Style="{StaticResource DataLabelStyle}">
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="Difficulty: " Style="{StaticResource LabelHeaderSpanStyle}" />
+                    <Span Text="{Binding Game.Difficulty.Name}" Style="{StaticResource LabelValueSpanStyle}" />
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+
+        <Label Style="{StaticResource DataLabelStyle}">
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="Time: " Style="{StaticResource LabelHeaderSpanStyle}" />
+                    <Span Text="{Binding Game.Time}" Style="{StaticResource LabelValueSpanStyle}" />
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+
+        <Label Style="{StaticResource DataLabelStyle}">
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="User: " Style="{StaticResource LabelHeaderSpanStyle}" />
+                    <Span Text="{Binding Game.User.Name}" Style="{StaticResource LabelValueSpanStyle}" />
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+
+        <Label Style="{StaticResource DataLabelStyle}">
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="Date: " Style="{StaticResource LabelHeaderSpanStyle}" />
+                    <Span Text="{Binding Game.DateOnly}" Style="{StaticResource LabelValueSpanStyle}" />
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+
+        <datagrid:SfDataGrid
+        x:Name="dataGrid"
+        SortingMode="Single"
+        AllowTriStateSorting="false"
+        AutoGenerateColumnsMode="None"
+        ItemsSource="{Binding GameReports}">
+
+            <datagrid:SfDataGrid.Columns>
+                <datagrid:DataGridTextColumn HeaderText="Description" MappingName="Description" />
+                <datagrid:DataGridTextColumn HeaderText="Status" MappingName="Status.Name" />
+                <datagrid:DataGridTemplateColumn>
+                    <datagrid:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate x:DataType="Model:GameReport">
-                            <Button Text="ResolveReport"
-                        Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.ResolveReportCommand}"
-                        CommandParameter="{Binding .}"/>
+                            <Button Text="Resolve Report"
+                                Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.ResolveReportCommand}"
+                                CommandParameter="{Binding .}" />
                         </DataTemplate>
-                    </syncfusion:DataGridTemplateColumn.CellTemplate>
-                </syncfusion:DataGridTemplateColumn>
+                    </datagrid:DataGridTemplateColumn.CellTemplate>
+                </datagrid:DataGridTemplateColumn>
+            </datagrid:SfDataGrid.Columns>
+        </datagrid:SfDataGrid>
 
-                
-
-            </syncfusion:SfDataGrid.Columns>
-
-        </syncfusion:SfDataGrid>
-        <ActivityIndicator IsRunning="{Binding InServerCall}" 
-       VerticalOptions="Center" 
-       HorizontalOptions="Center" />
+        <ActivityIndicator IsRunning="{Binding InServerCall}"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center" />
     </VerticalStackLayout>
 </ContentPage>

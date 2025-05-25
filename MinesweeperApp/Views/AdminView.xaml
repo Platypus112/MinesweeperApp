@@ -5,56 +5,76 @@
              xmlns:ViewModel="clr-namespace:MinesweeperApp.ViewModels"
              xmlns:Model="clr-namespace:MinesweeperApp.Models"
              x:DataType="ViewModel:AdminViewModel"
-             xmlns:syncfusion="clr-namespace:Syncfusion.Maui.DataGrid;assembly=Syncfusion.Maui.DataGrid"
+             xmlns:datagrid="clr-namespace:Syncfusion.Maui.DataGrid;assembly=Syncfusion.Maui.DataGrid"
              Title="AdminView">
-    <VerticalStackLayout>
-        <syncfusion:SfDataGrid
-    x:Name="dataGrid"
-    SortingMode="Single"
-    AllowTriStateSorting="false"
-    AutoGenerateColumnsMode="None"
-    ItemsSource="{Binding Items}">
-            <syncfusion:SfDataGrid.Columns>
-                <syncfusion:DataGridImageColumn Width="40" MappingName="FullPicPath" HeaderText="Pic" AllowSorting="False"/>
-                <syncfusion:DataGridTextColumn MappingName="Name" HeaderText="User"/>
-                <syncfusion:DataGridTextColumn MappingName="Email" HeaderText="Email"/>
-                <syncfusion:DataGridTextColumn MappingName="IsReported" HeaderText="Leaderboard denied" AllowSorting="False"/>
-                <syncfusion:DataGridTemplateColumn ColumnWidthMode="Auto">
-                    <syncfusion:DataGridTemplateColumn.CellTemplate AllowSorting="False">
-                        <DataTemplate x:DataType="Model:UserData">
-                            <Button Text="Report user"
-                            FontAutoScalingEnabled="True"
-                            Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.ReportUserCommand}"
-                            CommandParameter="{Binding .}"/>
-                        </DataTemplate>
-                    </syncfusion:DataGridTemplateColumn.CellTemplate>
-                </syncfusion:DataGridTemplateColumn>
+    <Grid>
+        <VerticalStackLayout Padding="10">
+            <datagrid:SfDataGrid
+          x:Name="dataGrid"
+          SortingMode="Single"
+          AllowTriStateSorting="False"
+          AutoGenerateColumnsMode="None"
+          ItemsSource="{Binding Items}">
+                <datagrid:SfDataGrid.Columns>
 
-                <syncfusion:DataGridTemplateColumn AllowSorting="False">
-                    <syncfusion:DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate  x:DataType="Model:UserData">
-                            <Button Text="View reports"
-                            FontAutoScalingEnabled="True"
-                            Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.ViewUserReportsCommand}"
-                            CommandParameter="{Binding .}"/>
-                        </DataTemplate>
-                    </syncfusion:DataGridTemplateColumn.CellTemplate>
-                </syncfusion:DataGridTemplateColumn>
+                    <datagrid:DataGridTemplateColumn Width="50" HeaderText="Pic" AllowSorting="False">
+                        <datagrid:DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate x:DataType="Model:UserData">
+                                <Frame Padding="0" CornerRadius="25" HeightRequest="40" WidthRequest="40" IsClippedToBounds="True" HasShadow="False" BackgroundColor="Transparent" HorizontalOptions="Center" VerticalOptions="Center">
+                                    <Image Source="{Binding FullPicPath}" Aspect="AspectFill"/>
+                                </Frame>
+                            </DataTemplate>
+                        </datagrid:DataGridTemplateColumn.CellTemplate>
+                    </datagrid:DataGridTemplateColumn>
 
-                <syncfusion:DataGridTemplateColumn AllowSorting="False">
-                    <syncfusion:DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate  x:DataType="Model:UserData">
-                            <Button Text="Remove"
-                            FontAutoScalingEnabled="True"
-                            Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.RemoveUserCommand}"
-                            CommandParameter="{Binding .}"/>
-                        </DataTemplate>
-                    </syncfusion:DataGridTemplateColumn.CellTemplate>
-                </syncfusion:DataGridTemplateColumn>
+                    <datagrid:DataGridTextColumn MappingName="Name" HeaderText="User"/>
+                    <datagrid:DataGridTextColumn MappingName="Email" HeaderText="Email"/>
+                    <datagrid:DataGridTextColumn MappingName="IsReported" HeaderText="Leaderboard denied" AllowSorting="False"/>
 
-            </syncfusion:SfDataGrid.Columns>
+                    <datagrid:DataGridTemplateColumn ColumnWidthMode="Auto" AllowSorting="False">
+                        <datagrid:DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate x:DataType="Model:UserData">
+                                <Button Text="Report user"
+                        Style="{StaticResource PrimaryButtonStyle}"
+                        FontAutoScalingEnabled="True"
+                        Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.ReportUserCommand}"
+                        CommandParameter="{Binding .}"/>
+                            </DataTemplate>
+                        </datagrid:DataGridTemplateColumn.CellTemplate>
+                    </datagrid:DataGridTemplateColumn>
 
-        </syncfusion:SfDataGrid>
-        <ActivityIndicator IsRunning="{Binding InServerCall}" />
-    </VerticalStackLayout>
+                    <datagrid:DataGridTemplateColumn AllowSorting="False">
+                        <datagrid:DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate  x:DataType="Model:UserData">
+                                <Button Text="View reports"
+                        Style="{StaticResource SecondaryButtonStyle}"
+                        FontAutoScalingEnabled="True"
+                        Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.ViewUserReportsCommand}"
+                        CommandParameter="{Binding .}"/>
+                            </DataTemplate>
+                        </datagrid:DataGridTemplateColumn.CellTemplate>
+                    </datagrid:DataGridTemplateColumn>
+
+                    <datagrid:DataGridTemplateColumn AllowSorting="False">
+                        <datagrid:DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate  x:DataType="Model:UserData">
+                                <Button Text="Remove"
+                        Style="{StaticResource SecondaryButtonStyle}"
+                        FontAutoScalingEnabled="True"
+                        Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.RemoveUserCommand}"
+                        CommandParameter="{Binding .}"/>
+                            </DataTemplate>
+                        </datagrid:DataGridTemplateColumn.CellTemplate>
+                    </datagrid:DataGridTemplateColumn>
+
+                </datagrid:SfDataGrid.Columns>
+            </datagrid:SfDataGrid>
+        </VerticalStackLayout>
+
+        <ActivityIndicator IsRunning="{Binding InServerCall}"
+                       IsVisible="{Binding InServerCall}"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center"
+                       Color="{StaticResource Secondary}"/>
+    </Grid>
 </ContentPage>

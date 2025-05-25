@@ -5,57 +5,55 @@
              xmlns:ViewModel="clr-namespace:MinesweeperApp.ViewModels"
              xmlns:Model="clr-namespace:MinesweeperApp.Models"
              x:DataType="ViewModel:ProfileViewModel"
-             xmlns:syncfusion="clr-namespace:Syncfusion.Maui.DataGrid;assembly=Syncfusion.Maui.DataGrid"
+             xmlns:datagrid="clr-namespace:Syncfusion.Maui.DataGrid;assembly=Syncfusion.Maui.DataGrid"
              Title="ProfileView">
-    <Grid>
+        <RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}">
+        <ScrollView>
+            <VerticalStackLayout Padding="20" Spacing="12">
+                <Frame BorderColor="Black" Padding="5" Margin="10" HorizontalOptions="Center">
+                    <Image x:Name="theImageBug" Source="{Binding PhotoURL}" HeightRequest="150"/>
+                </Frame>
 
+                <Label Text="Email" Style="{StaticResource TitleLabelStyle}"/>
+                <Label Text="{Binding Email}" Style="{StaticResource SecondaryLabelStyle}"/>
 
-        <!-- Main Content -->
-        <VerticalStackLayout Padding="20">
-            <!-- Photo -->
-            <Frame BorderColor="Black" Padding="5" Margin="10">
-                <Image x:Name="theImageBug" Source="{Binding PhotoURL}"  HeightRequest="150"/>
-            </Frame>
-            <!-- Email -->
-            <Label Text="Email"/>
-            <Label  Text="{Binding Email}"/>
-            
-            <!-- User Name -->
-            <Label Text="Username"/>
-            <Label  Text="{Binding Name}"/>
-           
-            
-            <!-- Description -->
-            <Label Text="Description"/>
-            <Label Text="{Binding Description}"/>
+                <Label Text="Username" Style="{StaticResource TitleLabelStyle}"/>
+                <Label Text="{Binding Name}" Style="{StaticResource SecondaryLabelStyle}"/>
 
-            <Button IsVisible="{Binding IsLoggedUser}" Text="Edit Profile" Command="{Binding EditProfileCommand}" IsEnabled="{Binding IsLoggedUser}" />
+                <Label Text="Description" Style="{StaticResource TitleLabelStyle}"/>
+                <Label Text="{Binding Description}" Style="{StaticResource SecondaryLabelStyle}"/>
 
-            <Button IsVisible="{Binding IsNotLoggedUser}" Text="Report" Command="{Binding ReportUserCommand}" IsEnabled="{Binding IsNotLoggedUser}" />
-            <Button IsVisible="{Binding IsNotLoggedUser}" Text="Add Friend" Command="{Binding AddFriendCommand}" IsEnabled="{Binding IsNotLoggedUser}" />
-            <Picker
-                x:DataType="Model:Difficulty"
-                ItemDisplayBinding="{Binding Name}"
-                SelectedIndex="{Binding BindingContext.DiffIndex, Source={x:Reference dataGrid}}" 
-                ItemsSource="{Binding BindingContext.DifficultyList, Source={x:Reference dataGrid}}"/>
-            <syncfusion:SfDataGrid
-                    x:Name="dataGrid"
-                    SortingMode="Single"
-                    AllowTriStateSorting="false"
-                    AutoGenerateColumnsMode="None"
-                    ItemsSource="{Binding Items}">
+                <Button IsVisible="{Binding IsLoggedUser}" Text="Edit Profile" Command="{Binding EditProfileCommand}" Style="{StaticResource PrimaryButtonStyle}" />
+                <Button IsVisible="{Binding IsNotLoggedUser}" Text="Report" Command="{Binding ReportUserCommand}" Style="{StaticResource SecondaryButtonStyle}" />
+                <Button IsVisible="{Binding IsNotLoggedUser}" Text="Add Friend" Command="{Binding AddFriendCommand}" Style="{StaticResource SecondaryButtonStyle}" />
 
-                <syncfusion:SfDataGrid.Columns>
-                    <syncfusion:DataGridTextColumn MappingName="Difficulty.Name" HeaderText="Difficulty" AllowSorting="False"/>
-                    <syncfusion:DataGridTextColumn MappingName="Time" HeaderText="Time"/>
-                    <syncfusion:DataGridTextColumn MappingName="DateOnly" HeaderText="Date"/>
-                    <syncfusion:DataGridTextColumn MappingName="IsDeleted" HeaderText="Deleted" Visible="{Binding IsLoggedUser}"/>
-                </syncfusion:SfDataGrid.Columns>
+                <Picker
+                        x:DataType="Model:Difficulty"
+                        ItemDisplayBinding="{Binding Name}"
+                        SelectedIndex="{Binding BindingContext.DiffIndex, Source={x:Reference dataGrid}}" 
+                        ItemsSource="{Binding BindingContext.DifficultyList, Source={x:Reference dataGrid}}"/>
 
-            </syncfusion:SfDataGrid>
+                <datagrid:SfDataGrid
+                        x:Name="dataGrid"
+                        SortingMode="Single"
+                        AllowTriStateSorting="false"
+                        AutoGenerateColumnsMode="None"
+                        ItemsSource="{Binding Items}"
+                        HeightRequest="300" >
+                    <datagrid:SfDataGrid.Columns>
+                        <datagrid:DataGridTextColumn MappingName="Difficulty.Name" HeaderText="Difficulty" AllowSorting="False"/>
+                        <datagrid:DataGridTextColumn MappingName="Time" HeaderText="Time"/>
+                        <datagrid:DataGridTextColumn MappingName="DateOnly" HeaderText="Date"/>
+                        <datagrid:DataGridTextColumn MappingName="IsDeleted" HeaderText="Deleted" Visible="{Binding IsLoggedUser}"/>
+                    </datagrid:SfDataGrid.Columns>
+                </datagrid:SfDataGrid>
+                <ActivityIndicator
+            IsRunning="{Binding InServerCall}"
+            IsVisible="{Binding InServerCall}"
+            HorizontalOptions="Center"
+            VerticalOptions="Center" />
+            </VerticalStackLayout>
+        </ScrollView>
+        </RefreshView>
 
-        </VerticalStackLayout>
-        <!-- Centered ActivityIndicator -->
-        <ActivityIndicator IsRunning="{Binding InServerCall}"/>
-    </Grid>
 </ContentPage>

@@ -5,7 +5,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:MinesweeperApp"
     xmlns:views="clr-namespace:MinesweeperApp.Views"
-    FlyoutBehavior="Flyout"
+    FlyoutBehavior="Disabled"
+    
     xmlns:ViewModel="clr-namespace:MinesweeperApp.ViewModels"
     xmlns:syncfusion="clr-namespace:Syncfusion;assembly=Syncfusion.Licensing"
     xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
@@ -31,6 +32,14 @@
             <Setter Property="Shell.TabBarTitleColor" Value="{AppThemeBinding Light={StaticResource Magenta}, Dark={StaticResource White}}" />
             <Setter Property="Shell.TabBarUnselectedColor" Value="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource Gray200}}" />-->
         </Style>
+        <Style x:Key="primaryButton" TargetType="Button">
+            <Setter Property="CornerRadius" Value="12" />
+            <Setter Property="HeightRequest" Value="50" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="BackgroundColor" Value="#2196F3" />
+            <Setter Property="TextColor" Value="White" />
+        </Style>
+
         <Style TargetType="Page" ApplyToDerivedTypes="True">
             <Setter Property="Background" Value="#25344f"/>
         </Style>
@@ -47,7 +56,7 @@
             <Setter Property="VerticalOptions" Value="Center"/>
             <Setter Property="HorizontalOptions" Value="Center"/>
         </Style>
-        <Style TargetType="buttons:SfButton" x:Key="Tile">
+        <Style TargetType="buttons:SfButton" x:Key="tile">
             <Setter Property="Background" Value="#dddea0"/>
             <!--<Setter Property="BorderWidth" Value="1"/>
             <Setter Property="BorderColor" Value="Black"/>-->
@@ -106,42 +115,46 @@
             </Grid>
         </DataTemplate>
     </Shell.ItemTemplate>
+        <ShellContent Title="Welcome" 
+                  IsEnabled="False"
+                  FlyoutItemIsVisible="False"
+                  ContentTemplate="{DataTemplate views:HomeView}"
+                  Route="homePage"/>
+    <TabBar>
 
-    <ShellContent Title="Welcome" 
-                      IsEnabled="False"
-                      FlyoutItemIsVisible="False"
-                      ContentTemplate="{DataTemplate views:HomeView}"
-                      Route="homePage"/>
-    
-    <ShellContent Title="Play"
-                  ContentTemplate="{DataTemplate views:GameView}"
-                  Route="gamePage"/>
 
-    <FlyoutItem Title="LeaderBoards" FlyoutDisplayOptions="AsSingleItem">
-        <ShellContent Title="Leaderboard"
-                      ContentTemplate="{DataTemplate views:LeaderboardView}"
-                      Route="leaderboardPage"/>
+        <Tab Title="LeaderBoards" FlyoutDisplayOptions="AsSingleItem">
+            <ShellContent Title="Leaderboard"
+                  ContentTemplate="{DataTemplate views:LeaderboardView}"
+                  Route="leaderboardPage"/>
 
-        <ShellContent Title="Friend leaderboard"
-                      ContentTemplate="{DataTemplate views:FriendLeaderboardView}"
-                      Route="friendLeaderboardPage"/>
-    </FlyoutItem>
-    
-    <ShellContent Title="Social page"
-                  ContentTemplate="{DataTemplate views:SocialPageView}"
-                  Route="socialPage"/>
-    
-    <ShellContent Title="Profile"
-                  ContentTemplate="{DataTemplate views:ProfileView}"
-                  Route="profilePage"/>
-    
-    <ShellContent Title="Admin page"
-                  IsVisible="{Binding IsAdmin}"
-                  ContentTemplate="{DataTemplate views:AdminView}"
-                  Route="adminPage"/>
+            <ShellContent Title="Friend leaderboard"
+                  ContentTemplate="{DataTemplate views:FriendLeaderboardView}"
+                  Route="friendLeaderboardPage"/>
+        </Tab>
 
-    <ShellContent Title="Log Out"
-                  ContentTemplate="{DataTemplate views:LogoutView}"
-                  Route="logoutPage"/>
-    
+        <ShellContent Title="Social page"
+              ContentTemplate="{DataTemplate views:SocialPageView}"
+              Route="socialPage"/>
+
+        <ShellContent Title="Play"
+              ContentTemplate="{DataTemplate views:GameView}"
+              Route="gamePage"/>
+
+        <ShellContent Title="Profile"
+              ContentTemplate="{DataTemplate views:ProfileView}"
+              Route="profilePage"/>
+
+        <ShellContent Title="Admin page"
+              IsVisible="{Binding IsAdmin}"
+              ContentTemplate="{DataTemplate views:AdminView}"
+              Route="adminPage"/>
+
+        <ShellContent Title="Log Out"
+              ContentTemplate="{DataTemplate views:LogoutView}"
+              Route="logoutPage"/>
+
+    </TabBar>
+
+
 </Shell>

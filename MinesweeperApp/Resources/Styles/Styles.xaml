@@ -3,7 +3,72 @@
 <ResourceDictionary 
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    
+    <Style x:Key="LabelHeaderSpanStyle" TargetType="Span">
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="TextColor" Value="{StaticResource PrimaryDarkText}" />
+    </Style>
 
+    <Style x:Key="LabelValueSpanStyle" TargetType="Span">
+        <Setter Property="FontAttributes" Value="None" />
+        <Setter Property="TextColor" Value="{StaticResource SecondaryDarkText}" />
+    </Style>
+
+    <Style TargetType="Label" x:Key="DataLabelStyle">
+        <Setter Property="Margin" Value="0,5,0,0" />
+        <Setter Property="FontSize" Value="Medium" />
+    </Style>
+
+    <Style TargetType="Label" x:Key="FieldLabelStyle">
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="TextColor" Value="{StaticResource PrimaryDarkText}" />
+        <Setter Property="Margin" Value="0,5,0,0" />
+    </Style>
+
+    <Style x:Key="SecondaryLabelStyle" TargetType="Label">
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontAttributes" Value="None" />
+        <Setter Property="TextColor" Value="{StaticResource SecondaryDarkText}" />
+        <Setter Property="Margin" Value="0,0,0,10" />
+    </Style>
+    
+    <Style x:Key="PrimaryButtonStyle" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="{StaticResource Secondary}" />
+        <Setter Property="TextColor" Value="{StaticResource Primary}" />
+        <Setter Property="CornerRadius" Value="10" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontAttributes" Value="Bold"/>
+        <Setter Property="Padding" Value="12,8" />
+        <Setter Property="Margin" Value="0,10"/>
+    </Style>
+
+    <Style x:Key="SecondaryButtonStyle" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="BorderColor" Value="{StaticResource Secondary}" />
+        <Setter Property="BorderWidth" Value="1" />
+        <Setter Property="TextColor" Value="{StaticResource Secondary}" />
+        <Setter Property="CornerRadius" Value="10" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Padding" Value="12,8" />
+        <Setter Property="Margin" Value="0,10"/>
+    </Style>
+
+    <Style x:Key="TitleLabelStyle" TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource Secondary}" />
+        <Setter Property="FontSize" Value="22" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="Margin" Value="0,20,0,10"/>
+    </Style>
+
+    <Style x:Key="InputEntryStyle" TargetType="Entry">
+        <Setter Property="BackgroundColor" Value="#1e2633" />
+        <Setter Property="TextColor" Value="{StaticResource Secondary}" />
+        <Setter Property="PlaceholderColor" Value="#888" />
+        <Setter Property="Margin" Value="0,8" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Keyboard" Value="Default"/>
+    </Style>
     <Style TargetType="ActivityIndicator">
         <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
     </Style>

@@ -6,16 +6,31 @@
              x:DataType="ViewModel:HomeViewModel"
              FlyoutItem.IsVisible="False"
              Title="">
-    <VerticalStackLayout VerticalOptions="Start">
-        <Image Source="mine2.png"/><!--will be app icon-->
+    <VerticalStackLayout
+        Padding="30"
+        Spacing="20"
+        VerticalOptions="CenterAndExpand"
+        HorizontalOptions="CenterAndExpand"
+        WidthRequest="300"
+        >
+
+        <Image Source="mine2.png"
+               WidthRequest="100"
+               HeightRequest="100"
+               HorizontalOptions="Center" />
+
         <Label Text="Welcome to Minesweeper with Friends!"
-               HorizontalOptions="CenterAndExpand"
-               />
-        <Button Command="{Binding NavigateToLoginCommand}"
-                Text="Log in"
-                />
-        <Button Command="{Binding NavigateToSignupCommand}"
-                Text="Sign up"
-                />
+               FontSize="20"
+               HorizontalOptions="Center"
+               HorizontalTextAlignment="Center"
+               TextColor="Black" />
+
+        <Button Text="Log in"
+                Command="{Binding NavigateToLoginCommand}"
+                Style="{StaticResource PrimaryButtonStyle}"/>
+
+        <Button Text="Sign up"
+                Command="{Binding NavigateToSignupCommand}"
+                Style="{StaticResource PrimaryButtonStyle}"/>
     </VerticalStackLayout>
 </ContentPage>

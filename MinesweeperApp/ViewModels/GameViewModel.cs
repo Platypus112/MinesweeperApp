@@ -48,7 +48,6 @@ namespace MinesweeperApp.ViewModels
             if (SelectedDifficulty != null)
             {
                 IsRunning = true;
-                //AppShell.Current.FlyoutBehavior = FlyoutBehavior.Disabled;
                 t = App.Current.Dispatcher.CreateTimer();
                 t.Stop();
                 t.Interval = new TimeSpan(0, 0, 0, 0, 200);

@@ -58,7 +58,7 @@ Command="{Binding StartGameCommand}"/>
                             HeightRequest="{Binding Source={x:Reference GameGrid}, Path=BindingContext.SquareHeight}"
                             WidthRequest="{Binding Source={x:Reference GameGrid}, Path=BindingContext.SquareHeight}"
                                     Margin="0" Padding="1" StrokeThickness="0.5" >
-                            <buttons:SfButton Style="{DynamicResource Tile}"
+                            <buttons:SfButton Style="{DynamicResource tile}"
                                           ZIndex="1"
                                                   Scale="{Binding DisplayDetails.Scale}"
                                                   HeightRequest="{Binding Source={x:Reference GameGrid}, Path=BindingContext.TileHeight}"

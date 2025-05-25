@@ -4,33 +4,34 @@
              x:Class="MinesweeperApp.Views.BlockedListView"
              xmlns:ViewModel="clr-namespace:MinesweeperApp.ViewModels"
              xmlns:Models="clr-namespace:MinesweeperApp.Models"
-             xmlns:syncfusion="clr-namespace:Syncfusion.Maui.DataGrid;assembly=Syncfusion.Maui.DataGrid"
+             xmlns:datagrid="clr-namespace:Syncfusion.Maui.DataGrid;assembly=Syncfusion.Maui.DataGrid"
              x:DataType="ViewModel:BlockedListViewModel"
              Title="BlockedListView">
-    <VerticalStackLayout>
-        <syncfusion:SfDataGrid
+    <VerticalStackLayout Padding="10" Spacing="10">
+        <datagrid:SfDataGrid
                     x:Name="dataGrid"
                     SortingMode="Single"
                     AllowTriStateSorting="false"
                     AutoGenerateColumnsMode="None"
                     ItemsSource="{Binding BlockedUsers}">
 
-            <syncfusion:SfDataGrid.Columns>
-                <syncfusion:DataGridTextColumn MappingName="Name" HeaderText="Username"/>
-                <syncfusion:DataGridTextColumn MappingName="Email" HeaderText="Email"/>
-                <syncfusion:DataGridTextColumn MappingName="Description" HeaderText="Description"/>
-                <syncfusion:DataGridTemplateColumn ColumnWidthMode="Auto">
-                    <syncfusion:DataGridTemplateColumn.CellTemplate>
+            <datagrid:SfDataGrid.Columns>
+                <datagrid:DataGridTextColumn MappingName="Name" HeaderText="Username"/>
+                <datagrid:DataGridTextColumn MappingName="Email" HeaderText="Email"/>
+                <datagrid:DataGridTextColumn MappingName="Description" HeaderText="Description"/>
+                <datagrid:DataGridTemplateColumn ColumnWidthMode="Auto">
+                    <datagrid:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate x:DataType="Models:AppUser">
                             <Button Text="Remove friend"
+                                    Style="{StaticResource SecondaryButtonStyle}"
                         FontAutoScalingEnabled="True"
                         Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.UnblockUserCommand}"
                         CommandParameter="{Binding .}"/>
                         </DataTemplate>
-                    </syncfusion:DataGridTemplateColumn.CellTemplate>
-                </syncfusion:DataGridTemplateColumn>
-            </syncfusion:SfDataGrid.Columns>
+                    </datagrid:DataGridTemplateColumn.CellTemplate>
+                </datagrid:DataGridTemplateColumn>
+            </datagrid:SfDataGrid.Columns>
 
-        </syncfusion:SfDataGrid>
+        </datagrid:SfDataGrid>
     </VerticalStackLayout>
 </ContentPage>

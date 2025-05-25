@@ -4,10 +4,13 @@
              x:Class="MinesweeperApp.Views.SocialPageView"
              xmlns:ViewModel="clr-namespace:MinesweeperApp.ViewModels"
              xmlns:Models="clr-namespace:MinesweeperApp.Models"
-             xmlns:syncfusion="clr-namespace:Syncfusion.Maui.DataGrid;assembly=Syncfusion.Maui.DataGrid"
+             xmlns:datagrid="clr-namespace:Syncfusion.Maui.DataGrid;assembly=Syncfusion.Maui.DataGrid"
              x:DataType="ViewModel:SocialPageViewModel"
              Title="SocialPageView">
-    <VerticalStackLayout>
+    <VerticalStackLayout Padding="20" Spacing="15">
+
+
+
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
@@ -19,47 +22,64 @@
             </Grid.ColumnDefinitions>
             <Button Text="Send friend request"
                     Command="{Binding SendFriendRequestCommand}"
+                    Style="{StaticResource PrimaryButtonStyle}"
+                    WidthRequest="140"
                     Grid.Row="0"
                     Grid.Column="0"/>
             <Button Text="Block user"
                     Command="{Binding BlockUserCommand}"
-                    Grid.Row="0"
-                    Grid.Column="1"/>
-            <Button Text="View friend requests"
-                    Command="{Binding ViewFriendRequestsCommand}"
+                    Style="{StaticResource SecondaryButtonStyle}"
+                    WidthRequest="100"
                     Grid.Row="1"
                     Grid.Column="0"/>
+            <Button Text="View friend requests"
+                    Command="{Binding ViewFriendRequestsCommand}"
+                    Style="{StaticResource PrimaryButtonStyle}"
+                    WidthRequest="140"
+                    Grid.Row="0"
+                    Grid.Column="1"/>
             <Button Text="View blocked users"
                     Command="{Binding ViewBlockedUsersCommand}"
+                    Style="{StaticResource SecondaryButtonStyle}"
+                    WidthRequest="120"
                     Grid.Row="1"
                     Grid.Column="1"/>
         </Grid>
-        <syncfusion:SfDataGrid
-        x:Name="dataGrid"
-        SortingMode="Single"
-        AllowTriStateSorting="false"
-        AutoGenerateColumnsMode="None"
-        ItemsSource="{Binding Friends}">
 
-            <syncfusion:SfDataGrid.Columns>
-                <syncfusion:DataGridTextColumn MappingName="Name" HeaderText="Username"/>
-                <syncfusion:DataGridTextColumn MappingName="Email" HeaderText="Email"/>
-                <syncfusion:DataGridTextColumn MappingName="Description" HeaderText="Description"/>
-                <syncfusion:DataGridTemplateColumn ColumnWidthMode="Auto">
-                    <syncfusion:DataGridTemplateColumn.CellTemplate>
+        <Label Text="Friends"
+       FontSize="24"
+       FontAttributes="Bold"
+       HorizontalOptions="Center" />
+        
+        <datagrid:SfDataGrid
+            x:Name="dataGrid"
+            SortingMode="Single"
+            AllowTriStateSorting="false"
+            AutoGenerateColumnsMode="None"
+            ItemsSource="{Binding Friends}"
+            HeightRequest="300">
+            <datagrid:SfDataGrid.Columns>
+                <datagrid:DataGridTextColumn MappingName="Name" HeaderText="Username"/>
+                <datagrid:DataGridTextColumn MappingName="Email" HeaderText="Email" ColumnWidthMode="FitByCell"/>
+                <datagrid:DataGridTextColumn MappingName="Description" HeaderText="Description"/>
+                <datagrid:DataGridTemplateColumn ColumnWidthMode="Auto">
+                    <datagrid:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate x:DataType="Models:AppUser">
                             <Button Text="Remove friend"
-                                FontAutoScalingEnabled="True"
-                                Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.RemoveFriendCommand}"
-                                CommandParameter="{Binding .}"/>
+                                    HeightRequest="40"
+                                    FontAutoScalingEnabled="True"
+                                    Style="{StaticResource SecondaryButtonStyle}"
+                                    Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.RemoveFriendCommand}"
+                                    CommandParameter="{Binding .}"/>
                         </DataTemplate>
-                    </syncfusion:DataGridTemplateColumn.CellTemplate>
-                </syncfusion:DataGridTemplateColumn>
-            </syncfusion:SfDataGrid.Columns>
+                    </datagrid:DataGridTemplateColumn.CellTemplate>
+                </datagrid:DataGridTemplateColumn>
+            </datagrid:SfDataGrid.Columns>
+        </datagrid:SfDataGrid>
 
-        </syncfusion:SfDataGrid>
         <ActivityIndicator IsRunning="{Binding InServerCall}" 
-        VerticalOptions="Center" 
-        HorizontalOptions="Center" />
+                           VerticalOptions="Center" 
+                           HorizontalOptions="Center" />
+
     </VerticalStackLayout>
 </ContentPage>

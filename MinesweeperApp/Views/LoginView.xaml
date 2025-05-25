@@ -5,55 +5,66 @@
              xmlns:ViewModel="clr-namespace:MinesweeperApp.ViewModels"
              x:DataType="ViewModel:LoginViewModel"
              Title="LoginView">
-    <VerticalStackLayout><!--IsEnabled="{Binding InServerCall,Converter={StaticResource BoolInverter}}"-->
-        <Grid HorizontalOptions="CenterAndExpand" WidthRequest="360">
+    <VerticalStackLayout Padding="30" Spacing="20" VerticalOptions="CenterAndExpand">
+
+        <Grid HorizontalOptions="Center" WidthRequest="360" RowSpacing="16">
             <Grid.RowDefinitions>
-                <RowDefinition Height="6*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="150"/>
+                <!-- Image placeholder -->
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <Image
-                Grid.Row="0"/>
 
-            <Label
-                Grid.Row="1"
-                TextColor="Red"
-                Text="{Binding ErrorMSG}"
-                />
-            
-            <Entry
-                Grid.Row="2"
-                Placeholder="Email or Username"
-                Text="{Binding Name}"
-                />
+            <Image Grid.Row="0"
+                   Source="mine2.png"
+                   Aspect="AspectFit"
+                   HeightRequest="120"
+                   HorizontalOptions="Center"/>
 
-            <Grid
-                Grid.Row="3">
+            <Label Grid.Row="1"
+                   Text="{Binding ErrorMSG}"
+                   TextColor="Red"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   FontSize="14"/>
+
+            <Entry Grid.Row="2"
+                   Placeholder="Email or Username"
+                   Text="{Binding Name}"
+                   HeightRequest="45"/>
+
+            <Grid Grid.Row="3">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="8*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Entry
-                    Grid.Column="0"
-                    Placeholder="Password"
-                    IsPassword="{Binding IsNotViewingPassword}"
-                    Text="{Binding Password}"/>
-                <ImageButton
-                    Grid.Column="1"
-                    HorizontalOptions="End"
-                    MaximumHeightRequest="30"
-                    MaximumWidthRequest="30"
-                    CornerRadius="6986543"
-                    Command="{Binding ViewPasswordCommand}"
-                    Source="viewpass.png"/>
+
+                <Entry Grid.Column="0"
+                       Placeholder="Password"
+                       Text="{Binding Password}"
+                       IsPassword="{Binding IsNotViewingPassword}"
+                       HeightRequest="45"/>
+
+                <ImageButton Grid.Column="1"
+                             Source="viewpass.png"
+                             Command="{Binding ViewPasswordCommand}"
+                             HeightRequest="30"
+                             WidthRequest="30"
+                             Padding="5"
+                             BackgroundColor="Transparent"
+                             HorizontalOptions="End"
+                             />
             </Grid>
 
-            <Button
-                Grid.Row="4"
-                Text="Log In"
-                Command="{Binding LoginCommand}"/>
+            <Button Grid.Row="4"
+                    Text="Log In"
+                    Command="{Binding LoginCommand}"
+                    CornerRadius="12"
+                    HeightRequest="50"
+                    FontSize="16"
+                    Margin="0,10,0,0"/>
         </Grid>
         <ActivityIndicator IsRunning="{Binding InServerCall}" 
                VerticalOptions="Center" 

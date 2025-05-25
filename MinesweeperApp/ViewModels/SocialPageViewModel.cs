@@ -36,7 +36,7 @@ namespace MinesweeperApp.ViewModels
             InServerCall = true;
             try
             {
-                await AppShell.Current.GoToAsync("friendRequestsPage");
+                await AppShell.Current.GoToAsync("friendRequestsPage", true);
             }
             catch (Exception ex)
             {
@@ -49,7 +49,7 @@ namespace MinesweeperApp.ViewModels
             InServerCall = true;
             try
             {
-                await AppShell.Current.GoToAsync("blockedListPage");
+                await AppShell.Current.GoToAsync("blockedListPage", true);
             }
             catch (Exception ex)
             {

@@ -5,67 +5,73 @@
              xmlns:ViewModel="clr-namespace:MinesweeperApp.ViewModels"
              xmlns:Model="clr-namespace:MinesweeperApp.Models"
              x:DataType="ViewModel:UserReportsViewModel"
-             xmlns:syncfusion="clr-namespace:Syncfusion.Maui.DataGrid;assembly=Syncfusion.Maui.DataGrid"
+             xmlns:datagrid="clr-namespace:Syncfusion.Maui.DataGrid;assembly=Syncfusion.Maui.DataGrid"
              Title="UserReportsView">
-    <VerticalStackLayout>
-        <Image Source="{Binding User.PicPath}"/>
+    <VerticalStackLayout Padding="20" Spacing="15">
+ 
+        <Image Source="{Binding User.PicPath}" 
+               HeightRequest="150" 
+               HorizontalOptions="Center" 
+               Aspect="AspectFill"
+               Margin="0,0,0,10"/>
+
+
         <Label>
             <Label.FormattedText>
                 <FormattedString>
-                    <Span Text="User id:"/>
-                    <Span Text="{Binding User.Id}"/>
+                    <Span Text="Username: " FontAttributes="Bold"/>
+                    <Span Text="{Binding User.Name}"/>
                 </FormattedString>
             </Label.FormattedText>
         </Label>
+
         <Label>
-        <Label.FormattedText>
-            <FormattedString>
-                <Span Text="Username:"/>
-                <Span Text="{Binding User.Name}"/>
-            </FormattedString>
-        </Label.FormattedText>
-    </Label>
-    <Label>
-        <Label.FormattedText>
-            <FormattedString>
-                <Span Text="Email:"/>
-                <Span Text="{Binding User.Email}"/>
-            </FormattedString>
-        </Label.FormattedText>
-    </Label>
-    <Label>
-        <Label.FormattedText>
-            <FormattedString>
-                <Span Text="Description"/>
-                <Span Text="{Binding User.Description}"/>
-            </FormattedString>
-        </Label.FormattedText>
-    </Label>
-        <syncfusion:SfDataGrid
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="Email: " FontAttributes="Bold"/>
+                    <Span Text="{Binding User.Email}"/>
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+
+        <Label>
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="Description: " FontAttributes="Bold"/>
+                    <Span Text="{Binding User.Description}"/>
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+
+        <!-- Reports DataGrid -->
+        <datagrid:SfDataGrid
             x:Name="dataGrid"
             SortingMode="Single"
             AllowTriStateSorting="false"
             AutoGenerateColumnsMode="None"
-            ItemsSource="{Binding UserReports}">
+            ItemsSource="{Binding UserReports}"
+            HeightRequest="300"
+            Margin="0,10,0,0">
 
-            <syncfusion:SfDataGrid.Columns>
-            <syncfusion:DataGridTextColumn HeaderText="Description" MappingName="Description"/>
-            <syncfusion:DataGridTextColumn HeaderText="Status" MappingName="Status.Name"/>
-            <syncfusion:DataGridTemplateColumn>
-                <syncfusion:DataGridTemplateColumn.CellTemplate>
-                    <DataTemplate x:DataType="Model:UserReport">
-                        <Button Text="ResolveReport"
-                    Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.ResolveReportCommand}"
-                    CommandParameter="{Binding .}"/>
-                    </DataTemplate>
-                </syncfusion:DataGridTemplateColumn.CellTemplate>
-            </syncfusion:DataGridTemplateColumn>
+            <datagrid:SfDataGrid.Columns>
+                <datagrid:DataGridTextColumn HeaderText="Description" MappingName="Description"/>
+                <datagrid:DataGridTextColumn HeaderText="Status" MappingName="Status.Name"/>
+                <datagrid:DataGridTemplateColumn>
+                    <datagrid:DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate x:DataType="Model:UserReport">
+                            <Button Text="ResolveReport"
+                                Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.ResolveReportCommand}"
+                                CommandParameter="{Binding .}"/>
+                        </DataTemplate>
+                    </datagrid:DataGridTemplateColumn.CellTemplate>
+                </datagrid:DataGridTemplateColumn>
+            </datagrid:SfDataGrid.Columns>
 
+        </datagrid:SfDataGrid>
 
+        <ActivityIndicator IsRunning="{Binding InServerCall}" 
+                           VerticalOptions="Center" 
+                           HorizontalOptions="Center" />
 
-        </syncfusion:SfDataGrid.Columns>
-
-    </syncfusion:SfDataGrid>
-    <ActivityIndicator IsRunning="{Binding InServerCall}"/>
     </VerticalStackLayout>
 </ContentPage>

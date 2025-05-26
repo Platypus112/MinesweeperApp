@@ -82,7 +82,7 @@ namespace MinesweeperApp.ViewModels
             try
             {
                 GameReports = new();
-                ServerResponse<List<object>> serverResponse = await service.GetCollectionbyType("games.reports.admin");
+                ServerResponse<List<object>> serverResponse = await service.GetCollectionByType("games.reports.admin");
                 if(serverResponse != null&&serverResponse.Response)
                 {
                     List<GameReport> list= new List<GameReport>();

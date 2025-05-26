@@ -27,13 +27,14 @@ namespace MinesweeperApp.ViewModels
 
         private async void FillDifficulties()
         {
-            List<Difficulty>? difficultyList = (await service.GetDifficulties()).Content;
-            Difficulties = new();
-            if(difficultyList != null)
+            ServerResponse<List<Object>> difficultiesResponse = await service.GetCollectionByType("difficulties");
+
+            if (difficultiesResponse != null && difficultiesResponse.Response)
             {
-                foreach(Difficulty d in difficultyList)
+                Difficulties = new();
+                foreach (Object item in difficultiesResponse.Content)
                 {
-                    Difficulties.Add(d);
+                    Difficulties.Add((Difficulty)item);
                 }
             }
         }

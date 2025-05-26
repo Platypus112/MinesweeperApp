@@ -152,7 +152,7 @@ namespace MinesweeperApp.ViewModels
             InServerCall = true;
             try
             {
-                ServerResponse<List<Object>> listResponse = await service.GetCollectionbyType("users.social");
+                ServerResponse<List<Object>> listResponse = await service.GetCollectionByType("users.social");
                 if (listResponse != null && listResponse.Response)
                 {
                     Friends = new();

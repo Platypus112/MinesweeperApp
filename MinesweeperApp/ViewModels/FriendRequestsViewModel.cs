@@ -88,12 +88,13 @@ namespace MinesweeperApp.ViewModels
             InServerCall = true;
             try
             {
-                ServerResponse<List<FriendRequest>> listResponse = await service.GetAllFriendRequests();
+                ServerResponse<List<Object>> listResponse = await service.GetCollectionByType("social");
                 if (listResponse != null && listResponse.Response)
                 {
                     Requests = new();
-                    foreach (FriendRequest f in listResponse.Content)
+                    foreach (Object o in listResponse.Content)
                     {
+                        FriendRequest f=(FriendRequest)o;
                         if(f.Status.Name=="pending")Requests.Add(f);
                     }
                 }

@@ -181,10 +181,15 @@ namespace MinesweeperApp.ViewModels
             InServerCall = true;
             try
             {
-                ServerResponse<List<Difficulty>> difficultiesResponse = await service.GetDifficulties();
+                ServerResponse<List<Object>> difficultiesResponse = await service.GetCollectionByType("difficulties");
+
                 if (difficultiesResponse != null && difficultiesResponse.Response)
                 {
-                    DifficultyList = new(difficultiesResponse.Content);
+                    DifficultyList = new();
+                    foreach (Object item in difficultiesResponse.Content)
+                    {
+                        DifficultyList.Add((Difficulty)item);
+                    }
                 }
                 TimesList = new();
                 TimesList.Add("All time");
@@ -192,7 +197,7 @@ namespace MinesweeperApp.ViewModels
                 TimesList.Add("Weekly");
                 TimesList.Add("Monthly");
                 TimesList.Add("Yearly");
-                ServerResponse<List<Object>> listResponse = await service.GetCollectionbyType("games");
+                ServerResponse<List<Object>> listResponse = await service.GetCollectionByType("games");
                 if (listResponse != null && listResponse.Response)
                 {
                     Items = new();

@@ -109,7 +109,7 @@ namespace MinesweeperApp.ViewModels
             InServerCall = true;
             try
             {
-                ServerResponse<List<Object>> listResponse = await service.GetCollectionbyType("users");
+                ServerResponse<List<Object>> listResponse = await service.GetCollectionByType("users");
                 if (listResponse != null && listResponse.Response)
                 {
                     Items = new();

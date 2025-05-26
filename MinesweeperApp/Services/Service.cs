@@ -389,36 +389,6 @@ namespace MinesweeperApp.Services
                 return responseResult;
             }
         }
-        public async Task<ServerResponse<List<FriendRequest>>> GetAllFriendRequests()
-        {
-            string url = BaseAddress + "GetAllFriendRequests";
-            ServerResponse<List<FriendRequest>> responseResult = new();
-            try
-            {
-                HttpResponseMessage response = await client.GetAsync(url);
-                if (response.IsSuccessStatusCode)
-                {
-                    JsonSerializerOptions options = new JsonSerializerOptions
-                    {
-                        PropertyNameCaseInsensitive = true
-                    };
-                    string result = await response.Content.ReadAsStringAsync();
-                    List<FriendRequest> requests = JsonSerializer.Deserialize<List<FriendRequest>>(result, options);
-                    responseResult = new(true, result, requests);
-                    return responseResult;
-                }
-                else
-                {
-                    responseResult = new(await response.Content.ReadAsStringAsync());
-                    return responseResult;
-                }
-            }
-            catch (Exception ex)
-            {
-                responseResult = new(ex.Message);
-                return responseResult;
-            }
-        }
         public async Task<ServerResponse<AppUser>> RemoveFriend(AppUser user)
         {
             string url = BaseAddress + "RemoveFriend";
@@ -810,7 +780,7 @@ namespace MinesweeperApp.Services
                 return responseResult;
             }
         }
-        public async Task<ServerResponse<List<Object>>> GetCollectionbyType(string type)
+        public async Task<ServerResponse<List<Object>>> GetCollectionByType(string type)
         {
             string url = BaseAddress + "GetCollection";
             ServerResponse<List<Object>> responseResult = new();
@@ -948,36 +918,36 @@ namespace MinesweeperApp.Services
                 return responseResult;
             }
         }
-        public async Task<ServerResponse<List<Difficulty>>> GetDifficulties()
-        {
-            string url = BaseAddress + "GetDifficulties";
-            ServerResponse<List<Difficulty>> responseResult = new();
-            try
-            {
-                HttpResponseMessage response = await client.GetAsync(url);
-                if (response.IsSuccessStatusCode)
-                {
-                    JsonSerializerOptions options = new JsonSerializerOptions
-                    {
-                        PropertyNameCaseInsensitive = true
-                    };
-                    string result=await response.Content.ReadAsStringAsync();
-                    List<Difficulty> difficulties = JsonSerializer.Deserialize<List<Difficulty>>(result, options);
-                    responseResult = new(true, result, difficulties);
-                    return responseResult;
-                }
-                else
-                {
-                    responseResult = new(await response.Content.ReadAsStringAsync());
-                    return responseResult;
-                }
-            }
-            catch (Exception ex) 
-            {
-                responseResult = new(ex.Message);
-                return responseResult;
-            }
-        }
+        //public async Task<ServerResponse<List<Difficulty>>> GetDifficulties()
+        //{
+        //    string url = BaseAddress + "GetDifficulties";
+        //    ServerResponse<List<Difficulty>> responseResult = new();
+        //    try
+        //    {
+        //        HttpResponseMessage response = await client.GetAsync(url);
+        //        if (response.IsSuccessStatusCode)
+        //        {
+        //            JsonSerializerOptions options = new JsonSerializerOptions
+        //            {
+        //                PropertyNameCaseInsensitive = true
+        //            };
+        //            string result=await response.Content.ReadAsStringAsync();
+        //            List<Difficulty> difficulties = JsonSerializer.Deserialize<List<Difficulty>>(result, options);
+        //            responseResult = new(true, result, difficulties);
+        //            return responseResult;
+        //        }
+        //        else
+        //        {
+        //            responseResult = new(await response.Content.ReadAsStringAsync());
+        //            return responseResult;
+        //        }
+        //    }
+        //    catch (Exception ex) 
+        //    {
+        //        responseResult = new(ex.Message);
+        //        return responseResult;
+        //    }
+        //}
         public async Task<ServerResponse<AppUser>> Login(string name,string password)
         {
             string url = BaseAddress + "Login";

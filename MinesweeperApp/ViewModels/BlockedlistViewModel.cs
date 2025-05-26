@@ -51,7 +51,7 @@ namespace MinesweeperApp.ViewModels
             InServerCall = true;
             try
             {
-                ServerResponse<List<Object>> listResponse = await service.GetCollectionbyType("users.blocked");
+                ServerResponse<List<Object>> listResponse = await service.GetCollectionByType("users.blocked");
                 if (listResponse != null && listResponse.Response)
                 {
                     BlockedUsers = new();

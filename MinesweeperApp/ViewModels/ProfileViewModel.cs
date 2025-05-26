@@ -119,10 +119,15 @@ namespace MinesweeperApp.ViewModels
                         allGames.Add(g);
                     }
                 }
-                ServerResponse<List<Difficulty>> difficultiesResponse = await service.GetDifficulties();
+                ServerResponse<List<Object>> difficultiesResponse = await service.GetCollectionByType("difficulties");
+
                 if (difficultiesResponse != null && difficultiesResponse.Response)
                 {
-                    DifficultyList = new(difficultiesResponse.Content);
+                    DifficultyList = new();
+                    foreach (Object item in difficultiesResponse.Content)
+                    {
+                        DifficultyList.Add((Difficulty)item);
+                    }
                 }
             }
             catch (Exception ex)

@@ -65,7 +65,7 @@ namespace MinesweeperApp.ViewModels
             {
                 Friends = true;
             }
-            ServerResponse<List<Object>> response=await service.GetCollectionbyType(type);
+            ServerResponse<List<Object>> response=await service.GetCollectionByType(type);
             if (response != null)
             {
                 if (response.Response)

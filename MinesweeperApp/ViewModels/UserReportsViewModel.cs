@@ -80,7 +80,7 @@ namespace MinesweeperApp.ViewModels
             try
             {
                 UserReports = new();
-                ServerResponse<List<object>> serverResponse = await service.GetCollectionbyType("users.reports.admin");
+                ServerResponse<List<object>> serverResponse = await service.GetCollectionByType("users.reports.admin");
                 if (serverResponse != null && serverResponse.Response)
                 {
                     List<UserReport> list = new List<UserReport>();

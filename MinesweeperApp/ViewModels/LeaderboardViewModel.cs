@@ -14,8 +14,6 @@ namespace MinesweeperApp.ViewModels
     public class LeaderboardViewModel:ViewModel
     {
 
-        private bool isAdmin;
-        public bool IsAdmin { get { return isAdmin; } set { isAdmin = value; OnPropertyChanged(); } }
 
         private List<GameData> allGames;
         private ObservableCollection<GameData> items;

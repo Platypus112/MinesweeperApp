@@ -1,241 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="MinesweeperApp.ViewModels.AdminViewModel" Collapsed="true">
-    <Position X="3.75" Y="3" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAEAAAIACAIACACAAAgAAAAAAAAAEAAAAAAAABAAAAA=</HashCode>
-      <FileName>ViewModels\AdminViewModel.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="MinesweeperApp.ViewModels.AppShellViewModel" Collapsed="true">
-    <Position X="3.75" Y="4" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>ViewModels\AppShellViewModel.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="MinesweeperApp.ViewModels.BlockedListViewModel" Collapsed="true">
-    <Position X="3.75" Y="5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAQBAAAgAQAAAA=</HashCode>
-      <FileName>ViewModels\BlockedListViewModel.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="MinesweeperApp.ViewModels.EditProfileViewModel" Collapsed="true">
-    <Position X="3.75" Y="6" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>QAABAAAAAggggAAAAAAFAIQAgQEAAAACQAEAAkAAAQI=</HashCode>
-      <FileName>ViewModels\EditProfileViewModel.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="MinesweeperApp.ViewModels.FriendLeaderboardViewModel" Collapsed="true">
-    <Position X="3.75" Y="7" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>ACQAAgACAANACgAAwAgBAAAEKBABEAgCDSAAAAggAAA=</HashCode>
-      <FileName>ViewModels\FriendLeaderboardViewModel.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="MinesweeperApp.ViewModels.FriendRequestsViewModel" Collapsed="true">
-    <Position X="3.75" Y="8" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>CAAAAAAAAAAAAAAAAAAgAAAAAAAAEAAAEAAEEBAAAAA=</HashCode>
-      <FileName>ViewModels\FriendRequestsViewModel.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="MinesweeperApp.ViewModels.GameReportsViewModel" Collapsed="true">
-    <Position X="3.75" Y="9" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAABAAAACCAAAAgAAAAAAgAEAAIAAAAAAAAAAA=</HashCode>
-      <FileName>ViewModels\GameReportsViewModel.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="MinesweeperApp.ViewModels.GameViewModel" Collapsed="true">
-    <Position X="3.75" Y="10" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>iAYCgAAERAAAQERAwRBCQEAgAEFAAgALKAQIASgOCQA=</HashCode>
-      <FileName>ViewModels\GameViewModel.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="MinesweeperApp.ViewModels.HomeViewModel" Collapsed="true">
-    <Position X="7.25" Y="3" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>BAAgAAAgAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>ViewModels\HomeViewModel.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="MinesweeperApp.ViewModels.LeaderboardViewModel" Collapsed="true">
-    <Position X="7.25" Y="4" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>ACQAAgACAANACgAAwAgBAAAEKBAAEAgCDCAAAAggAAA=</HashCode>
-      <FileName>ViewModels\LeaderboardViewModel.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="MinesweeperApp.ViewModels.LoginViewModel" Collapsed="true">
-    <Position X="7.25" Y="5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAgAAEAAAAAIQAgAEEAAAGAAEQAgCAAAA=</HashCode>
-      <FileName>ViewModels\LoginViewModel.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="MinesweeperApp.ViewModels.LogoutViewModel" Collapsed="true">
-    <Position X="7.25" Y="6" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>ViewModels\LogoutViewModel.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="MinesweeperApp.ViewModels.ProfileViewModel" Collapsed="true">
-    <Position X="7.25" Y="7" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>ACERCAAADiBgCAAAwAgEAAQAABAAEAACCAAAAhggAQA=</HashCode>
-      <FileName>ViewModels\ProfileViewModel.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="MinesweeperApp.ViewModels.RegisterViewModel" Collapsed="true">
-    <Position X="7.25" Y="8" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAACAAgAAkAQAAAIEAgAEBAACGAAEAAgAAAAA=</HashCode>
-      <FileName>ViewModels\RegisterViewModel.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="MinesweeperApp.ViewModels.SocialPageViewModel" Collapsed="true">
-    <Position X="7.25" Y="9" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>ACAECAAARAQAACAAAAAEAAAAgAAAEAAAIAAIAAAEAAA=</HashCode>
-      <FileName>ViewModels\SocialPageViewModel.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="MinesweeperApp.ViewModels.UserReportsViewModel" Collapsed="true">
-    <Position X="7.25" Y="10" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAABAAAABAAAAADAAAAAQAAAAAAAEAAAAAAAAAAAAQA=</HashCode>
-      <FileName>ViewModels\UserReportsViewModel.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="MinesweeperApp.ViewModels.ViewModel" Collapsed="true">
-    <Position X="3.75" Y="1.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAIAABAAAAiQAAAAgAAEAAAAAAAAA=</HashCode>
-      <FileName>ViewModels\ViewModel.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
-  </Class>
-  <Class Name="MinesweeperApp.Views.AdminView" Collapsed="true">
-    <Position X="5.25" Y="3" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Views\AdminView.xaml.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="MinesweeperApp.Views.BlockedListView" Collapsed="true">
-    <Position X="5.25" Y="5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Views\BlockedListView.xaml.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="MinesweeperApp.Views.EditProfileView" Collapsed="true">
-    <Position X="5.25" Y="6" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Views\EditProfileView.xaml.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="MinesweeperApp.Views.FriendLeaderboardView" Collapsed="true">
-    <Position X="5.25" Y="7" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Views\FriendLeaderboardView.xaml.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="MinesweeperApp.Views.FriendRequestsView" Collapsed="true">
-    <Position X="5.25" Y="8" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Views\FriendRequestsView.xaml.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="MinesweeperApp.Views.GameReportsView" Collapsed="true">
-    <Position X="5.25" Y="9" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Views\GameReportsView.xaml.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="MinesweeperApp.Views.GameView" Collapsed="true">
-    <Position X="5.25" Y="10" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAIAAAAAAAAAEAggAAAAAMgAAAAAAAAAAAwAAAAAAA=</HashCode>
-      <FileName>Views\GameView.xaml.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="MinesweeperApp.Views.HomeView" Collapsed="true">
-    <Position X="8.75" Y="3" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Views\HomeView.xaml.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="MinesweeperApp.Views.LeaderboardView" Collapsed="true">
-    <Position X="8.75" Y="4" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Views\LeaderboardView.xaml.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="MinesweeperApp.Views.LoginView" Collapsed="true">
-    <Position X="8.75" Y="5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Views\LoginView.xaml.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="MinesweeperApp.Views.LogoutView" Collapsed="true">
-    <Position X="8.75" Y="6" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Views\LogoutView.xaml.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="MinesweeperApp.Views.ProfileView" Collapsed="true">
-    <Position X="8.75" Y="7" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Views\ProfileView.xaml.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="MinesweeperApp.Views.RegisterView" Collapsed="true">
-    <Position X="8.75" Y="8" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Views\RegisterView.xaml.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="MinesweeperApp.Views.SocialPageView" Collapsed="true">
-    <Position X="8.75" Y="9" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Views\SocialPageView.xaml.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="MinesweeperApp.Views.UserReportsView" Collapsed="true">
-    <Position X="8.75" Y="10" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Views\UserReportsView.xaml.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="MinesweeperApp.AppShell" Collapsed="true">
-    <Position X="5.25" Y="4" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>AppShell.xaml.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="MinesweeperApp.Services.Service" Collapsed="true">
-    <Position X="11.5" Y="1.5" Width="1.5" />
+    <Position X="17.25" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>CCEIAAAABBQgACFIACAAIAICAAIBAAACACIYtJAAJgA=</HashCode>
+      <HashCode>CCEIAAAABBQgACFIACAAIAICAAIBAAACACIYtJAAIgA=</HashCode>
       <FileName>Services\Service.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -243,28 +11,21 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="MinesweeperApp.Models.AppUser" Collapsed="true">
-    <Position X="11.5" Y="2.5" Width="1.5" />
+    <Position X="15" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAACAgAAAAAAAAAAQACAAAAAACAEABAAAAAAA=</HashCode>
       <FileName>Models\AppUser.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="MinesweeperApp.Models.UserDTO" Collapsed="true">
-    <Position X="21" Y="4.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAACAAAAAAAAAAAAQAAAAAAAACAEAAAAAAAAA=</HashCode>
-      <FileName>Models\AppUser.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="MinesweeperApp.Models.Difficulty" Collapsed="true">
-    <Position X="11.5" Y="3.75" Width="1.5" />
+    <Position X="15" Y="5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAQAQAAAQAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Difficulty.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="MinesweeperApp.Models.FinishedGame" Collapsed="true">
-    <Position X="19.25" Y="3" Width="1.5" />
+    <Position X="22.75" Y="4.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAADAAAAAAAAAQAAAAAAAAAAAAAAAACBAAAAAAAAAQA=</HashCode>
       <FileName>Models\FinishedGame.cs</FileName>
@@ -275,19 +36,19 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="MinesweeperApp.Models.FriendRequest" Collapsed="true">
-    <Position X="17.5" Y="7" Width="1.5" />
+    <Position X="21" Y="8.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AEAAAAEEAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\FriendRequest.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="Status" />
-      <Property Name="UserRecieving" />
       <Property Name="UserSending" />
+      <Property Name="UserRecieving" />
+      <Property Name="Status" />
     </ShowAsAssociation>
   </Class>
   <Class Name="MinesweeperApp.Models.Game" Collapsed="true">
-    <Position X="14.25" Y="1.5" Width="1.5" />
+    <Position X="19" Y="2.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAUEAAABAAAEAQAAAIAAIEwhAAAAgAECACgAAAA=</HashCode>
       <FileName>Models\Game.cs</FileName>
@@ -298,18 +59,18 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="MinesweeperApp.Models.GameData" Collapsed="true">
-    <Position X="19.25" Y="4.25" Width="1.5" />
+    <Position X="22.75" Y="5.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAADAAAAAAAAAQBAAAAAAAAAAAAAAACBAAAAAQAAAQA=</HashCode>
       <FileName>Models\GameData.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="User" />
       <Property Name="Difficulty" />
+      <Property Name="User" />
     </ShowAsAssociation>
   </Class>
   <Class Name="MinesweeperApp.Models.GameReport" Collapsed="true">
-    <Position X="15.75" Y="7" Width="1.5" />
+    <Position X="19.25" Y="8.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAEAAAgAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\GameReport.cs</FileName>
@@ -320,28 +81,28 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="MinesweeperApp.Models.LoginInfo" Collapsed="true">
-    <Position X="11.5" Y="5.75" Width="1.5" />
+    <Position X="15" Y="7" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAACAAAAAAAAAAAAQAAAAAAAACAAAAAAAAAAA=</HashCode>
       <FileName>Models\LoginInfo.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="MinesweeperApp.Models.ServerResponse&lt;T&gt;" Collapsed="true">
-    <Position X="21" Y="5.25" Width="1.5" />
+    <Position X="15" Y="2.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAgBAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
       <FileName>Models\ServerResponse.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="MinesweeperApp.Models.Status" Collapsed="true">
-    <Position X="11.5" Y="4.75" Width="1.5" />
+    <Position X="15" Y="6" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Status.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="MinesweeperApp.Models.Tile" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="16.5" Y="1.5" Width="1.5" />
+    <Position X="20.75" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AIAECAAAAEAAAABkIABAAACAgABAACAAYAAhACAABAA=</HashCode>
       <FileName>Models\Tile.cs</FileName>
@@ -352,7 +113,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="MinesweeperApp.Models.DisplayDetails" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="19.25" Y="1.5" Width="1.5" />
+    <Position X="20.75" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAIEIAAAACmAAAABgIAABgCAAAIAA=</HashCode>
       <FileName>Models\Tile.cs</FileName>
@@ -360,14 +121,14 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="MinesweeperApp.Models.UserData" Collapsed="true">
-    <Position X="21" Y="3" Width="1.5" />
+    <Position X="22.75" Y="6.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAACCgAAAAAAAAAAQACAAAAAACAEABAAAAAAA=</HashCode>
       <FileName>Models\UserData.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="MinesweeperApp.Models.UserReport" Collapsed="true">
-    <Position X="14" Y="7" Width="1.5" />
+    <Position X="17.5" Y="8.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAADAAAEAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\UserReport.cs</FileName>

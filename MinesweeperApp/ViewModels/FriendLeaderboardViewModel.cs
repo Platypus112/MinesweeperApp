@@ -13,11 +13,7 @@ namespace MinesweeperApp.ViewModels
 {
     public class FriendLeaderboardViewModel:ViewModel
     {
-        private string type;
-        public string Type { get { return type; } set { type = value;} }
 
-        private bool isAdmin;
-        public bool IsAdmin { get { return isAdmin; } set { isAdmin = value; OnPropertyChanged(); } }
 
         private List<GameData> allGames;
         private ObservableCollection<GameData> items;
@@ -49,7 +45,6 @@ namespace MinesweeperApp.ViewModels
         {
             AppShell.Current.FlyoutBehavior = FlyoutBehavior.Flyout;
             IsAdmin = service.LoggedUser != null && service.LoggedUser.IsAdmin;
-            Type = "games.social";
             RefreshCommand = new Command(FillCollection, () => !InServerCall && !IsRefreshing);
             FillCollection();
             ViewGameReportsCommand = new Command((Object o) => ViewGameReports(o));
@@ -200,7 +195,7 @@ namespace MinesweeperApp.ViewModels
                 TimesList.Add("Weekly");
                 TimesList.Add("Monthly");
                 TimesList.Add("Yearly");
-                ServerResponse<List<Object>> listResponse = await service.GetCollectionByType(Type);
+                ServerResponse<List<Object>> listResponse = await service.GetCollectionByType("games.social");
                 if (listResponse != null && listResponse.Response)
                 {
                     Items = new();

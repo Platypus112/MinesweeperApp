@@ -118,9 +118,10 @@ namespace MinesweeperApp.Models
                 return false;
             }
             if (Board[x,y].Flagged)return false;
+            #region hasn't worked
             //if (Board[x, y].Unvailed) 
             //{
-                
+
             //    if (Board[x, y].Value != 0 && Board[x, y].FlagCount == Board[x,y].Value)
             //    {
             //        for (int k = -1; k <= 1; k++)
@@ -167,7 +168,8 @@ namespace MinesweeperApp.Models
             //        return true;
             //    }
             //    return false;
-            //}
+            //} 
+            #endregion
             UnVailedTiles--;
             if(!await Board[x, y].Dig())
             {

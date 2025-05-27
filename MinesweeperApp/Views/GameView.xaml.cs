@@ -29,18 +29,6 @@ public partial class GameView : ContentPage
         View.GestureRecognizers.Add(panGesture);
     }
 
-    public void ArranageGrid()
-    {
-        for (int i = 0; i < ((GameViewModel)this.BindingContext).Width; i++)
-        {
-            GameGrid.ColumnDefinitions.Add(new ColumnDefinition());
-        }
-        for (int i = 0; i < ((GameViewModel)this.BindingContext).Height; i++)
-        {
-            GameGrid.RowDefinitions.Add(new RowDefinition());
-        }
-
-    }
     double panX, panY;
 
     double currentScale = 1;

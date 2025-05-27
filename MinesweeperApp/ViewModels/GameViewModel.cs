@@ -54,10 +54,8 @@ namespace MinesweeperApp.ViewModels
                 t.Interval = new TimeSpan(0, 0, 0, 0, 200);
                 t.Tick += async (object sender, EventArgs e) => Timer = (DateTime.Now - game.StartTime).ToString().Substring(3, 5);
                 notStarted = true;
-                Board = new ObservableCollection<Tile>();
                 isFlagging = false;
                 gameFinished = false;
-                clickingRunning = false;
                 Diff=SelectedDifficulty;
                 SelectedDifficulty = null;
             }
@@ -88,7 +86,6 @@ namespace MinesweeperApp.ViewModels
         private bool isFlagging;
         private bool notStarted;
         private bool gameFinished;
-        private bool clickingRunning;
 
         public ICommand ClickTileCommand { get; private set; }
         public ICommand ToggleFlagCommand { get; private set; }
@@ -169,14 +166,12 @@ namespace MinesweeperApp.ViewModels
         }
         private async Task ClickTile(Object obj)
         {
-            clickingRunning = true;
             if (gameFinished) return;
             try
             {
                 if(notStarted)
                 {
 
-                    //game = await new Task<Game>(() => new Game(Width, Height, Bombs, ((Tile)obj).DisplayDetails.x, ((Tile)obj).DisplayDetails.y));
                     game = new Game(Diff, ((Tile)obj).DisplayDetails.x, ((Tile)obj).DisplayDetails.y);
                     notStarted = false;
                     await UpdateCollection();
@@ -193,7 +188,6 @@ namespace MinesweeperApp.ViewModels
                     //AnimateDig(((Tile)obj), 2);
                 }
                 else game.FlagTile(((Tile)obj).DisplayDetails.x, ((Tile)obj).DisplayDetails.y);
-                clickingRunning = false;
                 Bombs = game.Bombs;
             }
             catch

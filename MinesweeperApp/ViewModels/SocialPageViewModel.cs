@@ -159,6 +159,7 @@ namespace MinesweeperApp.ViewModels
                     foreach (Object item in listResponse.Content)
                     {
                         UserData uf = (UserData)item;
+                        uf.FullPicPath = service.GetImagesBaseAddress() + uf.PicPath;
                         Friends.Add(new(uf));
                     }
                 }

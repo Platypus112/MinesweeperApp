@@ -4,7 +4,7 @@
              x:Class="MinesweeperApp.Views.RegisterView"
              xmlns:ViewModel="clr-namespace:MinesweeperApp.ViewModels"
              x:DataType="ViewModel:RegisterViewModel"
-             Title="RegisterView">
+             Title="">
     <VerticalStackLayout Padding="30" Spacing="20" VerticalOptions="CenterAndExpand">
 
         <Grid HorizontalOptions="Center" WidthRequest="360" RowSpacing="16">

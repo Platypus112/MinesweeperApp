@@ -6,14 +6,21 @@
              xmlns:Model="clr-namespace:MinesweeperApp.Models"
              x:DataType="ViewModel:AdminViewModel"
              xmlns:datagrid="clr-namespace:Syncfusion.Maui.DataGrid;assembly=Syncfusion.Maui.DataGrid"
+             xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
+
              Title="AdminView">
     <Grid>
-        <VerticalStackLayout Padding="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <VerticalStackLayout Grid.Row="0" Padding="10">
             <datagrid:SfDataGrid
           x:Name="dataGrid"
           SortingMode="Single"
           AllowTriStateSorting="False"
           AutoGenerateColumnsMode="None"
+                RowHeight="60"
           ItemsSource="{Binding Items}">
                 <datagrid:SfDataGrid.Columns>
 
@@ -28,7 +35,7 @@
                     </datagrid:DataGridTemplateColumn>
 
                     <datagrid:DataGridTextColumn MappingName="Name" HeaderText="User"/>
-                    <datagrid:DataGridTextColumn MappingName="Email" HeaderText="Email"/>
+                    <datagrid:DataGridTextColumn MappingName="Email" HeaderText="Email" ColumnWidthMode="Auto"/>
                     <datagrid:DataGridTextColumn MappingName="IsReported" HeaderText="Leaderboard denied" AllowSorting="False"/>
 
                     <datagrid:DataGridTemplateColumn ColumnWidthMode="Auto" AllowSorting="False">
@@ -36,31 +43,32 @@
                             <DataTemplate x:DataType="Model:UserData">
                                 <Button Text="Report user"
                         Style="{StaticResource PrimaryButtonStyle}"
-                        FontAutoScalingEnabled="True"
+                        FontSize="12"
                         Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.ReportUserCommand}"
                         CommandParameter="{Binding .}"/>
                             </DataTemplate>
                         </datagrid:DataGridTemplateColumn.CellTemplate>
                     </datagrid:DataGridTemplateColumn>
 
-                    <datagrid:DataGridTemplateColumn AllowSorting="False">
+                    <datagrid:DataGridTemplateColumn ColumnWidthMode="Auto" AllowSorting="False">
                         <datagrid:DataGridTemplateColumn.CellTemplate>
                             <DataTemplate  x:DataType="Model:UserData">
                                 <Button Text="View reports"
+                                        
                         Style="{StaticResource SecondaryButtonStyle}"
-                        FontAutoScalingEnabled="True"
+                        FontSize="12"
                         Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.ViewUserReportsCommand}"
                         CommandParameter="{Binding .}"/>
                             </DataTemplate>
                         </datagrid:DataGridTemplateColumn.CellTemplate>
                     </datagrid:DataGridTemplateColumn>
 
-                    <datagrid:DataGridTemplateColumn AllowSorting="False">
+                    <datagrid:DataGridTemplateColumn ColumnWidthMode="Auto" AllowSorting="False">
                         <datagrid:DataGridTemplateColumn.CellTemplate>
                             <DataTemplate  x:DataType="Model:UserData">
                                 <Button Text="Remove"
                         Style="{StaticResource SecondaryButtonStyle}"
-                        FontAutoScalingEnabled="True"
+                        FontSize="12"
                         Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.RemoveUserCommand}"
                         CommandParameter="{Binding .}"/>
                             </DataTemplate>
@@ -70,6 +78,34 @@
                 </datagrid:SfDataGrid.Columns>
             </datagrid:SfDataGrid>
         </VerticalStackLayout>
+        <ScrollView Orientation="Horizontal"                   
+                    Grid.Row="1">
+            <HorizontalStackLayout  VerticalOptions="EndAndExpand">
+                <CollectionView ItemsSource="{Binding Tabs}" 
+        ItemsLayout="HorizontalList"
+        SelectionMode="None"
+        x:Name="navBar"
+                
+        Margin="20">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="Model:TabItem">
+                            <buttons:SfButton
+            ImageAlignment="Top"
+            VerticalTextAlignment="End"
+            HorizontalOptions="Center"
+                                ImageSize="30"
+                                FontAutoScalingEnabled="True"
+            ShowIcon="True"
+            IsEnabled="{Binding NotHighlighted}"
+            Text="{Binding Title}"
+            ImageSource="{Binding Pic}"
+            Command="{Binding Source={x:Reference navBar}, Path=BindingContext.NavigateCommand}"
+            CommandParameter="{Binding .}"/>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </HorizontalStackLayout>
+        </ScrollView>
 
         <ActivityIndicator IsRunning="{Binding InServerCall}"
                        IsVisible="{Binding InServerCall}"

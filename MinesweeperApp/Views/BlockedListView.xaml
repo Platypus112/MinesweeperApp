@@ -17,13 +17,14 @@
 
             <datagrid:SfDataGrid.Columns>
                 <datagrid:DataGridTextColumn MappingName="Name" HeaderText="Username"/>
-                <datagrid:DataGridTextColumn MappingName="Email" HeaderText="Email"/>
+                <datagrid:DataGridTextColumn MappingName="Email" HeaderText="Email" ColumnWidthMode="Auto"/>
                 <datagrid:DataGridTextColumn MappingName="Description" HeaderText="Description"/>
                 <datagrid:DataGridTemplateColumn ColumnWidthMode="Auto">
                     <datagrid:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate x:DataType="Models:AppUser">
-                            <Button Text="Remove friend"
+                            <Button Text="Remove block"
                                     Style="{StaticResource SecondaryButtonStyle}"
+                                    FontSize="12"
                         FontAutoScalingEnabled="True"
                         Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.UnblockUserCommand}"
                         CommandParameter="{Binding .}"/>

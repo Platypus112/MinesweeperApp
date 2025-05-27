@@ -808,6 +808,14 @@ namespace MinesweeperApp.Services
                             listResult.Add(f);
                         }
                     }
+                    else if (!(type.Contains("users") || type.Contains("games")) && type.Contains("difficulties"))
+                    {
+                        List<Difficulty> list = JsonSerializer.Deserialize<List<Difficulty>>(result, options);
+                        foreach (Difficulty d in list)
+                        {
+                            listResult.Add(d);
+                        }
+                    }
                     if (type.Contains("games"))
                     {
                         if (type.Contains("reports") && type.Contains("admin"))

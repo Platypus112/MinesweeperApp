@@ -30,6 +30,7 @@ namespace MinesweeperApp.ViewModels
             SendFriendRequestCommand = new Command(SendFriendRequest);
             ViewBlockedUsersCommand = new Command(ViewBlockedUsers);
             ViewFriendRequestsCommand=new Command(ViewFriendRequests);
+            Tabs[2].NotHighlighted = false;
         }
         private async void ViewFriendRequests()
         {

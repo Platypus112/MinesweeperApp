@@ -58,7 +58,7 @@ namespace MinesweeperApp.ViewModels
                 }
                 else
                 {
-                    ErrorMSG = response.ResponseMessage;
+                    ErrorMSG = "error occurred\n Username/Email might not be matching ";
                     InServerCall = false;
                 }
             }

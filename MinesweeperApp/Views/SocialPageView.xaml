@@ -3,11 +3,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MinesweeperApp.Views.SocialPageView"
              xmlns:ViewModel="clr-namespace:MinesweeperApp.ViewModels"
-             xmlns:Models="clr-namespace:MinesweeperApp.Models"
-             xmlns:datagrid="clr-namespace:Syncfusion.Maui.DataGrid;assembly=Syncfusion.Maui.DataGrid"
+             xmlns:Model="clr-namespace:MinesweeperApp.Models"
+             xmlns:datagrid="clr-namespace:Syncfusion.Maui.DataGrid;assembly=Syncfusion.Maui.DataGrid" 
+             xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
              x:DataType="ViewModel:SocialPageViewModel"
              Title="SocialPageView">
-    <VerticalStackLayout Padding="20" Spacing="15">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <VerticalStackLayout Grid.Row="0" Padding="20" Spacing="15">
 
 
 
@@ -61,7 +67,7 @@
             <datagrid:SfDataGrid.Columns>
                 <datagrid:DataGridTemplateColumn Width="50" HeaderText="Pic" AllowSorting="False">
                     <datagrid:DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate x:DataType="Models:UserData">
+                        <DataTemplate x:DataType="Model:AppUser">
                             <Frame Padding="0" CornerRadius="25" HeightRequest="40" WidthRequest="40" IsClippedToBounds="True" HasShadow="False" BackgroundColor="Transparent" HorizontalOptions="Center" VerticalOptions="Center">
                                 <Image Source="{Binding FullPicPath}" Aspect="AspectFill"/>
                             </Frame>
@@ -69,14 +75,14 @@
                     </datagrid:DataGridTemplateColumn.CellTemplate>
                 </datagrid:DataGridTemplateColumn>
                 <datagrid:DataGridTextColumn MappingName="Name" HeaderText="Username"/>
-                <datagrid:DataGridTextColumn MappingName="Email" HeaderText="Email" ColumnWidthMode="FitByCell"/>
+                <datagrid:DataGridTextColumn MappingName="Email" HeaderText="Email" ColumnWidthMode="Auto"/>
                 <datagrid:DataGridTextColumn MappingName="Description" HeaderText="Description"/>
                 <datagrid:DataGridTemplateColumn ColumnWidthMode="Auto">
                     <datagrid:DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate x:DataType="Models:AppUser">
+                        <DataTemplate x:DataType="Model:AppUser">
                             <Button Text="Remove friend"
                                     HeightRequest="40"
-                                    FontAutoScalingEnabled="True"
+                                    FontSize="12"
                                     Style="{StaticResource SecondaryButtonStyle}"
                                     Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.RemoveFriendCommand}"
                                     CommandParameter="{Binding .}"/>
@@ -91,4 +97,33 @@
                            HorizontalOptions="Center" />
 
     </VerticalStackLayout>
+        <ScrollView Orientation="Horizontal"                  
+                    Grid.Row="1">
+            <HorizontalStackLayout  VerticalOptions="EndAndExpand">
+                <CollectionView ItemsSource="{Binding Tabs}" 
+ItemsLayout="HorizontalList"
+SelectionMode="None"
+x:Name="navBar"
+        
+Margin="20">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="Model:TabItem">
+                            <buttons:SfButton
+    ImageAlignment="Top"
+    VerticalTextAlignment="End"
+    HorizontalOptions="Center"
+                        ImageSize="30"
+                        FontAutoScalingEnabled="True"
+    ShowIcon="True"
+    IsEnabled="{Binding NotHighlighted}"
+    Text="{Binding Title}"
+    ImageSource="{Binding Pic}"
+    Command="{Binding Source={x:Reference navBar}, Path=BindingContext.NavigateCommand}"
+    CommandParameter="{Binding .}"/>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </HorizontalStackLayout>
+        </ScrollView>
+    </Grid>
 </ContentPage>

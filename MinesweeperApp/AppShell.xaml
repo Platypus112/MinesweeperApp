@@ -115,15 +115,16 @@
             </Grid>
         </DataTemplate>
     </Shell.ItemTemplate>
-        <ShellContent Title="Welcome" 
+    <ShellContent Title="Welcome" 
                   IsEnabled="False"
                   FlyoutItemIsVisible="False"
                   ContentTemplate="{DataTemplate views:HomeView}"
                   Route="homePage"/>
-    <TabBar>
+    
+    
 
 
-        <Tab Title="LeaderBoards" FlyoutDisplayOptions="AsSingleItem">
+    <Tab Title="LeaderBoards" FlyoutDisplayOptions="AsSingleItem">
             <ShellContent Title="Leaderboard"
                   ContentTemplate="{DataTemplate views:LeaderboardView}"
                   Route="leaderboardPage"/>
@@ -133,7 +134,7 @@
                   Route="friendLeaderboardPage"/>
         </Tab>
 
-        <ShellContent Title="Social page"
+        <ShellContent Title="Social"
               ContentTemplate="{DataTemplate views:SocialPageView}"
               Route="socialPage"/>
 
@@ -145,7 +146,7 @@
               ContentTemplate="{DataTemplate views:ProfileView}"
               Route="profilePage"/>
 
-        <ShellContent Title="Admin page"
+        <ShellContent Title="Admin"
               IsVisible="{Binding IsAdmin}"
               ContentTemplate="{DataTemplate views:AdminView}"
               Route="adminPage"/>
@@ -153,8 +154,6 @@
         <ShellContent Title="Log Out"
               ContentTemplate="{DataTemplate views:LogoutView}"
               Route="logoutPage"/>
-
-    </TabBar>
 
 
 </Shell>

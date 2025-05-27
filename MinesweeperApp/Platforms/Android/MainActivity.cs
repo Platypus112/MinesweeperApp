@@ -8,4 +8,5 @@ namespace MinesweeperApp
     public class MainActivity : MauiAppCompatActivity
     {
     }
+
 }

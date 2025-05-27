@@ -9,7 +9,12 @@
              x:Class="MinesweeperApp.Views.GameView"
              x:DataType="ViewModel:GameViewModel"
              Title="GameView">
-    <VerticalStackLayout x:Name="View">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <VerticalStackLayout Grid.Row="0" x:Name="View">
         <VerticalStackLayout x:Name="StartLayout" IsVisible="{Binding IsNotRunning}">
             <Picker
 x:DataType="Model:Difficulty"
@@ -19,6 +24,7 @@ ItemsSource="{Binding BindingContext.Difficulties, Source={x:Reference StartLayo
             <Button
 Text="Start"
 Command="{Binding StartGameCommand}"/>
+            
         </VerticalStackLayout>
         <Grid IsVisible="{Binding IsRunning}" HorizontalOptions="Center" x:Name="GameGridView">
             <Grid.RowDefinitions>
@@ -115,7 +121,35 @@ Command="{Binding StartGameCommand}"/>
         </Grid>
         <ActivityIndicator IsRunning="{Binding InServerCall}" />
     </VerticalStackLayout>
-    
+        <ScrollView Orientation="Horizontal"                   
+                    IsVisible="{Binding IsNotRunning}" Grid.Row="1">
+            <HorizontalStackLayout  VerticalOptions="EndAndExpand">
+                <CollectionView ItemsSource="{Binding Tabs}" 
+            ItemsLayout="HorizontalList"
+            SelectionMode="None"
+            x:Name="navBar"
+                    
+            Margin="20">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="Model:TabItem">
+                            <buttons:SfButton
+                ImageAlignment="Top"
+                VerticalTextAlignment="End"
+                HorizontalOptions="Center"
+                                    ImageSize="30"
+                                    FontAutoScalingEnabled="True"
+                ShowIcon="True"
+                IsEnabled="{Binding NotHighlighted}"
+                Text="{Binding Title}"
+                ImageSource="{Binding Pic}"
+                Command="{Binding Source={x:Reference navBar}, Path=BindingContext.NavigateCommand}"
+                CommandParameter="{Binding .}"/>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </HorizontalStackLayout>
+            </ScrollView>
+    </Grid>
 
 
 

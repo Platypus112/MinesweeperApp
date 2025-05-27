@@ -61,12 +61,13 @@ namespace MinesweeperApp.ViewModels
         
         public ProfileViewModel(Service service_):base(service_) 
         {
-            User = service.LoggedUser;
             EditProfileCommand = new Command(EditProfile,()=>IsLoggedUser);
             ReportUserCommand=new Command(ReportUser,()=>!IsLoggedUser);
             AddFriendCommand=new Command(AddFriend,()=>!IsLoggedUser);
-            RefreshCommand = new Command(FillCollection, () => !InServerCall && !IsRefreshing);
+            RefreshCommand = new Command(FillCollection, () => !IsRefreshing);
             DiffIndex = 0;
+            Tabs[3].NotHighlighted = false;
+            User = service.LoggedUser;
         }
         private async void AddFriend()
         {
@@ -102,6 +103,7 @@ namespace MinesweeperApp.ViewModels
         }
         private async void FillCollection()
         {
+            IsRefreshing = true;
             InServerCall = true;
             try
             {
@@ -133,7 +135,10 @@ namespace MinesweeperApp.ViewModels
             catch (Exception ex)
             {
                 InServerCall = false;
+                IsRefreshing = false;
+
             }
+            IsRefreshing = false;
             InServerCall = false;
         }
         private async void Filter()

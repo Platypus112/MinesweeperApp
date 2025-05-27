@@ -9,7 +9,7 @@
              Title="UserReportsView">
     <VerticalStackLayout Padding="20" Spacing="15">
  
-        <Image Source="{Binding User.PicPath}" 
+        <Image Source="{Binding User.FullPicPath}" 
                HeightRequest="150" 
                HorizontalOptions="Center" 
                Aspect="AspectFill"

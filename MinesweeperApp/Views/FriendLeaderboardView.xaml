@@ -6,102 +6,133 @@
              xmlns:Model="clr-namespace:MinesweeperApp.Models"
              x:DataType="ViewModel:FriendLeaderboardViewModel"
              xmlns:datagrid="clr-namespace:Syncfusion.Maui.DataGrid;assembly=Syncfusion.Maui.DataGrid"
+             xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
              Title="FriendLeaderboardView">
-    <RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}" RefreshColor="Transparent">
-        <ScrollView>
-            <VerticalStackLayout Padding="10" Spacing="20">
-                <Picker
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <VerticalStackLayout Grid.Row="0" Padding="10" Spacing="20">
+            <Picker
                  Margin="0,40,0,0"
          x:DataType="x:String"
          ItemDisplayBinding="{Binding .}"
          SelectedIndex="{Binding BindingContext.TimesIndex, Source={x:Reference dataGrid}}"
          ItemsSource="{Binding BindingContext.TimesList, Source={x:Reference dataGrid}}"/>
-                <Picker
+            <Picker
                      Margin="10"
          x:DataType="Model:Difficulty"
          ItemDisplayBinding="{Binding Name}"
          SelectedIndex="{Binding BindingContext.DiffIndex, Source={x:Reference dataGrid}}" 
          ItemsSource="{Binding BindingContext.DifficultyList, Source={x:Reference dataGrid}}"/>
-                <datagrid:SfDataGrid
+            <datagrid:SfDataGrid
          x:Name="dataGrid"
          SortingMode="Single"
          AllowTriStateSorting="false"
          AutoGenerateColumnsMode="None"
          ItemsSource="{Binding Items}">
-                    <datagrid:SfDataGrid.Columns>
-                        <datagrid:DataGridTextColumn MappingName="Difficulty.Name" HeaderText="Difficulty" AllowSorting="False">
-                        </datagrid:DataGridTextColumn>
-                        <datagrid:DataGridTextColumn MappingName="Time" HeaderText="Time"/>
-                        <datagrid:DataGridTemplateColumn HeaderText="User" AllowSorting="False">
-                            <datagrid:DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate x:DataType="Model:GameData">
-                                    <Border>
-                                        <Border.GestureRecognizers>
-                                            <TapGestureRecognizer Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.ViewProfileCommand}"
+                <datagrid:SfDataGrid.Columns>
+                    <datagrid:DataGridTextColumn MappingName="Difficulty.Name" HeaderText="Difficulty" AllowSorting="False">
+                    </datagrid:DataGridTextColumn>
+                    <datagrid:DataGridTextColumn MappingName="Time" HeaderText="Time"/>
+                    <datagrid:DataGridTemplateColumn HeaderText="User" AllowSorting="False">
+                        <datagrid:DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate x:DataType="Model:GameData">
+                                <Border>
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.ViewProfileCommand}"
                                                                CommandParameter="{Binding .}"/>
-                                        </Border.GestureRecognizers>
-                                        <HorizontalStackLayout Spacing="10" Padding="5">
-                                            <Image Source="{Binding User.FullPicPath}"
+                                    </Border.GestureRecognizers>
+                                    <HorizontalStackLayout Spacing="10" Padding="5">
+                                        <Image Source="{Binding User.FullPicPath}"
                                                 WidthRequest="40"
                                                 HeightRequest="40"
                                                 Aspect="AspectFill"
                                                 Clip="EllipseGeometry Center='20,20' RadiusX='20' RadiusY='20'" />
-                                            <Label Text="{Binding User.Name}" FontAttributes="Bold" VerticalOptions="Center"/>
-                                        </HorizontalStackLayout>
-                                    </Border>
-                                </DataTemplate>
-                            </datagrid:DataGridTemplateColumn.CellTemplate>
-                        </datagrid:DataGridTemplateColumn>
-                        <datagrid:DataGridTextColumn MappingName="DateOnly" HeaderText="Date" AllowSorting="False"/>
-                        <datagrid:DataGridTextColumn MappingName="IsDeleted" HeaderText="Deleted" AllowSorting="False" Visible="{Binding IsAdmin}" />
+                                        <Label Text="{Binding User.Name}" FontAttributes="Bold" VerticalOptions="Center"/>
+                                    </HorizontalStackLayout>
+                                </Border>
+                            </DataTemplate>
+                        </datagrid:DataGridTemplateColumn.CellTemplate>
+                    </datagrid:DataGridTemplateColumn>
+                    <datagrid:DataGridTextColumn MappingName="DateOnly" HeaderText="Date" AllowSorting="False"/>
+                    <datagrid:DataGridTextColumn MappingName="IsDeleted" HeaderText="Deleted" AllowSorting="False" Visible="{Binding IsAdmin}" />
 
-                        <datagrid:DataGridTemplateColumn ColumnWidthMode="Auto" AllowSorting="False">
-                            <datagrid:DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate x:DataType="Model:GameData">
-                                    <Button Text="Report game"
+                    <datagrid:DataGridTemplateColumn ColumnWidthMode="Auto" AllowSorting="False">
+                        <datagrid:DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate x:DataType="Model:GameData">
+                                <Button Text="Report game"
                                          FontAutoScalingEnabled="True"
                                          FontSize="12"
                                          Padding="6,2"   
                                          CornerRadius="6"
                                          Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.ReportGameCommand}"
                                          CommandParameter="{Binding .}" />
-                                </DataTemplate>
-                            </datagrid:DataGridTemplateColumn.CellTemplate>
-                        </datagrid:DataGridTemplateColumn>
+                            </DataTemplate>
+                        </datagrid:DataGridTemplateColumn.CellTemplate>
+                    </datagrid:DataGridTemplateColumn>
 
-                        <datagrid:DataGridTemplateColumn Visible="{Binding IsAdmin}" AllowSorting="False">
-                            <datagrid:DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate x:DataType="Model:GameData">
-                                    <Button Text="View reports"
+                    <datagrid:DataGridTemplateColumn Visible="{Binding IsAdmin}" AllowSorting="False">
+                        <datagrid:DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate x:DataType="Model:GameData">
+                                <Button Text="View reports"
                                          FontAutoScalingEnabled="True"
                                          FontSize="12"
                                          Padding="6,2"   
                                          CornerRadius="6"
                                  Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.ViewGameReportsCommand}"
                                  CommandParameter="{Binding .}"/>
-                                </DataTemplate>
-                            </datagrid:DataGridTemplateColumn.CellTemplate>
-                        </datagrid:DataGridTemplateColumn>
+                            </DataTemplate>
+                        </datagrid:DataGridTemplateColumn.CellTemplate>
+                    </datagrid:DataGridTemplateColumn>
 
-                        <datagrid:DataGridTemplateColumn Visible="{Binding IsAdmin}" AllowSorting="False">
-                            <datagrid:DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate x:DataType="Model:GameData">
-                                    <Button Text="Delete"
+                    <datagrid:DataGridTemplateColumn Visible="{Binding IsAdmin}" AllowSorting="False">
+                        <datagrid:DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate x:DataType="Model:GameData">
+                                <Button Text="Delete"
                                          FontAutoScalingEnabled="True"
                                          FontSize="12"
                                          Padding="6,2"   
                                          CornerRadius="6"
                                          Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.RemoveGameCommand}"
                                          CommandParameter="{Binding .}"/>
-                                </DataTemplate>
-                            </datagrid:DataGridTemplateColumn.CellTemplate>
-                        </datagrid:DataGridTemplateColumn>
+                            </DataTemplate>
+                        </datagrid:DataGridTemplateColumn.CellTemplate>
+                    </datagrid:DataGridTemplateColumn>
 
-                    </datagrid:SfDataGrid.Columns>
+                </datagrid:SfDataGrid.Columns>
 
-                </datagrid:SfDataGrid>
-                <ActivityIndicator IsRunning="{Binding InServerCall}" />
-            </VerticalStackLayout>
+            </datagrid:SfDataGrid>
+            <ActivityIndicator IsRunning="{Binding InServerCall}" />
+        </VerticalStackLayout>
+        <ScrollView Orientation="Horizontal"                   
+                        Grid.Row="1">
+            <HorizontalStackLayout  VerticalOptions="EndAndExpand">
+                <CollectionView ItemsSource="{Binding Tabs}" 
+    ItemsLayout="HorizontalList"
+    SelectionMode="None"
+    x:Name="navBar"
+            
+    Margin="20">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="Model:TabItem">
+                            <buttons:SfButton
+        ImageAlignment="Top"
+        VerticalTextAlignment="End"
+        HorizontalOptions="Center"
+                            ImageSize="30"
+                            FontAutoScalingEnabled="True"
+        ShowIcon="True"
+        IsEnabled="{Binding NotHighlighted}"
+        Text="{Binding Title}"
+        ImageSource="{Binding Pic}"
+        Command="{Binding Source={x:Reference navBar}, Path=BindingContext.NavigateCommand}"
+        CommandParameter="{Binding .}"/>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </HorizontalStackLayout>
         </ScrollView>
-    </RefreshView>
+    </Grid>
 </ContentPage>

@@ -41,7 +41,6 @@ namespace MinesweeperApp.ViewModels
         public ICommand RefreshCommand { get; private set; }
         public LeaderboardViewModel(Service service_) : base(service_)
         {
-            AppShell.Current.FlyoutBehavior = FlyoutBehavior.Flyout;
             IsAdmin = service.LoggedUser!=null&&service.LoggedUser.IsAdmin;
             RefreshCommand = new Command(FillCollection,()=>!InServerCall&&!IsRefreshing);
             FillCollection();
@@ -49,6 +48,7 @@ namespace MinesweeperApp.ViewModels
             ViewProfileCommand=new Command((Object o) => ViewProfile(o));
             ReportGameCommand = new Command((Object o) => ReportGame(o));
             RemoveGameCommand = new Command((Object o) => RemoveGame(o),(Object o)=>IsAdmin);
+            Tabs[1].NotHighlighted = false;
         }
         private async void ViewProfile(Object o)
         {

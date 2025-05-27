@@ -10,9 +10,10 @@ public partial class LogoutView : ContentPage
 		this.BindingContext = vm;
 		InitializeComponent();
 	}
-    protected override void OnAppearing()
+    protected override async void OnAppearing()
     {
 		((LogoutViewModel)this.BindingContext).Logout();
+
     }
 
 }

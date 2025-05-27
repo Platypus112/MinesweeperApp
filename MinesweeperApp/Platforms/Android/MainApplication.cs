@@ -12,5 +12,7 @@ namespace MinesweeperApp
         }
 
         protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp();
+
+
     }
 }

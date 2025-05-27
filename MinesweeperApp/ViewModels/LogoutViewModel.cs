@@ -1,4 +1,5 @@
-﻿using MinesweeperApp.Models;
+﻿using Microsoft.Extensions.DependencyInjection;
+using MinesweeperApp.Models;
 using MinesweeperApp.Services;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ namespace MinesweeperApp.ViewModels
     {
         public LogoutViewModel(Service service_):base(service_)
         {
+
         }
         public async void Logout()
         {
@@ -27,6 +29,7 @@ namespace MinesweeperApp.ViewModels
                         await AppShell.Current.DisplayAlert("Logout succeded", "Have a good day " +serverResponse.Content.Name, "ok");
                         AppShell.Current.FlyoutBehavior = FlyoutBehavior.Disabled;
                         await AppShell.Current.GoToAsync("///homePage");
+
                     }
                     else
                     {

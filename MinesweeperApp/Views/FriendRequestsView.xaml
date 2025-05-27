@@ -47,6 +47,7 @@
                         <DataTemplate x:DataType="Models:FriendRequest">
                             <Button Text="Decline"
                                     IsVisible="{Binding Recieving}"
+                                    FontSize="12"
                         FontAutoScalingEnabled="True"
                         Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.DeclineFriendRequestCommand}"
                         CommandParameter="{Binding .}"/>
@@ -57,6 +58,7 @@
                     <datagrid:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate x:DataType="Models:FriendRequest">
                             <Button Text="Accept"
+                                    FontSize="12"
                                     IsVisible="{Binding Recieving}"
         FontAutoScalingEnabled="True"
         Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.AcceptFriendRequestCommand}"

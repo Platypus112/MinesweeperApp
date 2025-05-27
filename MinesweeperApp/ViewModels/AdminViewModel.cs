@@ -27,6 +27,7 @@ namespace MinesweeperApp.ViewModels
             ViewUserReportsCommand = new Command((Object o) => ViewUserReports(o));
             RemoveUserCommand = new Command((Object o) => RemoveUser(o));
             ReportUserCommand = new Command((Object o)=>ReportUser(o));
+            Tabs[4].NotHighlighted = false;
         }
         private async void ReportUser(Object o)
         {

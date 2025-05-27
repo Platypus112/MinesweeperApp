@@ -98,6 +98,7 @@ namespace MinesweeperApp.ViewModels
             ToggleFlagCommand = new Command(async () => await ToggleFlagging(), () => !isFlagging);
             ToggleMineCommand = new Command(async () => await ToggleFlagging(), () => isFlagging);
             FillDifficulties();
+            Tabs[0].NotHighlighted = false;
         }
         private async void CreateGameBoard()
         {
@@ -160,7 +161,6 @@ namespace MinesweeperApp.ViewModels
             {
                 await AppShell.Current.DisplayAlert("Game over", "maybe next time!", "Ok");
             }
-            AppShell.Current.FlyoutBehavior = FlyoutBehavior.Flyout;
             IsRunning = false;
             InServerCall = false;
         }

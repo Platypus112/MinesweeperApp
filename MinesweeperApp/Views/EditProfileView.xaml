@@ -4,7 +4,7 @@
              x:Class="MinesweeperApp.Views.EditProfileView"
              xmlns:ViewModel="clr-namespace:MinesweeperApp.ViewModels"
              x:DataType="ViewModel:EditProfileViewModel"
-             Title="EditProfileView">
+             Title="Edit Profile">
     <Grid>
 
 
@@ -65,7 +65,7 @@
                 MaximumWidthRequest="30"
                 CornerRadius="6986543"
                 Command="{Binding ViewPasswordCommand}"
-                Source="t1.png"/>
+                Source="viewpass.png"/>
             </Grid>
 
             <!-- Description -->

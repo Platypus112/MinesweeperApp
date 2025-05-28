@@ -22,7 +22,7 @@ namespace MinesweeperApp.ViewModels
         public ICommand ViewFriendRequestsCommand { get; private set; }
         public ICommand ViewBlockedUsersCommand { get; private set; }
 
-        public SocialPageViewModel(Service service_):base(service_) 
+        public SocialPageViewModel(Service service_):base(service_,2) 
         {
             FillCollection();
             RemoveFriendCommand=new Command((Object o)=>RemoveFriend(o));
@@ -30,7 +30,13 @@ namespace MinesweeperApp.ViewModels
             SendFriendRequestCommand = new Command(SendFriendRequest);
             ViewBlockedUsersCommand = new Command(ViewBlockedUsers);
             ViewFriendRequestsCommand=new Command(ViewFriendRequests);
-            Tabs[2].NotHighlighted = false;
+        }
+        public override void RefreshPage()
+        {
+            base.RefreshPage();
+            InServerCall = true;
+            FillCollection();
+            InServerCall = false;
         }
         private async void ViewFriendRequests()
         {

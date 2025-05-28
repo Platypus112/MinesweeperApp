@@ -21,6 +21,13 @@ namespace MinesweeperApp.ViewModels
             FillCollection();
             UnblockUserCommand=new Command((Object o)=>UnblockUser(o));
         }
+        public override void RefreshPage()
+        {
+            base.RefreshPage();
+            InServerCall = true;
+            FillCollection();
+            InServerCall = false;
+        }
         private async void UnblockUser(Object o)
         {
             InServerCall = true;

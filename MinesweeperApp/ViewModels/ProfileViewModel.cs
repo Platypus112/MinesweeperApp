@@ -59,15 +59,21 @@ namespace MinesweeperApp.ViewModels
         public ICommand AddFriendCommand { get;private set; }
         public ICommand RefreshCommand { get; private set; }
         
-        public ProfileViewModel(Service service_):base(service_) 
+        public ProfileViewModel(Service service_):base(service_,3) 
         {
             EditProfileCommand = new Command(EditProfile,()=>IsLoggedUser);
             ReportUserCommand=new Command(ReportUser,()=>!IsLoggedUser);
             AddFriendCommand=new Command(AddFriend,()=>!IsLoggedUser);
             RefreshCommand = new Command(FillCollection, () => !IsRefreshing);
             DiffIndex = 0;
-            Tabs[3].NotHighlighted = false;
             User = service.LoggedUser;
+        }
+        public override void RefreshPage()
+        {
+            base.RefreshPage();
+            InServerCall = true;
+            User = service.LoggedUser;
+            InServerCall = false;
         }
         private async void AddFriend()
         {

@@ -6,7 +6,7 @@
              xmlns:Model="clr-namespace:MinesweeperApp.Models"
              x:DataType="ViewModel:UserReportsViewModel"
              xmlns:datagrid="clr-namespace:Syncfusion.Maui.DataGrid;assembly=Syncfusion.Maui.DataGrid"
-             Title="UserReportsView">
+             Title="User Reports">
     <VerticalStackLayout Padding="20" Spacing="15">
  
         <Image Source="{Binding User.FullPicPath}" 
@@ -19,7 +19,7 @@
         <Label>
             <Label.FormattedText>
                 <FormattedString>
-                    <Span Text="Username: " FontAttributes="Bold"/>
+                    <Span Text="Username: " TextColor="#afb056"/>
                     <Span Text="{Binding User.Name}"/>
                 </FormattedString>
             </Label.FormattedText>
@@ -28,7 +28,7 @@
         <Label>
             <Label.FormattedText>
                 <FormattedString>
-                    <Span Text="Email: " FontAttributes="Bold"/>
+                    <Span Text="Email: "  TextColor="#afb056"/>
                     <Span Text="{Binding User.Email}"/>
                 </FormattedString>
             </Label.FormattedText>
@@ -37,7 +37,7 @@
         <Label>
             <Label.FormattedText>
                 <FormattedString>
-                    <Span Text="Description: " FontAttributes="Bold"/>
+                    <Span Text="Description: " TextColor="#afb056"/>
                     <Span Text="{Binding User.Description}"/>
                 </FormattedString>
             </Label.FormattedText>
@@ -59,7 +59,8 @@
                 <datagrid:DataGridTemplateColumn>
                     <datagrid:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate x:DataType="Model:UserReport">
-                            <Button Text="ResolveReport"
+                            <Button Text="Resolve"
+                                    FontSize="12"
                                 Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.ResolveReportCommand}"
                                 CommandParameter="{Binding .}"/>
                         </DataTemplate>

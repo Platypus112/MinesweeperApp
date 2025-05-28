@@ -9,4 +9,9 @@ public partial class FriendRequestsView : ContentPage
 		this.BindingContext = vm;
 		InitializeComponent();
 	}
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        ((FriendRequestsViewModel)this.BindingContext).RefreshPage();
+    }
 }

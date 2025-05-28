@@ -7,10 +7,10 @@
              x:DataType="ViewModel:FriendLeaderboardViewModel"
              xmlns:datagrid="clr-namespace:Syncfusion.Maui.DataGrid;assembly=Syncfusion.Maui.DataGrid"
              xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
-             Title="FriendLeaderboardView">
+             Title="Friend Leaderboard">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="10*"/>
+            <RowDefinition Height="8*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <VerticalStackLayout Grid.Row="0" Padding="10" Spacing="20">
@@ -118,10 +118,13 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="Model:TabItem">
                             <buttons:SfButton
+                                                                        HeightRequest="40"
+                                        WidthRequest="100"
+                                                                Style="{StaticResource PrimaryButtonStyle}"
+                                    ImageSize="20"
         ImageAlignment="Top"
         VerticalTextAlignment="End"
         HorizontalOptions="Center"
-                            ImageSize="30"
                             FontAutoScalingEnabled="True"
         ShowIcon="True"
         IsEnabled="{Binding NotHighlighted}"

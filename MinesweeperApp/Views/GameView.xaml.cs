@@ -28,6 +28,11 @@ public partial class GameView : ContentPage
         panGesture.PanUpdated += OnPanUpdated;
         View.GestureRecognizers.Add(panGesture);
     }
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        ((GameViewModel)this.BindingContext).RefreshPage();
+    }
 
     double panX, panY;
 

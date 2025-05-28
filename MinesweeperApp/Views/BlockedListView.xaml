@@ -6,7 +6,7 @@
              xmlns:Models="clr-namespace:MinesweeperApp.Models"
              xmlns:datagrid="clr-namespace:Syncfusion.Maui.DataGrid;assembly=Syncfusion.Maui.DataGrid"
              x:DataType="ViewModel:BlockedListViewModel"
-             Title="BlockedListView">
+             Title="Blocked List">
     <VerticalStackLayout Padding="10" Spacing="10">
         <datagrid:SfDataGrid
                     x:Name="dataGrid"

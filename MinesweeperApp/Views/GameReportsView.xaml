@@ -6,7 +6,7 @@
              xmlns:Model="clr-namespace:MinesweeperApp.Models"
              x:DataType="ViewModel:GameReportsViewModel"
              xmlns:datagrid="clr-namespace:Syncfusion.Maui.DataGrid;assembly=Syncfusion.Maui.DataGrid"
-             Title="GameReportsView">
+             Title="Game Reports">
     <VerticalStackLayout Padding="15">
 
         <Label Style="{StaticResource DataLabelStyle}">

@@ -9,4 +9,9 @@ public partial class BlockedListView : ContentPage
 		this.BindingContext = vm;
 		InitializeComponent();
 	}
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        ((BlockedListViewModel)this.BindingContext).RefreshPage();
+    }
 }

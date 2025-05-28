@@ -9,4 +9,9 @@ public partial class AdminView : ContentPage
 		this.BindingContext = vm;
 		InitializeComponent();
 	}
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+		((AdminViewModel)this.BindingContext).RefreshPage();
+    }
 }

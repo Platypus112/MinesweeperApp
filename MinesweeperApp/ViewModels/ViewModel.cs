@@ -41,12 +41,33 @@ namespace MinesweeperApp.ViewModels
 
         public ICommand NavigateCommand { get; private set; }
 
+        private int highlighted;
+
+        public ViewModel(Service service_, int highlighted_)
+        {
+            NavigateCommand = new Command((Object o) => Navigate(o));
+            this.service = service_;
+            InServerCall = false;
+            FillTabs();
+            this.highlighted = highlighted_;
+        }
+
         public ViewModel(Service service_)
         {
             NavigateCommand = new Command((Object o) => Navigate(o));
             this.service= service_;
             InServerCall= false;
+            this.highlighted = -1;
             FillTabs();
+        }
+        public virtual async void RefreshPage()
+        {
+            InServerCall = true;
+            if(service.LoggedUser!=null)IsAdmin = service.LoggedUser.IsAdmin;
+            FillTabs();
+
+            InServerCall = false;
+
         }
         private async void Navigate(Object o)
         {
@@ -62,13 +83,15 @@ namespace MinesweeperApp.ViewModels
         }
         protected async void FillTabs()
         {
-            Tabs = new ObservableCollection<TabItem>();
-            Tabs.Add(new TabItem("Game", "gamePage"));
-            Tabs.Add(new TabItem("Leaderboard", "leaderboardPage"));
-            Tabs.Add(new TabItem("Social", "socialPage"));
-            Tabs.Add(new TabItem("Profile", "profilePage"));
-            if(isAdmin) Tabs.Add(new TabItem("Admin", "adminPage"));
-            Tabs.Add(new TabItem("Logout", "logoutPage"));
+            List<TabItem> tabsList = new List<TabItem>();
+            tabsList.Add(new TabItem("Game","mine.png", "gamePage"));
+            tabsList.Add(new TabItem("Leaderboard","leaderboard.png","leaderboardPage"));
+            tabsList.Add(new TabItem("Social","social.png", "socialPage"));
+            tabsList.Add(new TabItem("Profile","profile.png", "profilePage"));
+            if(isAdmin) tabsList.Add(new TabItem("Admin","admin.png", "adminPage"));
+            tabsList.Add(new TabItem("Logout","logout.png", "logoutPage"));
+            if (highlighted >= 0 && highlighted < tabsList.Count) tabsList[highlighted].NotHighlighted = false;
+            Tabs = new(tabsList);
         }
     }
 }

@@ -51,6 +51,13 @@ namespace MinesweeperApp.ViewModels
             EditProfileCommand = new Command(EditProfile);
             UploadPhotoCommand = new Command(UploadPhoto);
         }
+        public override void RefreshPage()
+        {
+            base.RefreshPage();
+            InServerCall = true;
+            User = service.LoggedUser;
+            InServerCall = false;
+        }
         private async void ViewPassword()
         {
             if (IsViewingPassword) IsViewingPassword = false;
@@ -89,7 +96,7 @@ namespace MinesweeperApp.ViewModels
                             }
                             User = response.Content;
                             await AppShell.Current.DisplayAlert("Profile was saved successfully", "", "ok");
-
+                            await AppShell.Current.GoToAsync("///profilePage");
                         }
                         else
                         {

@@ -7,10 +7,10 @@
              x:DataType="ViewModel:LeaderboardViewModel"
              xmlns:datagrid="clr-namespace:Syncfusion.Maui.DataGrid;assembly=Syncfusion.Maui.DataGrid"
              xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
-             Title="LeaderboardView">
+             Title="Leaderboard">
     <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="8*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <VerticalStackLayout Grid.Row="0" Padding="10" Spacing="20">
@@ -32,6 +32,7 @@
             AllowTriStateSorting="false"
             AutoGenerateColumnsMode="None"
             ItemsSource="{Binding Items}">
+
                         <datagrid:SfDataGrid.Columns>
                             <datagrid:DataGridTextColumn MappingName="Difficulty.Name" HeaderText="Difficulty" AllowSorting="False">
                             </datagrid:DataGridTextColumn>
@@ -106,22 +107,25 @@
                     </datagrid:SfDataGrid>
                     <ActivityIndicator IsRunning="{Binding InServerCall}" />
                 </VerticalStackLayout>
-                <ScrollView Orientation="Horizontal"                   
+                <ScrollView Orientation="Horizontal"  
                             Grid.Row="1">
-                    <HorizontalStackLayout  VerticalOptions="EndAndExpand">
+                    <HorizontalStackLayout  VerticalOptions="EndAndExpand"
+                                           >
                         <CollectionView ItemsSource="{Binding Tabs}" 
 ItemsLayout="HorizontalList"
 SelectionMode="None"
 x:Name="navBar"
-        
 Margin="20">
                             <CollectionView.ItemTemplate>
                                 <DataTemplate x:DataType="Model:TabItem">
-                                    <buttons:SfButton
+                                    <buttons:SfButton 
+                                        HeightRequest="40"
+                                        WidthRequest="100"
+                                        Style="{StaticResource PrimaryButtonStyle}"
+                                    ImageSize="20"
     ImageAlignment="Top"
     VerticalTextAlignment="End"
     HorizontalOptions="Center"
-                        ImageSize="30"
                         FontAutoScalingEnabled="True"
     ShowIcon="True"
     IsEnabled="{Binding NotHighlighted}"

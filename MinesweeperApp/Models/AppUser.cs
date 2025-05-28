@@ -47,6 +47,7 @@ namespace MinesweeperApp.Models
             Email = userData_.Email;
             Password = userData_.Password;
             PicPath = userData_.PicPath;
+            FullPicPath = userData_.FullPicPath;
             IsAdmin = userData_.IsAdmin;
             Description = userData_.Description;
         }

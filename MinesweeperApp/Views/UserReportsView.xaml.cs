@@ -9,4 +9,9 @@ public partial class UserReportsView : ContentPage
 		this.BindingContext = vm;
 		InitializeComponent();
 	}
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        ((UserReportsViewModel)this.BindingContext).RefreshPage();
+    }
 }

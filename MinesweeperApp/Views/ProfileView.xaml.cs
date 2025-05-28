@@ -18,5 +18,7 @@ public partial class ProfileView : ContentPage
         theImageBug.BindingContext = null;
         theImageBug.BindingContext = bc;
 
+        ((ProfileViewModel)this.BindingContext).RefreshPage();
     }
+
 }

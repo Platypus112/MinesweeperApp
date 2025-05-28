@@ -94,6 +94,16 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style x:Key="PrimaryButtonStyle" TargetType="buttons:SfButton">
+            <Setter Property="BackgroundColor" Value="#dddea0" />
+            <Setter Property="Background" Value="#dddea0"/>
+            <Setter Property="TextColor" Value="#141a24" />
+            <Setter Property="CornerRadius" Value="10" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="Padding" Value="12,8" />
+            <Setter Property="Margin" Value="0,10"/>
+        </Style>
     </Shell.Resources>
     <Shell.ItemTemplate>
         <DataTemplate x:DataType="ShellContent">

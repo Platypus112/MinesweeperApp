@@ -30,6 +30,7 @@ namespace MinesweeperApp.ViewModels
         public bool IsNotRunning { get { return !isRunning; } set { isRunning = !value; OnPropertyChanged(); OnPropertyChanged(nameof(IsRunning)); } }
 
 
+
         private async void FillDifficulties()
         {
             ServerResponse<List<Object>> difficultiesResponse = await service.GetCollectionByType("difficulties");
@@ -48,7 +49,9 @@ namespace MinesweeperApp.ViewModels
         {
             if (SelectedDifficulty != null)
             {
+                InServerCall = true;
                 IsRunning = true;
+                AdjustNavBar();
                 t = App.Current.Dispatcher.CreateTimer();
                 t.Stop();
                 t.Interval = new TimeSpan(0, 0, 0, 0, 200);
@@ -58,6 +61,8 @@ namespace MinesweeperApp.ViewModels
                 gameFinished = false;
                 Diff=SelectedDifficulty;
                 SelectedDifficulty = null;
+                InServerCall = false;
+
             }
         }
         private Difficulty diff;
@@ -77,6 +82,8 @@ namespace MinesweeperApp.ViewModels
         private double squareHeight;
         public RowDefinitionCollection Rows { get { return rows; } set { rows = value; OnPropertyChanged(); } }
         private RowDefinitionCollection rows;
+        public RowDefinitionCollection NavBarRows { get { return navBarRows; } set { navBarRows = value; OnPropertyChanged(); } }
+        private RowDefinitionCollection navBarRows;
         public ColumnDefinitionCollection Columns { get { return columns; } set { columns = value; OnPropertyChanged(); } }
         private ColumnDefinitionCollection columns;
         public string Timer { get { return timer; } set {  timer = value; OnPropertyChanged(); } }
@@ -90,15 +97,35 @@ namespace MinesweeperApp.ViewModels
         public ICommand ClickTileCommand { get; private set; }
         public ICommand ToggleFlagCommand { get; private set; }
         public ICommand ToggleMineCommand { get; private set; }
-        public GameViewModel(Service service_) : base(service_)
+        public GameViewModel(Service service_) : base(service_,0)
         {
             IsRunning = false;
             StartGameCommand = new Command(StartGame, () => SelectedDifficulty != null);
             ClickTileCommand = new Command(async (Object obj) => await ClickTile(obj)/*, (object obj) => !gameFinished&!clickingRunning*/);
             ToggleFlagCommand = new Command(async () => await ToggleFlagging(), () => !isFlagging);
             ToggleMineCommand = new Command(async () => await ToggleFlagging(), () => isFlagging);
+            AdjustNavBar();
             FillDifficulties();
-            Tabs[0].NotHighlighted = false;
+        }
+        private async void AdjustNavBar()
+        {
+            if(IsRunning)
+            {
+                NavBarRows = new RowDefinitionCollection();
+                NavBarRows.Add(new RowDefinition() { Height = new GridLength(8, GridUnitType.Star) });
+                OnPropertyChanged(nameof(NavBarRows));
+            }
+            else
+            {
+                NavBarRows = new RowDefinitionCollection();
+                NavBarRows.Add(new RowDefinition() { Height = new GridLength(8, GridUnitType.Star) });
+                NavBarRows.Add(new RowDefinition() { Height = new GridLength(1, GridUnitType.Star) });
+                OnPropertyChanged(nameof(NavBarRows));
+            }
+        }
+        public override void RefreshPage()
+        {
+            base.RefreshPage();
         }
         private async void CreateGameBoard()
         {
@@ -163,6 +190,7 @@ namespace MinesweeperApp.ViewModels
             }
             IsRunning = false;
             InServerCall = false;
+            AdjustNavBar();
         }
         private async Task ClickTile(Object obj)
         {

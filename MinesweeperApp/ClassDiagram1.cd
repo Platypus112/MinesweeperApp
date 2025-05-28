@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="MinesweeperApp.Services.Service" Collapsed="true">
-    <Position X="17.25" Y="1.75" Width="1.5" />
+    <Position X="7.25" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>CCEIAAAABBQgACFIACAAIAICAAIBAAACACIYtJAAIgA=</HashCode>
       <FileName>Services\Service.cs</FileName>
@@ -11,21 +11,21 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="MinesweeperApp.Models.AppUser" Collapsed="true">
-    <Position X="15" Y="3.75" Width="1.5" />
+    <Position X="5" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAACAgAAAAAAAAAAQACAAAAAACAEABAAAAAAA=</HashCode>
       <FileName>Models\AppUser.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="MinesweeperApp.Models.Difficulty" Collapsed="true">
-    <Position X="15" Y="5" Width="1.5" />
+    <Position X="5" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAQAQAAAQAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Difficulty.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="MinesweeperApp.Models.FinishedGame" Collapsed="true">
-    <Position X="22.75" Y="4.25" Width="1.5" />
+    <Position X="12.75" Y="5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAADAAAAAAAAAQAAAAAAAAAAAAAAAACBAAAAAAAAAQA=</HashCode>
       <FileName>Models\FinishedGame.cs</FileName>
@@ -36,7 +36,7 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="MinesweeperApp.Models.FriendRequest" Collapsed="true">
-    <Position X="21" Y="8.25" Width="1.5" />
+    <Position X="11" Y="9" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AEAAAAEEAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\FriendRequest.cs</FileName>
@@ -48,7 +48,7 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="MinesweeperApp.Models.Game" Collapsed="true">
-    <Position X="19" Y="2.75" Width="1.5" />
+    <Position X="9" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAUEAAABAAAEAQAAAIAAIEwhAAAAgAECACgAAAA=</HashCode>
       <FileName>Models\Game.cs</FileName>
@@ -59,7 +59,7 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="MinesweeperApp.Models.GameData" Collapsed="true">
-    <Position X="22.75" Y="5.5" Width="1.5" />
+    <Position X="12.75" Y="6.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAADAAAAAAAAAQBAAAAAAAAAAAAAAACBAAAAAQAAAQA=</HashCode>
       <FileName>Models\GameData.cs</FileName>
@@ -70,7 +70,7 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="MinesweeperApp.Models.GameReport" Collapsed="true">
-    <Position X="19.25" Y="8.25" Width="1.5" />
+    <Position X="9.25" Y="9" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAEAAAgAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\GameReport.cs</FileName>
@@ -81,28 +81,28 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="MinesweeperApp.Models.LoginInfo" Collapsed="true">
-    <Position X="15" Y="7" Width="1.5" />
+    <Position X="5" Y="7.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAACAAAAAAAAAAAAQAAAAAAAACAAAAAAAAAAA=</HashCode>
       <FileName>Models\LoginInfo.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="MinesweeperApp.Models.ServerResponse&lt;T&gt;" Collapsed="true">
-    <Position X="15" Y="2.75" Width="1.5" />
+    <Position X="5" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAgBAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
       <FileName>Models\ServerResponse.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="MinesweeperApp.Models.Status" Collapsed="true">
-    <Position X="15" Y="6" Width="1.5" />
+    <Position X="5" Y="6.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Status.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="MinesweeperApp.Models.Tile" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="20.75" Y="1.75" Width="1.5" />
+    <Position X="10.75" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AIAECAAAAEAAAABkIABAAACAgABAACAAYAAhACAABAA=</HashCode>
       <FileName>Models\Tile.cs</FileName>
@@ -113,7 +113,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="MinesweeperApp.Models.DisplayDetails" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="20.75" Y="3" Width="1.5" />
+    <Position X="10.75" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAIEIAAAACmAAAABgIAABgCAAAIAA=</HashCode>
       <FileName>Models\Tile.cs</FileName>
@@ -121,14 +121,14 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="MinesweeperApp.Models.UserData" Collapsed="true">
-    <Position X="22.75" Y="6.75" Width="1.5" />
+    <Position X="12.75" Y="7.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAACCgAAAAAAAAAAQACAAAAAACAEABAAAAAAA=</HashCode>
       <FileName>Models\UserData.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="MinesweeperApp.Models.UserReport" Collapsed="true">
-    <Position X="17.5" Y="8.25" Width="1.5" />
+    <Position X="7.5" Y="9" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAADAAAEAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\UserReport.cs</FileName>
@@ -137,6 +137,14 @@
       <Property Name="Status" />
       <Property Name="User" />
     </ShowAsAssociation>
+  </Class>
+  <Class Name="MinesweeperApp.Models.TabItem" Collapsed="true">
+    <Position X="12.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAEAAIEACAAAAgAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Models\TabItem.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

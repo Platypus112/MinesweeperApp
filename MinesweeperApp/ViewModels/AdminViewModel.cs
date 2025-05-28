@@ -21,13 +21,20 @@ namespace MinesweeperApp.ViewModels
         public ICommand ViewUserReportsCommand { get; private set; }
         public ICommand ReportUserCommand { get; private set; }
         public ICommand RemoveUserCommand { get; private set; }
-        public AdminViewModel(Service service_) : base(service_)
+        public AdminViewModel(Service service_) : base(service_,4)
         {
             FillCollection();
             ViewUserReportsCommand = new Command((Object o) => ViewUserReports(o));
             RemoveUserCommand = new Command((Object o) => RemoveUser(o));
             ReportUserCommand = new Command((Object o)=>ReportUser(o));
-            Tabs[4].NotHighlighted = false;
+        }
+
+        public override void RefreshPage()
+        {
+            base.RefreshPage();
+            InServerCall = true;
+            FillCollection();
+            InServerCall = false;
         }
         private async void ReportUser(Object o)
         {

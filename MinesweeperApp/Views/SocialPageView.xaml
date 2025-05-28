@@ -7,10 +7,10 @@
              xmlns:datagrid="clr-namespace:Syncfusion.Maui.DataGrid;assembly=Syncfusion.Maui.DataGrid" 
              xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
              x:DataType="ViewModel:SocialPageViewModel"
-             Title="SocialPageView">
+             Title="Social Page">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="10*"/>
+            <RowDefinition Height="8*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <VerticalStackLayout Grid.Row="0" Padding="20" Spacing="15">
@@ -75,9 +75,9 @@
                     </datagrid:DataGridTemplateColumn.CellTemplate>
                 </datagrid:DataGridTemplateColumn>
                 <datagrid:DataGridTextColumn MappingName="Name" HeaderText="Username"/>
-                <datagrid:DataGridTextColumn MappingName="Email" HeaderText="Email" ColumnWidthMode="Auto"/>
+                <datagrid:DataGridTextColumn MappingName="Email" HeaderText="Email" ColumnWidthMode="FitByCell"/>
                 <datagrid:DataGridTextColumn MappingName="Description" HeaderText="Description"/>
-                <datagrid:DataGridTemplateColumn ColumnWidthMode="Auto">
+                    <datagrid:DataGridTemplateColumn ColumnWidthMode="FitByCell">
                     <datagrid:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate x:DataType="Model:AppUser">
                             <Button Text="Remove friend"
@@ -109,10 +109,13 @@ Margin="20">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="Model:TabItem">
                             <buttons:SfButton
+                                                                        HeightRequest="40"
+                                        WidthRequest="100"
+                                                                Style="{StaticResource PrimaryButtonStyle}"
+                                    ImageSize="20"
     ImageAlignment="Top"
     VerticalTextAlignment="End"
     HorizontalOptions="Center"
-                        ImageSize="30"
                         FontAutoScalingEnabled="True"
     ShowIcon="True"
     IsEnabled="{Binding NotHighlighted}"

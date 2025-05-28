@@ -9,4 +9,9 @@ public partial class SocialPageView : ContentPage
 		this.BindingContext = vm;
 		InitializeComponent();
 	}
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        ((SocialPageViewModel)this.BindingContext).RefreshPage();
+    }
 }

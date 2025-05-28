@@ -8,12 +8,10 @@
              xmlns:local="clr-namespace:MinesweeperApp"
              x:Class="MinesweeperApp.Views.GameView"
              x:DataType="ViewModel:GameViewModel"
-             Title="GameView">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="10*"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+             Title="Game">
+    <Grid
+        RowDefinitions="{Binding NavBarRows}">
+
         <VerticalStackLayout Grid.Row="0" x:Name="View">
         <VerticalStackLayout x:Name="StartLayout" IsVisible="{Binding IsNotRunning}">
             <Picker
@@ -22,6 +20,9 @@ ItemDisplayBinding="{Binding Name}"
 ItemsSource="{Binding BindingContext.Difficulties, Source={x:Reference StartLayout}}"
     SelectedItem="{Binding BindingContext.SelectedDifficulty, Source={x:Reference StartLayout}}"/>
             <Button
+                                    Style="{StaticResource PrimaryButtonStyle}"
+
+                
 Text="Start"
 Command="{Binding StartGameCommand}"/>
             
@@ -121,22 +122,25 @@ Command="{Binding StartGameCommand}"/>
         </Grid>
         <ActivityIndicator IsRunning="{Binding InServerCall}" />
     </VerticalStackLayout>
-        <ScrollView Orientation="Horizontal"                   
+        <ScrollView Orientation="Horizontal"    
+                    HorizontalScrollBarVisibility="Never"
                     IsVisible="{Binding IsNotRunning}" Grid.Row="1">
             <HorizontalStackLayout  VerticalOptions="EndAndExpand">
                 <CollectionView ItemsSource="{Binding Tabs}" 
             ItemsLayout="HorizontalList"
             SelectionMode="None"
-            x:Name="navBar"
-                    
+            x:Name="navBar"                    
             Margin="20">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="Model:TabItem">
                             <buttons:SfButton
+                                                                        HeightRequest="40"
+                                        WidthRequest="100"
+                                Style="{StaticResource PrimaryButtonStyle}"
+                                    ImageSize="20"
                 ImageAlignment="Top"
                 VerticalTextAlignment="End"
                 HorizontalOptions="Center"
-                                    ImageSize="30"
                                     FontAutoScalingEnabled="True"
                 ShowIcon="True"
                 IsEnabled="{Binding NotHighlighted}"

@@ -41,7 +41,7 @@ namespace MinesweeperApp.ViewModels
         public ICommand RefreshCommand { get; private set; }
 
 
-        public FriendLeaderboardViewModel(Service service_) : base(service_)
+        public FriendLeaderboardViewModel(Service service_) : base(service_,1)
         {
             IsAdmin = service.LoggedUser != null && service.LoggedUser.IsAdmin;
             RefreshCommand = new Command(FillCollection, () => !InServerCall && !IsRefreshing);
@@ -50,7 +50,13 @@ namespace MinesweeperApp.ViewModels
             ViewProfileCommand = new Command((Object o) => ViewProfile(o));
             ReportGameCommand = new Command((Object o) => ReportGame(o));
             RemoveGameCommand = new Command((Object o) => RemoveGame(o), (Object o) => IsAdmin);
-            Tabs[1].NotHighlighted = false;
+        }
+        public override void RefreshPage()
+        {
+            base.RefreshPage();
+            InServerCall = true;
+            FillCollection();
+            InServerCall = false;
         }
         private async void ViewProfile(Object o)
         {
@@ -205,6 +211,10 @@ namespace MinesweeperApp.ViewModels
                         GameData g = (GameData)item;
                         allGames.Add(g);
                         g.User.FullPicPath = service.GetImagesBaseAddress() + g.User.PicPath;
+                    }
+                    allGames = allGames.OrderByDescending(g => -g.TimeInSeconds).ToList();
+                    foreach (GameData g in allGames)
+                    {
                         if (IsAdmin || !g.IsDeleted)
                         {
                             Items.Add(g);

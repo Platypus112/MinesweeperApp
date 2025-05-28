@@ -9,4 +9,9 @@ public partial class FriendLeaderboardView : ContentPage
 		this.BindingContext = vm;
 		InitializeComponent();
 	}
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        ((FriendLeaderboardViewModel)this.BindingContext).RefreshPage();
+    }
 }

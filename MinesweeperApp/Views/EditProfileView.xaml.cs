@@ -18,5 +18,7 @@ public partial class EditProfileView : ContentPage
         theImageBug.BindingContext = null;
         theImageBug.BindingContext = bc;
 
+        ((EditProfileViewModel)this.BindingContext).RefreshPage();
+
     }
 }

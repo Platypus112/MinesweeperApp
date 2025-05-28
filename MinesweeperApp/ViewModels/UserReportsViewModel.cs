@@ -26,6 +26,7 @@ namespace MinesweeperApp.ViewModels
         {
             ResolveReportCommand = new Command((Object obj) => ResolveReport(obj));
         }
+
         private async void ResolveReport(Object obj)
         {
             InServerCall = true;

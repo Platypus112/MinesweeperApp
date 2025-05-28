@@ -8,10 +8,10 @@
              xmlns:datagrid="clr-namespace:Syncfusion.Maui.DataGrid;assembly=Syncfusion.Maui.DataGrid"
              xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
 
-             Title="AdminView">
+             Title="Admin page">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="10*"/>
+            <RowDefinition Height="8*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <VerticalStackLayout Grid.Row="0" Padding="10">
@@ -36,7 +36,7 @@
 
                     <datagrid:DataGridTextColumn MappingName="Name" HeaderText="User"/>
                     <datagrid:DataGridTextColumn MappingName="Email" HeaderText="Email" ColumnWidthMode="Auto"/>
-                    <datagrid:DataGridTextColumn MappingName="IsReported" HeaderText="Leaderboard denied" AllowSorting="False"/>
+                    <datagrid:DataGridTextColumn MappingName="IsReported" HeaderText="Reported" AllowSorting="False"/>
 
                     <datagrid:DataGridTemplateColumn ColumnWidthMode="Auto" AllowSorting="False">
                         <datagrid:DataGridTemplateColumn.CellTemplate>
@@ -90,10 +90,13 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="Model:TabItem">
                             <buttons:SfButton
+                                                                        HeightRequest="40"
+                                        WidthRequest="100"
+                                                                Style="{StaticResource PrimaryButtonStyle}"
+                                    ImageSize="20"
             ImageAlignment="Top"
             VerticalTextAlignment="End"
             HorizontalOptions="Center"
-                                ImageSize="30"
                                 FontAutoScalingEnabled="True"
             ShowIcon="True"
             IsEnabled="{Binding NotHighlighted}"

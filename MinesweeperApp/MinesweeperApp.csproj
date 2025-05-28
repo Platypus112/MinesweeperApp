@@ -57,9 +57,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\admin.png" />
 	  <None Remove="Resources\Images\Flag.png" />
 	  <None Remove="Resources\Images\flag2.png" />
+	  <None Remove="Resources\Images\leaderboard.png" />
+	  <None Remove="Resources\Images\logout.png" />
 	  <None Remove="Resources\Images\mine2.png" />
+	  <None Remove="Resources\Images\profile.png" />
+	  <None Remove="Resources\Images\social.png" />
 	</ItemGroup>
 
 	<ItemGroup>

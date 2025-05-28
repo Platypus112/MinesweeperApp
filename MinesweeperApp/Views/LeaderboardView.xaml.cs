@@ -11,5 +11,10 @@ public partial class LeaderboardView : ContentPage
 		this.BindingContext = vm;
 		InitializeComponent();
 	}
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        ((LeaderboardViewModel)this.BindingContext).RefreshPage();
+    }
 
 }

@@ -23,6 +23,13 @@ namespace MinesweeperApp.ViewModels
             AcceptFriendRequestCommand = new Command((Object o) => AcceptFriendRequest(o));
             DeclineFriendRequestCommand = new Command((Object o) => DeclineFriendRequest(o));
         }
+        public override void RefreshPage()
+        {
+            base.RefreshPage();
+            InServerCall = true;
+            FillCollection();
+            InServerCall = false;
+        }
         private async void DeclineFriendRequest(Object o)
         {
             InServerCall = true;

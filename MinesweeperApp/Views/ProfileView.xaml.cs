@@ -14,11 +14,11 @@ public partial class ProfileView : ContentPage
         //THe code below is a workarround for a bug in the Image control in MAUI
         //https://github.com/dotnet/maui/issues/18656
         base.OnAppearing();
+        ((ProfileViewModel)this.BindingContext).RefreshPage();
         var bc = theImageBug.BindingContext;
         theImageBug.BindingContext = null;
         theImageBug.BindingContext = bc;
 
-        ((ProfileViewModel)this.BindingContext).RefreshPage();
     }
 
 }

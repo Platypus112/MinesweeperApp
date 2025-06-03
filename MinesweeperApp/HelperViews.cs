@@ -2,6 +2,8 @@ using System.Globalization;
 
 namespace MinesweeperApp;
 
+
+
 public class BoolInverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

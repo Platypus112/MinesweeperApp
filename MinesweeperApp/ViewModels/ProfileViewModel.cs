@@ -11,7 +11,7 @@ using System.Windows.Input;
 
 namespace MinesweeperApp.ViewModels
 {
-    [QueryProperty(nameof(User),"user")]
+    [QueryProperty(nameof(User2),"user")]
     public class ProfileViewModel:ViewModel
     {
         private List<GameData> allGames;
@@ -41,6 +41,9 @@ namespace MinesweeperApp.ViewModels
             }
         }
         private AppUser user;
+        public AppUser User2 { private get; 
+            set; }//used to check if logged usxer's profile or not
+
         public bool IsLoggedUser { get { return user.Email == service.LoggedUser.Email; } }
         public bool IsNotLoggedUser { get { return user.Email != service.LoggedUser.Email; } }
 
@@ -72,7 +75,8 @@ namespace MinesweeperApp.ViewModels
         {
             base.RefreshPage();
             InServerCall = true;
-            User = service.LoggedUser;
+            if (User2 == null) User = service.LoggedUser;
+            else User = User2;
             InServerCall = false;
         }
         private async void AddFriend()
@@ -98,7 +102,7 @@ namespace MinesweeperApp.ViewModels
                     else
                     {
                         await AppShell.Current.DisplayAlert("Error occured", "Error occurred while trying to add friend.", "ok");
-                    }
+                    } 
                     InServerCall = false;
                 }
             }

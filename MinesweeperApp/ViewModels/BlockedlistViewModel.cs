@@ -38,7 +38,7 @@ namespace MinesweeperApp.ViewModels
                 ServerResponse<AppUser> response = await service.UnblockUser(toUnblock);
                 if (response.Response)
                 {
-                    await AppShell.Current.DisplayAlert("User unblocked successfuly", toUnblock + " is now unblocked, and will be able to send you friend requests or view your profile", "Ok");
+                    await AppShell.Current.DisplayAlert("User unblocked successfuly", toUnblock.Name + " is now unblocked, and will be able to send you friend requests or view your profile", "Ok");
                 }
                 else
                 {

@@ -145,7 +145,8 @@ namespace MinesweeperApp.Services
                         PropertyNameCaseInsensitive = true
                     };
                     string result = await response.Content.ReadAsStringAsync();
-                    AppUser userResult= JsonSerializer.Deserialize<AppUser>(result);
+                    AppUser userResult = JsonSerializer.Deserialize<AppUser>(result,options);
+                    LoggedUser =userResult;
                     responseResult = new(true, "user edited successfuly", userResult);
                 }
                 else
@@ -1077,6 +1078,7 @@ namespace MinesweeperApp.Services
                         PropertyNameCaseInsensitive = true
                     };
                     AppUser? result = JsonSerializer.Deserialize<AppUser>(resContent, options);
+                    LoggedUser = result;
                     return new(true, "Successfuly uploaded image", result);
                 }
                 else

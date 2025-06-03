@@ -12,19 +12,20 @@
                     x:Name="dataGrid"
                     SortingMode="Single"
                     AllowTriStateSorting="false"
+            RowHeight="100"
                     AutoGenerateColumnsMode="None"
                     ItemsSource="{Binding BlockedUsers}">
 
             <datagrid:SfDataGrid.Columns>
                 <datagrid:DataGridTextColumn MappingName="Name" HeaderText="Username"/>
-                <datagrid:DataGridTextColumn MappingName="Email" HeaderText="Email" ColumnWidthMode="Auto"/>
+                <datagrid:DataGridTextColumn MappingName="Email" HeaderText="Email" ColumnWidthMode="Auto" Width="150"/>
                 <datagrid:DataGridTextColumn MappingName="Description" HeaderText="Description"/>
                 <datagrid:DataGridTemplateColumn ColumnWidthMode="Auto">
                     <datagrid:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate x:DataType="Models:AppUser">
                             <Button Text="Remove block"
                                     Style="{StaticResource SecondaryButtonStyle}"
-                                    FontSize="12"
+                                    FontSize="11"
                         FontAutoScalingEnabled="True"
                         Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.UnblockUserCommand}"
                         CommandParameter="{Binding .}"/>

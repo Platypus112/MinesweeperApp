@@ -75,7 +75,7 @@ namespace MinesweeperApp.ViewModels
                     ServerResponse<AppUser> response = await service.BlockUser(result);
                     if (response.Response)
                     {
-                        await AppShell.Current.DisplayAlert("User blocked successfuly", result + " is now blocked, and will not be able to send you friend requests or view your profile", "Ok");
+                        await AppShell.Current.DisplayAlert("User blocked successfuly", result + " is now blocked, and will not be able to send you friend requests", "Ok");
                     }
                     else
                     {

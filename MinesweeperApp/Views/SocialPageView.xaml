@@ -63,6 +63,7 @@
             AllowTriStateSorting="false"
             AutoGenerateColumnsMode="None"
             ItemsSource="{Binding Friends}"
+            RowHeight="70"
             HeightRequest="300">
             <datagrid:SfDataGrid.Columns>
                 <datagrid:DataGridTemplateColumn Width="50" HeaderText="Pic" AllowSorting="False">
@@ -75,14 +76,14 @@
                     </datagrid:DataGridTemplateColumn.CellTemplate>
                 </datagrid:DataGridTemplateColumn>
                 <datagrid:DataGridTextColumn MappingName="Name" HeaderText="Username"/>
-                <datagrid:DataGridTextColumn MappingName="Email" HeaderText="Email" ColumnWidthMode="FitByCell"/>
+                <datagrid:DataGridTextColumn MappingName="Email" HeaderText="Email" ColumnWidthMode="FitByCell" MinimumWidth="30"/>
                 <datagrid:DataGridTextColumn MappingName="Description" HeaderText="Description"/>
                     <datagrid:DataGridTemplateColumn ColumnWidthMode="FitByCell">
                     <datagrid:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate x:DataType="Model:AppUser">
                             <Button Text="Remove friend"
                                     HeightRequest="40"
-                                    FontSize="12"
+                                    FontSize="11"
                                     Style="{StaticResource SecondaryButtonStyle}"
                                     Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.RemoveFriendCommand}"
                                     CommandParameter="{Binding .}"/>

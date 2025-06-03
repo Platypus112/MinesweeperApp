@@ -19,6 +19,7 @@
             SortingMode="Single"
             AllowTriStateSorting="false"
             AutoGenerateColumnsMode="None"
+            RowHeight="60"
             ItemsSource="{Binding Requests}">
 
             <datagrid:SfDataGrid.Columns>
@@ -32,7 +33,7 @@
                         </DataTemplate>
                     </datagrid:DataGridTemplateColumn.CellTemplate>
                 </datagrid:DataGridTemplateColumn>
-                <datagrid:DataGridTemplateColumn HeaderText="Email" ColumnWidthMode="Auto">
+                <datagrid:DataGridTemplateColumn HeaderText="Email" ColumnWidthMode="Auto" MinimumWidth="30">
                     <datagrid:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate x:DataType="Models:FriendRequest">
                             <VerticalStackLayout>
@@ -47,7 +48,7 @@
                         <DataTemplate x:DataType="Models:FriendRequest">
                             <Button Text="Decline"
                                     IsVisible="{Binding Recieving}"
-                                    FontSize="12"
+                                    FontSize="11"
                         FontAutoScalingEnabled="True"
                         Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.DeclineFriendRequestCommand}"
                         CommandParameter="{Binding .}"/>
@@ -58,7 +59,7 @@
                     <datagrid:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate x:DataType="Models:FriendRequest">
                             <Button Text="Accept"
-                                    FontSize="12"
+                                    FontSize="11"
                                     IsVisible="{Binding Recieving}"
         FontAutoScalingEnabled="True"
         Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.AcceptFriendRequestCommand}"

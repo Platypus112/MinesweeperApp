@@ -171,23 +171,38 @@ namespace MinesweeperApp.ViewModels
         }
         private async Task GameOver()
         {
-            //add alert for finishing game
-            //add try and catch
             InServerCall = true;
             t.Stop();
             Timer = (DateTime.Now - game.StartTime).ToString().Substring(3, 5);
             gameFinished = true;
             ((Command)ClickTileCommand).ChangeCanExecute();
-            await Task.Delay(2000);//let them have a bit of time to see
-            if (game.HasWon)
+            await Task.Delay(5000);//let them have a bit of time to see
+            try 
             {
-                await service.SendFinishedGame(game);
-                await AppShell.Current.DisplayAlert("Game won", "Game won in " + Timer, "Ok");
+                if (game.HasWon)
+                {
+                    ServerResponse<FinishedGame> response=await service.SendFinishedGame(game);
+                    if(response != null)
+                    {
+                        if(response.Response) await AppShell.Current.DisplayAlert("Game won", "Game won in " + Timer +"\n Game recorded successfuly", "Ok");
+
+                        else await AppShell.Current.DisplayAlert("Game won", "Game won in " + Timer +"\n Error occured while recording game:\n "+response.ResponseMessage, "Ok");
+                    }
+                    else
+                    {
+                        await AppShell.Current.DisplayAlert("Game won", "Game won in " + Timer + "\n Error ocurred while recording game", "Ok");
+                    }
+                }
+                else
+                {
+                    await AppShell.Current.DisplayAlert("Game over", "maybe next time!", "Ok");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                await AppShell.Current.DisplayAlert("Game over", "maybe next time!", "Ok");
+                await AppShell.Current.DisplayAlert("Error occured", "game has not been uploaded", "Ok");
             }
+
             IsRunning = false;
             InServerCall = false;
             AdjustNavBar();

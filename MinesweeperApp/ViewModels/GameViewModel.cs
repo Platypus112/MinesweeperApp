@@ -20,50 +20,7 @@ namespace MinesweeperApp.ViewModels
         private ObservableCollection<Difficulty> difficulties;
         public ObservableCollection<Difficulty> Difficulties { get { return difficulties; } set { difficulties = value; OnPropertyChanged(); } }
 
-        private Difficulty? selectedDifficulty;
-        public Difficulty? SelectedDifficulty { get { return selectedDifficulty; } set { selectedDifficulty = value; OnPropertyChanged(); ((Command)StartGameCommand).ChangeCanExecute(); } }
-
-        public ICommand StartGameCommand { get; private set; }
-
-        //private bool isRunning;
-        //public bool IsRunning { get { return isRunning; } set { isRunning = value; OnPropertyChanged(); OnPropertyChanged(nameof(IsNotRunning)); } }
-        //public bool IsNotRunning { get { return !isRunning; } set { isRunning = !value; OnPropertyChanged(); OnPropertyChanged(nameof(IsRunning)); } }
-
-
-
-        private async void FillDifficulties()
-        {
-            ServerResponse<List<Object>> difficultiesResponse = await service.GetCollectionByType("difficulties");
-
-            if (difficultiesResponse != null && difficultiesResponse.Response)
-            {
-                Difficulties = new();
-                foreach (Object item in difficultiesResponse.Content)
-                {
-                    Difficulties.Add((Difficulty)item);
-                }
-            }
-        }
-
-        //private async void StartGame()
-        //{
-        //    if (SelectedDifficulty != null)
-        //    {
-        //        InServerCall = true;
-        //        //AdjustNavBar();
-        //        t = App.Current.Dispatcher.CreateTimer();
-        //        t.Stop();
-        //        t.Interval = new TimeSpan(0, 0, 0, 0, 200);
-        //        t.Tick += async (object sender, EventArgs e) => Timer = (DateTime.Now - game.StartTime).ToString().Substring(3, 5);
-        //        notStarted = true;
-        //        isFlagging = false;
-        //        gameFinished = false;
-        //        Diff=SelectedDifficulty;
-        //        SelectedDifficulty = null;
-        //        InServerCall = false;
-
-        //    }
-        //}
+       
         private Difficulty diff;
         public Difficulty Diff { get => diff; set { diff = value; CreateGameBoard(); OnPropertyChanged(); OnPropertyChanged(nameof(Board)); } }
         public ObservableCollection<Tile> Board { get { return board; } set {board=value; OnPropertyChanged();} }
@@ -98,13 +55,10 @@ namespace MinesweeperApp.ViewModels
         public ICommand ToggleMineCommand { get; private set; }
         public GameViewModel(Service service_) : base(service_,0)
         {
-            //StartGameCommand = new Command(StartGame, () => SelectedDifficulty != null);
             ClickTileCommand = new Command(async (Object obj) => await ClickTile(obj)/*, (object obj) => !gameFinished&!clickingRunning*/);
             ToggleFlagCommand = new Command(async () => await ToggleFlagging(), () => !isFlagging);
             ToggleMineCommand = new Command(async () => await ToggleFlagging(), () => isFlagging);
-            //AdjustNavBar();
             InServerCall = true;
-            //AdjustNavBar();
             t = App.Current.Dispatcher.CreateTimer();
             t.Stop();
             t.Interval = new TimeSpan(0, 0, 0, 0, 200);
@@ -112,25 +66,9 @@ namespace MinesweeperApp.ViewModels
             notStarted = true;
             isFlagging = false;
             gameFinished = false;
-            SelectedDifficulty = null;
             InServerCall = false;
         }
-        //private async void AdjustNavBar()
-        //{
-        //    if(IsRunning)
-        //    {
-        //        NavBarRows = new RowDefinitionCollection();
-        //        NavBarRows.Add(new RowDefinition() { Height = new GridLength(8, GridUnitType.Star) });
-        //        OnPropertyChanged(nameof(NavBarRows));
-        //    }
-        //    else
-        //    {
-        //        NavBarRows = new RowDefinitionCollection();
-        //        NavBarRows.Add(new RowDefinition() { Height = new GridLength(8, GridUnitType.Star) });
-        //        NavBarRows.Add(new RowDefinition() { Height = new GridLength(1, GridUnitType.Star) });
-        //        OnPropertyChanged(nameof(NavBarRows));
-        //    }
-        //}
+
         public override void RefreshPage()
         {
             base.RefreshPage();
@@ -211,7 +149,6 @@ namespace MinesweeperApp.ViewModels
                 await AppShell.Current.DisplayAlert("Game over", "\n" + "maybe next time!", "Ok");
             }
             InServerCall = false;
-            //AdjustNavBar();
         }
         private async Task ClickTile(Object obj)
         {
@@ -245,45 +182,6 @@ namespace MinesweeperApp.ViewModels
             }
             
         }
-        //private async Task AnimateDig(Tile tile,double secs)
-        //{
-        //    IDispatcherTimer timer = App.Current.Dispatcher.CreateTimer();
-        //    timer.Stop();
-        //    int tick = ((int)(secs / 0.05));
-        //    timer.Interval = new TimeSpan(0, 0, 0, 0, tick);
-        //    timer.Tick += async (Object sender, EventArgs e) =>
-        //    {
-        //        if (tile.DisplayDetails.Scale != 0) tile.DisplayDetails.Scale -= 0.05;
-        //        else
-        //        {
-        //            tile.DisplayDetails.Scale = 1;
-        //            timer.Stop();
-        //        }
-        //    };
-            
-        //}
-        //private DataTable ConvertBoardToDatatable()
-        //{
-        //    DataTable result = new DataTable();
-        //    for(int i = 0; i < Width; i++)
-        //    {
-        //        DataColumn column = new DataColumn();
-        //        column.DataType=typeof(Tile);
-        //        column.Unique = false;
-        //        column.ColumnName = i.ToString();
-        //        result.Columns.Add(column);
-        //    }
-        //    for (int i = 0; i < Height; i++)
-        //    {
-        //        DataRow row = result.NewRow();
-        //        for (int j = 0; j < Width; j++)
-        //        {
-        //            row[j.ToString()] = game.GetBoardState()[i,j];
-        //        }
-        //        result.Rows.Add(row);
-        //    }
-        //    return result;
-        //}
     
     }
 }

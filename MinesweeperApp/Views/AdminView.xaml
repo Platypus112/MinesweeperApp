@@ -30,7 +30,7 @@
                     </datagrid:DataGridTemplateColumn.CellTemplate>
                 </datagrid:DataGridTemplateColumn>
 
-                <datagrid:DataGridTextColumn MappingName="Name" HeaderText="User"/>
+                <datagrid:DataGridTextColumn MappingName="Name" HeaderText="User" ColumnWidthMode="Auto"/>
                 <datagrid:DataGridTextColumn MappingName="Email" HeaderText="Email" ColumnWidthMode="Auto" MinimumWidth="40"/>
                 <datagrid:DataGridTextColumn MappingName="IsReported" HeaderText="Reported" AllowSorting="False"/>
 
@@ -39,7 +39,7 @@
                         <DataTemplate x:DataType="Model:UserData">
                             <Button Text="Report user"
                         Style="{StaticResource PrimaryButtonStyle}"
-                        FontSize="11"
+                        FontSize="10"
                         Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.ReportUserCommand}"
                         CommandParameter="{Binding .}"/>
                         </DataTemplate>
@@ -52,7 +52,7 @@
                             <Button Text="View reports"
                                         
                         Style="{StaticResource SecondaryButtonStyle}"
-                        FontSize="11"
+                        FontSize="10"
                         Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.ViewUserReportsCommand}"
                         CommandParameter="{Binding .}"/>
                         </DataTemplate>
@@ -64,7 +64,7 @@
                         <DataTemplate  x:DataType="Model:UserData">
                             <Button Text="Remove"
                         Style="{StaticResource SecondaryButtonStyle}"
-                        FontSize="11"
+                        FontSize="10"
                         Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.RemoveUserCommand}"
                         CommandParameter="{Binding .}"/>
                         </DataTemplate>

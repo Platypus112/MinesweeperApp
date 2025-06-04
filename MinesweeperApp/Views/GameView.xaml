@@ -22,10 +22,10 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Frame Style="{StaticResource frame}" Grid.Row="0">
+            <Frame Style="{DynamicResource frame}" Grid.Row="0">
                 <Label HorizontalOptions="Center" Text="{Binding Timer}"/>
             </Frame>
-            <Frame Style="{StaticResource frame}"  Grid.Row="1">
+            <Frame Style="{DynamicResource frame}"  Grid.Row="1">
                 <HorizontalStackLayout HorizontalOptions="Center">
                     <Image VerticalOptions="Center" Source="mine.png" HeightRequest="15" WidthRequest="15"/>
                     <Label VerticalOptions="Center" Text="{Binding Bombs}"/>
@@ -50,7 +50,7 @@
                             HeightRequest="{Binding Source={x:Reference GameGrid}, Path=BindingContext.SquareHeight}"
                             WidthRequest="{Binding Source={x:Reference GameGrid}, Path=BindingContext.SquareHeight}"
                                     Margin="0" Padding="1" StrokeThickness="0.5" >
-                            <buttons:SfButton Style="{StaticResource tile}"
+                            <buttons:SfButton Style="{DynamicResource tile}"
                                           ZIndex="1"
                                                   Scale="{Binding DisplayDetails.Scale}"
                                                   HeightRequest="{Binding Source={x:Reference GameGrid}, Path=BindingContext.TileHeight}"
@@ -98,10 +98,10 @@
                     </DataTemplate>
                 </BindableLayout.ItemTemplate>
             </Grid>
-            <Frame Style="{StaticResource frame}" Grid.Row="3">
+            <Frame Style="{DynamicResource frame}" Grid.Row="3">
                 <HorizontalStackLayout HorizontalOptions="Center">
-                    <ImageButton WidthRequest="50" HeightRequest="50" Aspect="AspectFit" Style="{StaticResource imgButton}" Source="mine2.png" Command="{Binding ToggleMineCommand}"/>
-                    <ImageButton WidthRequest="50" HeightRequest="50" Aspect="AspectFit" Style="{StaticResource imgButton}" Source="flag2.png" Command="{Binding ToggleFlagCommand}"/>
+                    <ImageButton WidthRequest="50" HeightRequest="50" Aspect="AspectFit" Style="{DynamicResource imgButton}" Source="mine2.png" Command="{Binding ToggleMineCommand}"/>
+                    <ImageButton WidthRequest="50" HeightRequest="50" Aspect="AspectFit" Style="{DynamicResource imgButton}" Source="flag2.png" Command="{Binding ToggleFlagCommand}"/>
                 </HorizontalStackLayout>
             </Frame>
         <ActivityIndicator IsRunning="{Binding InServerCall}" />

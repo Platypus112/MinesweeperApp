@@ -138,13 +138,5 @@
       <Property Name="User" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="MinesweeperApp.Models.TabItem" Collapsed="true">
-    <Position X="12.75" Y="2.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAABAAAAAEAAIEACAAAAgAAAAAAAAAEAAAAAAAA=</HashCode>
-      <FileName>Models\TabItem.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
-  </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

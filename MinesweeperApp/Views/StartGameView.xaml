@@ -5,7 +5,7 @@
              xmlns:ViewModel="clr-namespace:MinesweeperApp.ViewModels"
              xmlns:Model="clr-namespace:MinesweeperApp.Models"
              x:DataType="ViewModel:StartGameViewModel"
-             Title="StartGameView">
+             Title="Start Game">
     <VerticalStackLayout x:Name="layout">
         <Picker
             x:DataType="Model:Difficulty"

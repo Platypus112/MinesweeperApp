@@ -31,7 +31,7 @@ namespace MinesweeperApp.ViewModels
         private async void ResolveReport(Object obj)
         {
             InServerCall = true;
-            string result = await AppShell.Current.DisplayActionSheet("Accept report and remove game from leaderboard?", "cancel", null, "Accept report","Absolve report");
+            string result = await AppShell.Current.DisplayActionSheet("Accept report and remove game from leaderboard?", "cancel",null, "Accept report","Absolve report");
             if(result != null)
             {
                 if (result == "Accept report")
@@ -41,16 +41,16 @@ namespace MinesweeperApp.ViewModels
                         ServerResponse<GameReport> response = await service.AcceptGameReport((GameReport)obj);
                         if (response.Response)
                         {
-                            await AppShell.Current.DisplayAlert("Report accepted successfuly", "Game will not be shown on leaderboards", "Ok");
+                            await AppShell.Current.DisplayAlert("Report accepted successfuly", "\n" + "Game will not be shown on leaderboards", "Ok");
                         }
                         else
                         {
-                            await AppShell.Current.DisplayAlert("Error occured while accepting report", response.ResponseMessage, "Ok");
+                            await AppShell.Current.DisplayAlert("Error occured while accepting report", "\n" + response.ResponseMessage, "Ok");
                         }
                     }
                     catch (Exception ex)
                     {
-                        await AppShell.Current.DisplayAlert("Error occured while accepting report", ex.Message, "Ok");
+                        await AppShell.Current.DisplayAlert("Error occured while accepting report", "\n" + ex.Message, "Ok");
                     }
                 }
                 else if (result == "Absolve report")
@@ -60,16 +60,16 @@ namespace MinesweeperApp.ViewModels
                         ServerResponse<GameReport> response = await service.AbsolveGameReport((GameReport)obj);
                         if (response.Response)
                         {
-                            await AppShell.Current.DisplayAlert("Report absolved successfuly", "", "Ok");
+                            await AppShell.Current.DisplayAlert("Report absolved successfuly", "\n" + "Game will still be shown on leaderboards", "Ok");
                         }
                         else
                         {
-                            await AppShell.Current.DisplayAlert("Error occured while absolving report", response.ResponseMessage, "Ok");
+                            await AppShell.Current.DisplayAlert("Error occured while absolving report", "\n" + response.ResponseMessage, "Ok");
                         }
                     }
                     catch (Exception ex)
                     {
-                        await AppShell.Current.DisplayAlert("Error occured while absolving report", ex.Message, "Ok");
+                        await AppShell.Current.DisplayAlert("Error occured while absolving report", "\n" + ex.Message, "Ok");
                     }
                 }
             }
@@ -97,14 +97,14 @@ namespace MinesweeperApp.ViewModels
                 }
                 else
                 {
-                    await AppShell.Current.DisplayAlert("Error occured while loading reports", serverResponse.ResponseMessage, "Ok");
+                    await AppShell.Current.DisplayAlert("Error occured while loading reports", "\n" + serverResponse.ResponseMessage, "Ok");
                     InServerCall = false;
                     await AppShell.Current.GoToAsync("//leaderboardPage");
                 }
             }
             catch(Exception ex) 
             {
-                await AppShell.Current.DisplayAlert("Error occured while loading reports", ex.Message, "Ok");
+                await AppShell.Current.DisplayAlert("Error occured while loading reports", "\n" + ex.Message, "Ok");
                 InServerCall = false;
                 await AppShell.Current.GoToAsync("//leaderboardPage");
             }

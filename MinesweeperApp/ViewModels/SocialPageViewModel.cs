@@ -47,7 +47,7 @@ namespace MinesweeperApp.ViewModels
             }
             catch (Exception ex)
             {
-                await AppShell.Current.DisplayAlert("Error occured", ex.Message, "ok");
+                await AppShell.Current.DisplayAlert("Error occured", "\n" + ex.Message, "ok");
             }
             InServerCall = false;
         }
@@ -60,14 +60,14 @@ namespace MinesweeperApp.ViewModels
             }
             catch (Exception ex)
             {
-                await AppShell.Current.DisplayAlert("Error occured", ex.Message, "ok");
+                await AppShell.Current.DisplayAlert("Error occured", "\n" + ex.Message, "ok");
             }
             InServerCall = false;
         }
         private async void BlockUser()
         {
             InServerCall = true;
-            string result = await AppShell.Current.DisplayPromptAsync("Block Users", "Type the username of the user you want to block");
+            string result = await AppShell.Current.DisplayPromptAsync("Block Users", "\n" + "Type the username of the user you want to block");
             if (!string.IsNullOrEmpty(result))
             {
                 try
@@ -75,16 +75,16 @@ namespace MinesweeperApp.ViewModels
                     ServerResponse<AppUser> response = await service.BlockUser(result);
                     if (response.Response)
                     {
-                        await AppShell.Current.DisplayAlert("User blocked successfuly", result + " is now blocked, and will not be able to send you friend requests", "Ok");
+                        await AppShell.Current.DisplayAlert("User blocked successfuly", "\n" + result + " is now blocked, and will not be able to send you friend requests", "Ok");
                     }
                     else
                     {
-                        await AppShell.Current.DisplayAlert("Error occured while blocking user", response.ResponseMessage, "Ok");
+                        await AppShell.Current.DisplayAlert("Error occured while blocking user", "\n" + response.ResponseMessage, "Ok");
                     }
                 }
                 catch (Exception ex)
                 {
-                    await AppShell.Current.DisplayAlert("Error occured while blocking user", ex.Message, "Ok");
+                    await AppShell.Current.DisplayAlert("Error occured while blocking user", "\n" + ex.Message, "Ok");
                 }
 
             }
@@ -105,16 +105,16 @@ namespace MinesweeperApp.ViewModels
                         ServerResponse<AppUser> response = await service.RemoveFriend(uf);
                         if (response.Response)
                         {
-                            await AppShell.Current.DisplayAlert("Friend removed successfuly", uf.Name + " is no longer your friend", "Ok");
+                            await AppShell.Current.DisplayAlert("Friend removed successfuly", "\n" + uf.Name + " is no longer your friend", "Ok");
                         }
                         else
                         {
-                            await AppShell.Current.DisplayAlert("Error occured while removing friend", response.ResponseMessage, "Ok");
+                            await AppShell.Current.DisplayAlert("Error occured while removing friend", "\n" + response.ResponseMessage, "Ok");
                         }
                     }
                     catch (Exception ex)
                     {
-                        await AppShell.Current.DisplayAlert("Error occured while removing friend", ex.Message, "Ok");
+                        await AppShell.Current.DisplayAlert("Error occured while removing friend", "\n" + ex.Message, "Ok");
                     }
                 }
             }
@@ -126,7 +126,7 @@ namespace MinesweeperApp.ViewModels
             ServerResponse<FriendRequest> serverResponse;
             try
             {
-                string name = await AppShell.Current.DisplayPromptAsync("Friend Request", "Type the username of the user you want to add as a friend");
+                string name = await AppShell.Current.DisplayPromptAsync("Friend Request", "\n" + "Type the username of the user you want to add as a friend");
                 if (!string.IsNullOrEmpty(name))
                 {
                     InServerCall = true;
@@ -139,19 +139,19 @@ namespace MinesweeperApp.ViewModels
                         }
                         else
                         {
-                            await AppShell.Current.DisplayAlert("Error occured", "Error occurred while trying to add friend.\n" + serverResponse.ResponseMessage, "ok");
+                            await AppShell.Current.DisplayAlert("Error occured", "\n" + "Error occurred while trying to add friend.\n\n" + serverResponse.ResponseMessage, "ok");
                         }
                     }
                     else
                     {
-                        await AppShell.Current.DisplayAlert("Error occured", "Error occurred while trying to add friend.", "ok");
+                        await AppShell.Current.DisplayAlert("Error occured", "\n" + "Error occurred while trying to add friend.", "ok");
                     }
                     InServerCall = false;
                 }
             }
             catch (Exception ex)
             {
-                await AppShell.Current.DisplayAlert("Error occured", "Error occurred while trying to add friend.\n" + ex.Message, "ok");
+                await AppShell.Current.DisplayAlert("Error occured", "\n" + "Error occurred while trying to add friend.\n\n" + ex.Message, "ok");
             }
         }
         private async void FillCollection()

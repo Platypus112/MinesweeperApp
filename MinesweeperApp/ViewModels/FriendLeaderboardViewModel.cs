@@ -80,7 +80,7 @@ namespace MinesweeperApp.ViewModels
         {
             try
             {
-                string description = await AppShell.Current.DisplayPromptAsync("File Report", "Describe the problem with the game");
+                string description = await AppShell.Current.DisplayPromptAsync("File Report", "\n" + "Describe the problem with the game");
                 if (description != null)
                 {
                     InServerCall = true;
@@ -93,12 +93,12 @@ namespace MinesweeperApp.ViewModels
                         }
                         else
                         {
-                            await AppShell.Current.DisplayAlert("Error occured", "Error occurred while filing report.\n" + serverResponse.ResponseMessage, "ok");
+                            await AppShell.Current.DisplayAlert("Error occured", "\n" + "Error occurred while filing report.\n\n" + serverResponse.ResponseMessage, "ok");
                         }
                     }
                     else
                     {
-                        await AppShell.Current.DisplayAlert("Error occured", "Error occurred while filing report.", "ok");
+                        await AppShell.Current.DisplayAlert("Error occured", "\n" + "Error occurred while filing report.", "ok");
                     }
                     FillCollection();
                     InServerCall = false;
@@ -106,7 +106,7 @@ namespace MinesweeperApp.ViewModels
             }
             catch (Exception ex)
             {
-                await AppShell.Current.DisplayAlert("Error occured", "Error occurred while filing report.\n" + ex.Message, "ok");
+                await AppShell.Current.DisplayAlert("Error occured", "\n" + "Error occurred while filing report.\n\n" + ex.Message, "ok");
             }
         }
         private async void ViewGameReports(Object o)

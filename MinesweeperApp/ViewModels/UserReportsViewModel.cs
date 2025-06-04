@@ -40,16 +40,16 @@ namespace MinesweeperApp.ViewModels
                         ServerResponse<UserReport> response = await service.AcceptUserReport((UserReport)obj);
                         if (response.Response)
                         {
-                            await AppShell.Current.DisplayAlert("Report accepted successfuly", "User will not be shown on leaderboards", "Ok");
+                            await AppShell.Current.DisplayAlert("Report accepted successfuly", "\n" + "User will not be shown on leaderboards and won't be able to send friend requests", "Ok");
                         }
                         else
                         {
-                            await AppShell.Current.DisplayAlert("Error occured while accepting report", response.ResponseMessage, "Ok");
+                            await AppShell.Current.DisplayAlert("Error occured while accepting report", "\n" + response.ResponseMessage, "Ok");
                         }
                     }
                     catch (Exception ex)
                     {
-                        await AppShell.Current.DisplayAlert("Error occured while accepting report", ex.Message, "Ok");
+                        await AppShell.Current.DisplayAlert("Error occured while accepting report", "\n" + ex.Message, "Ok");
                     }
                 }
                 else if (result == "Absolve report")
@@ -59,16 +59,16 @@ namespace MinesweeperApp.ViewModels
                         ServerResponse<UserReport> response = await service.AbsolveUserReport((UserReport)obj);
                         if (response.Response)
                         {
-                            await AppShell.Current.DisplayAlert("Report absolved successfuly", "", "Ok");
+                            await AppShell.Current.DisplayAlert("Report absolved successfuly", "\n" + "User will still be shwon on the leaderboard and will be able to send friend requests", "Ok");
                         }
                         else
                         {
-                            await AppShell.Current.DisplayAlert("Error occured while absolving report", response.ResponseMessage, "Ok");
+                            await AppShell.Current.DisplayAlert("Error occured while absolving report", "\n" + response.ResponseMessage, "Ok");
                         }
                     }
                     catch (Exception ex)
                     {
-                        await AppShell.Current.DisplayAlert("Error occured while absolving report", ex.Message, "Ok");
+                        await AppShell.Current.DisplayAlert("Error occured while absolving report", "\n" + ex.Message, "Ok");
                     }
                 }
             }
@@ -96,14 +96,14 @@ namespace MinesweeperApp.ViewModels
                 }
                 else
                 {
-                    await AppShell.Current.DisplayAlert("Error occured while loading reports", serverResponse.ResponseMessage, "Ok");
+                    await AppShell.Current.DisplayAlert("Error occured while loading reports", "\n" + serverResponse.ResponseMessage, "Ok");
                     InServerCall = false;
-                    await AppShell.Current.GoToAsync("//adimnPage");
+                    await AppShell.Current.GoToAsync("//adminPage");
                 }
             }
             catch (Exception ex)
             {
-                await AppShell.Current.DisplayAlert("Error occured while loading reports", ex.Message, "Ok");
+                await AppShell.Current.DisplayAlert("Error occured while loading reports", "\n" + ex.Message, "Ok");
                 InServerCall = false;
                 await AppShell.Current.GoToAsync("//adminPage");
             }

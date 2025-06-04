@@ -34,7 +34,7 @@ namespace MinesweeperApp.ViewModels
         {
             InServerCall = true;
             FriendRequest f = (FriendRequest)o;
-            string result = await AppShell.Current.DisplayActionSheet("Decline " + f.UserSending.Name + "'s friend request", null, "Decline");
+            string result = await AppShell.Current.DisplayActionSheet("Decline " + f.UserSending.Name + "'s friend request", "Cancel", null, "Decline");
             if (!string.IsNullOrEmpty(result))
             {
                 if (result == "Decline")
@@ -44,16 +44,16 @@ namespace MinesweeperApp.ViewModels
                         ServerResponse<AppUser> response = await service.DeclineFriendRequest(f);
                         if (response.Response)
                         {
-                            await AppShell.Current.DisplayAlert("Friend request declined successfuly", f.UserSending.Name + " has been declined", "Ok");
+                            await AppShell.Current.DisplayAlert("Friend request declined successfuly", "\n" + f.UserSending.Name + "'s request has been declined", "Ok");
                         }
                         else
                         {
-                            await AppShell.Current.DisplayAlert("Error occured while declining friend request", response.ResponseMessage, "Ok");
+                            await AppShell.Current.DisplayAlert("Error occured while declining friend request", "\n" + response.ResponseMessage, "Ok");
                         }
                     }
                     catch (Exception ex)
                     {
-                        await AppShell.Current.DisplayAlert("Error occured while declining friend request", ex.Message, "Ok");
+                        await AppShell.Current.DisplayAlert("Error occured while declining friend request", "\n" + ex.Message, "Ok");
                     }
                 }
             }
@@ -63,7 +63,7 @@ namespace MinesweeperApp.ViewModels
         {
             InServerCall = true;
             FriendRequest f = (FriendRequest)o;
-            string result = await AppShell.Current.DisplayActionSheet("Add " + f.UserSending.Name + " to your friends?", "Cancel", null, "Add Friend");
+            string result = await AppShell.Current.DisplayActionSheet("Accept " + f.UserSending.Name + "'s friend request", "Cancel", null, "Add Friend");
             if (!string.IsNullOrEmpty(result))
             {
                 if (result == "Add Friend")
@@ -73,16 +73,16 @@ namespace MinesweeperApp.ViewModels
                         ServerResponse<AppUser> response = await service.AcceptFriendRequest(f);
                         if (response.Response)
                         {
-                            await AppShell.Current.DisplayAlert("Friend added successfuly", f.UserSending.Name + " has been added", "Ok");
+                            await AppShell.Current.DisplayAlert("Friend added successfuly", "\n" + f.UserSending.Name + " has been added to your friends", "Ok");
                         }
                         else
                         {
-                            await AppShell.Current.DisplayAlert("Error occured while adding friend", response.ResponseMessage, "Ok");
+                            await AppShell.Current.DisplayAlert("Error occured while adding friend", "\n" + response.ResponseMessage, "Ok");
                         }
                     }
                     catch (Exception ex)
                     {
-                        await AppShell.Current.DisplayAlert("Error occured while adding friend", ex.Message, "Ok");
+                        await AppShell.Current.DisplayAlert("Error occured while adding friend", "\n" + ex.Message, "Ok");
                     }
                 }
             }

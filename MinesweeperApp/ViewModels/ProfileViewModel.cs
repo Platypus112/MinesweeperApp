@@ -92,23 +92,23 @@ namespace MinesweeperApp.ViewModels
                     {
                         if (serverResponse.Response)
                         {
-                            await AppShell.Current.DisplayAlert("Friend request sent successfuly", "", "ok");
+                            await AppShell.Current.DisplayAlert("Friend request sent successfuly", "\n" + "Friend request to " + serverResponse.Content.UserRecieving.Name+" has been sent", "ok");
                         }
                         else
                         {
-                            await AppShell.Current.DisplayAlert("Error occured", "Error occurred while trying to add friend.\n" + serverResponse.ResponseMessage, "ok");
+                            await AppShell.Current.DisplayAlert("Error occured", "\n" + "Error occurred while trying to add friend.\n\n" + serverResponse.ResponseMessage, "ok");
                         }
                     }
                     else
                     {
-                        await AppShell.Current.DisplayAlert("Error occured", "Error occurred while trying to add friend.", "ok");
+                        await AppShell.Current.DisplayAlert("Error occured", "\n" + "Error occurred while trying to add friend.", "ok");
                     } 
                     InServerCall = false;
                 }
             }
             catch (Exception ex)
             {
-                await AppShell.Current.DisplayAlert("Error occured", "Error occurred while trying to add friend.\n" + ex.Message, "ok");
+                await AppShell.Current.DisplayAlert("Error occured", "\n" + "Error occurred while trying to add friend.\n\n" + ex.Message, "ok");
             }
         }
         private async void FillCollection()
@@ -186,7 +186,7 @@ namespace MinesweeperApp.ViewModels
             }
             catch (Exception ex)
             {
-                await AppShell.Current.DisplayAlert("Error occured", ex.Message, "ok");
+                await AppShell.Current.DisplayAlert("Error occured", "\n" + ex.Message, "ok");
             }
             InServerCall = false;
         }
@@ -194,7 +194,7 @@ namespace MinesweeperApp.ViewModels
         {
             try
             {
-                string description = await AppShell.Current.DisplayPromptAsync("File Report", "Describe the problem with the user");
+                string description = await AppShell.Current.DisplayPromptAsync("File Report", "\n" + "Describe the problem with the user");
                 if (!string.IsNullOrEmpty(description))
                 {
                     InServerCall = true;
@@ -207,19 +207,19 @@ namespace MinesweeperApp.ViewModels
                         }
                         else
                         {
-                            await AppShell.Current.DisplayAlert("Error occured", "Error occurred while filing report.\n" + serverResponse.ResponseMessage, "ok");
+                            await AppShell.Current.DisplayAlert("Error occured", "\n" + "Error occurred while filing report.\n\n" + serverResponse.ResponseMessage, "ok");
                         }
                     }
                     else
                     {
-                        await AppShell.Current.DisplayAlert("Error occured", "Error occurred while filing report.", "ok");
+                        await AppShell.Current.DisplayAlert("Error occured", "\n" + "Error occurred while filing report.", "ok");
                     }
                     InServerCall = false;
                 }
             }
             catch (Exception ex)
             {
-                await AppShell.Current.DisplayAlert("Error occured", "Error occurred while filing report.\n" + ex.Message, "ok");
+                await AppShell.Current.DisplayAlert("Error occured", "\n" + "Error occurred while filing report.\n\n" + ex.Message, "ok");
             }
         }
     }

@@ -93,19 +93,19 @@ namespace MinesweeperApp.ViewModels
                         }
                         else
                         {
-                            await AppShell.Current.DisplayAlert("Error occured", "Error occurred while filing report.\n" + serverResponse.ResponseMessage, "ok");
+                            await AppShell.Current.DisplayAlert("Error occured", "\n" + "Error occurred while filing report.\n\n" + serverResponse.ResponseMessage, "ok");
                         }
                     }
                     else
                     {
-                        await AppShell.Current.DisplayAlert("Error occured", "Error occurred while filing report.", "ok");
+                        await AppShell.Current.DisplayAlert("Error occured", "\n" + "Error occurred while filing report.", "ok");
                     }
                     InServerCall=false;
                 }
             }
             catch (Exception ex)
             {
-                await AppShell.Current.DisplayAlert("Error occured", "Error occurred while filing report.\n"+ex.Message, "ok");
+                await AppShell.Current.DisplayAlert("Error occured", "\n" + "Error occurred while filing report.\n\n" +ex.Message, "ok");
             }
         }
         private async void ViewGameReports(Object o)
@@ -121,7 +121,7 @@ namespace MinesweeperApp.ViewModels
             }
             catch (Exception ex)
             {
-                await AppShell.Current.DisplayAlert("Error occured", ex.Message, "ok");
+                await AppShell.Current.DisplayAlert("Error occured", "\n" + ex.Message, "ok");
             }
             InServerCall=false;
         }
@@ -137,18 +137,18 @@ namespace MinesweeperApp.ViewModels
 
                     if (response != null && response.Response)
                     {
-                        await AppShell.Current.DisplayAlert("Game removed", "game removed successfuly", "ok");
+                        await AppShell.Current.DisplayAlert("Game removed", "\n" + "game removed successfuly", "ok");
                         FillCollection();
                     }
                     else
                     {
-                        await AppShell.Current.DisplayAlert("Error occured", "error occurred while trying to remove game\n" + response.ResponseMessage, "ok");
+                        await AppShell.Current.DisplayAlert("Error occured", "\n" + "error occurred while trying to remove game\n\n" + response.ResponseMessage, "ok");
                     }
                 }
             }
             catch (Exception ex)
             {
-                await AppShell.Current.DisplayAlert("Error occured", "error occurred while trying to remove game\n" + ex.Message, "ok");
+                await AppShell.Current.DisplayAlert("Error occured", "\n" + "error occurred while trying to remove game\n\n" + ex.Message, "ok");
             }
             InServerCall=false;
         }

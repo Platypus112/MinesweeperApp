@@ -185,32 +185,31 @@ namespace MinesweeperApp.ViewModels
             gameFinished = true;
             ((Command)ClickTileCommand).ChangeCanExecute();
             await Task.Delay(5000);//let them have a bit of time to see
-            try 
+            if (game.HasWon)
             {
-                if (game.HasWon)
+                try
                 {
-                    ServerResponse<FinishedGame> response=await service.SendFinishedGame(game);
-                    if(response != null)
+                    ServerResponse<FinishedGame> response = await service.SendFinishedGame(game);
+                    if (response != null)
                     {
-                        if(response.Response) await AppShell.Current.DisplayAlert("Game won", "Game won in " + Timer +"\n Game recorded successfuly", "Ok");
+                        if (response.Response) await AppShell.Current.DisplayAlert("Game won", "\n" + "Game won in " + Timer + "\n\n Game recorded successfuly", "Ok");
 
-                        else await AppShell.Current.DisplayAlert("Game won", "Game won in " + Timer +"\n Error occured while recording game:\n "+response.ResponseMessage, "Ok");
+                        else await AppShell.Current.DisplayAlert("Game won", "\n" + "Game won in " + Timer + "\n\nError occured while recording game:\n " + response.ResponseMessage, "Ok");
                     }
                     else
                     {
-                        await AppShell.Current.DisplayAlert("Game won", "Game won in " + Timer + "\n Error ocurred while recording game", "Ok");
+                        await AppShell.Current.DisplayAlert("Game won", "\n" + "Game won in " + Timer + "\n\nError ocurred while recording game", "Ok");
                     }
                 }
-                else
+                catch (Exception ex)
                 {
-                    await AppShell.Current.DisplayAlert("Game over", "maybe next time!", "Ok");
+                    await AppShell.Current.DisplayAlert("Error occured", "\n" + "Game has not been uploaded", "Ok");
                 }
             }
-            catch (Exception ex)
+            else
             {
-                await AppShell.Current.DisplayAlert("Error occured", "game has not been uploaded", "Ok");
+                await AppShell.Current.DisplayAlert("Game over", "\n" + "maybe next time!", "Ok");
             }
-
             InServerCall = false;
             //AdjustNavBar();
         }

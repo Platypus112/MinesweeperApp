@@ -38,16 +38,16 @@ namespace MinesweeperApp.ViewModels
                 ServerResponse<AppUser> response = await service.UnblockUser(toUnblock);
                 if (response.Response)
                 {
-                    await AppShell.Current.DisplayAlert("User unblocked successfuly", toUnblock.Name + " is now unblocked, and will be able to send you friend requests or view your profile", "Ok");
+                    await AppShell.Current.DisplayAlert("User unblocked successfuly","\n" + toUnblock.Name + " is now unblocked, and will be able to send you friend requests", "Ok");
                 }
                 else
                 {
-                    await AppShell.Current.DisplayAlert("Error occured while unblocking user", response.ResponseMessage, "Ok");
+                    await AppShell.Current.DisplayAlert("Error occured while unblocking user", "\n"+response.ResponseMessage, "Ok");
                 }
             }
             catch (Exception ex)
             {
-                await AppShell.Current.DisplayAlert("Error occured while unblocking user", ex.Message, "Ok");
+                await AppShell.Current.DisplayAlert("Error occured while unblocking user", "\n" + ex.Message, "Ok");
             }
 
             FillCollection();

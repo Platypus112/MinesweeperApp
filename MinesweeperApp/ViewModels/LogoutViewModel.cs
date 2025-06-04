@@ -26,14 +26,14 @@ namespace MinesweeperApp.ViewModels
                 {
                     if (serverResponse.Response)
                     {
-                        await AppShell.Current.DisplayAlert("Logout succeded", "Have a good day " +serverResponse.Content.Name, "ok");
+                        await AppShell.Current.DisplayAlert("Logout succeded", "\n" + "Have a good day " +serverResponse.Content.Name, "ok");
                         AppShell.Current.FlyoutBehavior = FlyoutBehavior.Disabled;
                         await AppShell.Current.GoToAsync("///homePage");
 
                     }
                     else
                     {
-                        await AppShell.Current.DisplayAlert("Logout failed", serverResponse.ResponseMessage, "ok");
+                        await AppShell.Current.DisplayAlert("Logout failed", "\n" + serverResponse.ResponseMessage, "ok");
                         await AppShell.Current.GoToAsync("///gamePage");
                     }
                 }
@@ -45,7 +45,7 @@ namespace MinesweeperApp.ViewModels
             }
             catch (Exception ex)
             {
-                await AppShell.Current.DisplayAlert("Logout failed",ex.Message,"ok");
+                await AppShell.Current.DisplayAlert("Logout failed", "\n" + ex.Message,"ok");
                 await AppShell.Current.GoToAsync("///gamePage");
                 InServerCall = true;
             }

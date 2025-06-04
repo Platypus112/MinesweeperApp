@@ -8,26 +8,11 @@
              xmlns:local="clr-namespace:MinesweeperApp"
              x:Class="MinesweeperApp.Views.GameView"
              x:DataType="ViewModel:GameViewModel"
+             Shell.TabBarIsVisible="False"
              Title="Game">
-    <Grid
-        RowDefinitions="{Binding NavBarRows}">
 
-        <VerticalStackLayout Grid.Row="0" x:Name="View">
-        <VerticalStackLayout x:Name="StartLayout" IsVisible="{Binding IsNotRunning}">
-            <Picker
-x:DataType="Model:Difficulty"
-ItemDisplayBinding="{Binding Name}"
-ItemsSource="{Binding BindingContext.Difficulties, Source={x:Reference StartLayout}}"
-    SelectedItem="{Binding BindingContext.SelectedDifficulty, Source={x:Reference StartLayout}}"/>
-            <Button
-                                    Style="{StaticResource PrimaryButtonStyle}"
-
-                
-Text="Start"
-Command="{Binding StartGameCommand}"/>
-            
-        </VerticalStackLayout>
-        <Grid IsVisible="{Binding IsRunning}" HorizontalOptions="Center" x:Name="GameGridView">
+    <VerticalStackLayout x:Name="View">
+        <Grid  HorizontalOptions="Center" x:Name="GameGridView">
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.5*"/>
                 <RowDefinition Height="0.5*"/>
@@ -37,10 +22,10 @@ Command="{Binding StartGameCommand}"/>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Frame Style="{DynamicResource frame}" Grid.Row="0">
+            <Frame Style="{StaticResource frame}" Grid.Row="0">
                 <Label HorizontalOptions="Center" Text="{Binding Timer}"/>
             </Frame>
-            <Frame Style="{DynamicResource frame}"  Grid.Row="1">
+            <Frame Style="{StaticResource frame}"  Grid.Row="1">
                 <HorizontalStackLayout HorizontalOptions="Center">
                     <Image VerticalOptions="Center" Source="mine.png" HeightRequest="15" WidthRequest="15"/>
                     <Label VerticalOptions="Center" Text="{Binding Bombs}"/>
@@ -65,7 +50,7 @@ Command="{Binding StartGameCommand}"/>
                             HeightRequest="{Binding Source={x:Reference GameGrid}, Path=BindingContext.SquareHeight}"
                             WidthRequest="{Binding Source={x:Reference GameGrid}, Path=BindingContext.SquareHeight}"
                                     Margin="0" Padding="1" StrokeThickness="0.5" >
-                            <buttons:SfButton Style="{DynamicResource tile}"
+                            <buttons:SfButton Style="{StaticResource tile}"
                                           ZIndex="1"
                                                   Scale="{Binding DisplayDetails.Scale}"
                                                   HeightRequest="{Binding Source={x:Reference GameGrid}, Path=BindingContext.TileHeight}"
@@ -113,48 +98,15 @@ Command="{Binding StartGameCommand}"/>
                     </DataTemplate>
                 </BindableLayout.ItemTemplate>
             </Grid>
-            <Frame Style="{DynamicResource frame}" Grid.Row="3">
+            <Frame Style="{StaticResource frame}" Grid.Row="3">
                 <HorizontalStackLayout HorizontalOptions="Center">
-                    <ImageButton WidthRequest="50" HeightRequest="50" Aspect="AspectFit" Style="{DynamicResource imgButton}" Source="mine2.png" Command="{Binding ToggleMineCommand}"/>
-                    <ImageButton WidthRequest="50" HeightRequest="50" Aspect="AspectFit" Style="{DynamicResource imgButton}" Source="flag2.png" Command="{Binding ToggleFlagCommand}"/>
+                    <ImageButton WidthRequest="50" HeightRequest="50" Aspect="AspectFit" Style="{StaticResource imgButton}" Source="mine2.png" Command="{Binding ToggleMineCommand}"/>
+                    <ImageButton WidthRequest="50" HeightRequest="50" Aspect="AspectFit" Style="{StaticResource imgButton}" Source="flag2.png" Command="{Binding ToggleFlagCommand}"/>
                 </HorizontalStackLayout>
             </Frame>
-        </Grid>
         <ActivityIndicator IsRunning="{Binding InServerCall}" />
+        </Grid>
     </VerticalStackLayout>
-        <ScrollView Orientation="Horizontal"    
-                    HorizontalScrollBarVisibility="Never"
-                    IsVisible="{Binding IsNotRunning}" Grid.Row="1">
-            <HorizontalStackLayout  VerticalOptions="EndAndExpand">
-                <CollectionView ItemsSource="{Binding Tabs}" 
-            ItemsLayout="HorizontalList"
-            SelectionMode="None"
-            x:Name="navBar"                    
-            Margin="20">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="Model:TabItem">
-                            <buttons:SfButton
-                                                                        HeightRequest="40"
-                                        WidthRequest="100"
-                                Style="{StaticResource PrimaryButtonStyle}"
-                                    ImageSize="20"
-                ImageAlignment="Top"
-                VerticalTextAlignment="End"
-                HorizontalOptions="Center"
-                                    FontAutoScalingEnabled="True"
-                ShowIcon="True"
-                IsEnabled="{Binding NotHighlighted}"
-                Text="{Binding Title}"
-                ImageSource="{Binding Pic}"
-                Command="{Binding Source={x:Reference navBar}, Path=BindingContext.NavigateCommand}"
-                CommandParameter="{Binding .}"/>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </HorizontalStackLayout>
-            </ScrollView>
-    </Grid>
-
-
+        
 
 </ContentPage>

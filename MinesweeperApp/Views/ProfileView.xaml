@@ -10,12 +10,7 @@
              Title="Profile">
         <RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}">
         <ScrollView>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="8*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <VerticalStackLayout Grid.Row="0" Padding="20" Spacing="12">
+            <VerticalStackLayout Grid.Row="0" Padding="20" Spacing="12">
                 <Frame BorderColor="Black" Padding="5" Margin="10" HorizontalOptions="Center">
                     <Image x:Name="theImageBug" Source="{Binding PhotoURL}" HeightRequest="150"/>
                 </Frame>
@@ -59,39 +54,6 @@
             HorizontalOptions="Center"
             VerticalOptions="Center" />
             </VerticalStackLayout>
-            <ScrollView Orientation="Horizontal"  
-                        IsVisible="{Binding IsLoggedUser}"
-                        Grid.Row="1">
-                <HorizontalStackLayout  VerticalOptions="EndAndExpand">
-                    <CollectionView ItemsSource="{Binding Tabs}" 
-ItemsLayout="HorizontalList"
-SelectionMode="None"
-x:Name="navBar"
-        
-Margin="20">
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate x:DataType="Model:TabItem">
-                                <buttons:SfButton
-                                                                            HeightRequest="40"
-                                        WidthRequest="100"
-                                                                    Style="{StaticResource PrimaryButtonStyle}"
-                                    ImageSize="20"
-    ImageAlignment="Top"
-    VerticalTextAlignment="End"
-    HorizontalOptions="Center"
-                        FontAutoScalingEnabled="True"
-    ShowIcon="True"
-    IsEnabled="{Binding NotHighlighted}"
-    Text="{Binding Title}"
-    ImageSource="{Binding Pic}"
-    Command="{Binding Source={x:Reference navBar}, Path=BindingContext.NavigateCommand}"
-    CommandParameter="{Binding .}"/>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
-                </HorizontalStackLayout>
-            </ScrollView>
-            </Grid>
         </ScrollView>
         </RefreshView>
 

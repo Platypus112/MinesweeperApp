@@ -125,45 +125,81 @@
             </Grid>
         </DataTemplate>
     </Shell.ItemTemplate>
-    <ShellContent Title="Welcome" 
-                  IsEnabled="False"
-                  FlyoutItemIsVisible="False"
-                  ContentTemplate="{DataTemplate views:HomeView}"
-                  Route="homePage"/>
-    
-    
+       
+        <ShellContent Title="Welcome" 
+                      FlyoutItemIsVisible="False"
+                      IsEnabled="False"
+                      ContentTemplate="{DataTemplate views:HomeView}"
+                      Route="homePage"/>
+    <TabBar FlyoutDisplayOptions="AsMultipleItems">
+        
+        <Tab Title="LeaderBoards" FlyoutDisplayOptions="AsSingleItem">
+                <ShellContent Title="Leaderboard"
+                      ContentTemplate="{DataTemplate views:LeaderboardView}"
+                      Route="leaderboardPage"/>
 
+                <ShellContent Title="Friend leaderboard"
+                      ContentTemplate="{DataTemplate views:FriendLeaderboardView}"
+                      Route="friendLeaderboardPage"/>
+            </Tab>
 
-    <Tab Title="LeaderBoards" FlyoutDisplayOptions="AsSingleItem">
-            <ShellContent Title="Leaderboard"
-                  ContentTemplate="{DataTemplate views:LeaderboardView}"
-                  Route="leaderboardPage"/>
+            <ShellContent Title="Social"
+                  ContentTemplate="{DataTemplate views:SocialPageView}"
+                  Route="socialPage"/>
 
-            <ShellContent Title="Friend leaderboard"
-                  ContentTemplate="{DataTemplate views:FriendLeaderboardView}"
-                  Route="friendLeaderboardPage"/>
-        </Tab>
+            <ShellContent Title="Play"
+                  ContentTemplate="{DataTemplate views:StartGameView}"
+                  Route="startGamePage"/>
 
-        <ShellContent Title="Social"
-              ContentTemplate="{DataTemplate views:SocialPageView}"
-              Route="socialPage"/>
+            <ShellContent Title="Profile"
+                  ContentTemplate="{DataTemplate views:ProfileView}"
+                  Route="profilePage"/>
 
-        <ShellContent Title="Play"
-              ContentTemplate="{DataTemplate views:GameView}"
-              Route="gamePage"/>
-
-        <ShellContent Title="Profile"
-              ContentTemplate="{DataTemplate views:ProfileView}"
-              Route="profilePage"/>
-
-        <ShellContent Title="Admin"
-              IsVisible="{Binding IsAdmin}"
-              ContentTemplate="{DataTemplate views:AdminView}"
-              Route="adminPage"/>
+            <ShellContent Title="Admin"
+                  IsVisible="{Binding IsAdmin}"
+                  ContentTemplate="{DataTemplate views:AdminView}"
+                  Route="adminPage"/>
 
         <ShellContent Title="Log Out"
-              ContentTemplate="{DataTemplate views:LogoutView}"
-              Route="logoutPage"/>
+                  ContentTemplate="{DataTemplate views:LogoutView}"
+                  Route="logoutPage"/>
+    </TabBar>
 
+    <ShellContent Title="" 
+                  Shell.TabBarIsVisible="False"
+                  IsEnabled="False"
+                  ContentTemplate="{DataTemplate views:BlockedListView}"
+                  Route="blockedListPage"/>
+
+    <ShellContent Title="" 
+                  Shell.TabBarIsVisible="False"
+                  IsEnabled="False"
+                  ContentTemplate="{DataTemplate views:EditProfileView}"
+                  Route="editProfilePage"/>
+    
+    <ShellContent Title="" 
+                  Shell.TabBarIsVisible="False"
+                  IsEnabled="False"
+                  IsVisible="False"
+                  ContentTemplate="{DataTemplate views:FriendRequestsView}"
+                  Route="friendRequestsPage"/>
+    
+    <ShellContent Title="" 
+                  Shell.TabBarIsVisible="False"
+                  IsEnabled="False"
+                  ContentTemplate="{DataTemplate views:GameReportsView}"
+                  Route="gameReportsPage"/>
+    
+    <ShellContent Title="" 
+                  Shell.TabBarIsVisible="False"
+                  IsEnabled="False"
+                  ContentTemplate="{DataTemplate views:UserReportsView}"
+                  Route="UserReportsView"/>
+    
+    <ShellContent Title="" 
+                  Shell.TabBarIsVisible="False"
+                  IsEnabled="False"
+                  ContentTemplate="{DataTemplate views:GameView}"
+                  Route="gamePage"/>
 
 </Shell>

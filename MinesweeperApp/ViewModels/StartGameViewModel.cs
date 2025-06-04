@@ -25,6 +25,14 @@ namespace MinesweeperApp.ViewModels
             FillDifficulties();
         }
 
+        public override void RefreshPage()
+        {
+            base.RefreshPage();
+            InServerCall = true;
+            FillDifficulties() ;
+            InServerCall=false;
+        }
+
         private async void FillDifficulties()
         {
             ServerResponse<List<Object>> difficultiesResponse = await service.GetCollectionByType("difficulties");

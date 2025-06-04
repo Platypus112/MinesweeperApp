@@ -9,13 +9,8 @@
              xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
 
              Title="Admin page">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="8*"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <VerticalStackLayout Grid.Row="0" Padding="10">
-            <datagrid:SfDataGrid
+    <VerticalStackLayout Grid.Row="0" Padding="10">
+        <datagrid:SfDataGrid
           x:Name="dataGrid"
           SortingMode="Single"
           AllowTriStateSorting="False"
@@ -23,98 +18,66 @@
                 RowHeight="60"
                 VerticalScrollBarVisibility="Always"
           ItemsSource="{Binding Items}">
-                <datagrid:SfDataGrid.Columns>
+            <datagrid:SfDataGrid.Columns>
 
-                    <datagrid:DataGridTemplateColumn Width="50" HeaderText="Pic" AllowSorting="False">
-                        <datagrid:DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate x:DataType="Model:UserData">
-                                <Frame Padding="0" CornerRadius="25" HeightRequest="40" WidthRequest="40" IsClippedToBounds="True" HasShadow="False" BackgroundColor="Transparent" HorizontalOptions="Center" VerticalOptions="Center">
-                                    <Image Source="{Binding FullPicPath}" Aspect="AspectFill"/>
-                                </Frame>
-                            </DataTemplate>
-                        </datagrid:DataGridTemplateColumn.CellTemplate>
-                    </datagrid:DataGridTemplateColumn>
+                <datagrid:DataGridTemplateColumn Width="50" HeaderText="Pic" AllowSorting="False">
+                    <datagrid:DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate x:DataType="Model:UserData">
+                            <Frame Padding="0" CornerRadius="25" HeightRequest="40" WidthRequest="40" IsClippedToBounds="True" HasShadow="False" BackgroundColor="Transparent" HorizontalOptions="Center" VerticalOptions="Center">
+                                <Image Source="{Binding FullPicPath}" Aspect="AspectFill"/>
+                            </Frame>
+                        </DataTemplate>
+                    </datagrid:DataGridTemplateColumn.CellTemplate>
+                </datagrid:DataGridTemplateColumn>
 
-                    <datagrid:DataGridTextColumn MappingName="Name" HeaderText="User"/>
-                    <datagrid:DataGridTextColumn MappingName="Email" HeaderText="Email" ColumnWidthMode="Auto" MinimumWidth="40"/>
-                    <datagrid:DataGridTextColumn MappingName="IsReported" HeaderText="Reported" AllowSorting="False"/>
+                <datagrid:DataGridTextColumn MappingName="Name" HeaderText="User"/>
+                <datagrid:DataGridTextColumn MappingName="Email" HeaderText="Email" ColumnWidthMode="Auto" MinimumWidth="40"/>
+                <datagrid:DataGridTextColumn MappingName="IsReported" HeaderText="Reported" AllowSorting="False"/>
 
-                    <datagrid:DataGridTemplateColumn ColumnWidthMode="Auto" AllowSorting="False">
-                        <datagrid:DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate x:DataType="Model:UserData">
-                                <Button Text="Report user"
+                <datagrid:DataGridTemplateColumn ColumnWidthMode="Auto" AllowSorting="False">
+                    <datagrid:DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate x:DataType="Model:UserData">
+                            <Button Text="Report user"
                         Style="{StaticResource PrimaryButtonStyle}"
                         FontSize="11"
                         Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.ReportUserCommand}"
                         CommandParameter="{Binding .}"/>
-                            </DataTemplate>
-                        </datagrid:DataGridTemplateColumn.CellTemplate>
-                    </datagrid:DataGridTemplateColumn>
+                        </DataTemplate>
+                    </datagrid:DataGridTemplateColumn.CellTemplate>
+                </datagrid:DataGridTemplateColumn>
 
-                    <datagrid:DataGridTemplateColumn ColumnWidthMode="Auto" AllowSorting="False">
-                        <datagrid:DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate  x:DataType="Model:UserData">
-                                <Button Text="View reports"
+                <datagrid:DataGridTemplateColumn ColumnWidthMode="Auto" AllowSorting="False">
+                    <datagrid:DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate  x:DataType="Model:UserData">
+                            <Button Text="View reports"
                                         
                         Style="{StaticResource SecondaryButtonStyle}"
                         FontSize="11"
                         Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.ViewUserReportsCommand}"
                         CommandParameter="{Binding .}"/>
-                            </DataTemplate>
-                        </datagrid:DataGridTemplateColumn.CellTemplate>
-                    </datagrid:DataGridTemplateColumn>
+                        </DataTemplate>
+                    </datagrid:DataGridTemplateColumn.CellTemplate>
+                </datagrid:DataGridTemplateColumn>
 
-                    <datagrid:DataGridTemplateColumn ColumnWidthMode="Auto" AllowSorting="False">
-                        <datagrid:DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate  x:DataType="Model:UserData">
-                                <Button Text="Remove"
+                <datagrid:DataGridTemplateColumn ColumnWidthMode="Auto" AllowSorting="False">
+                    <datagrid:DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate  x:DataType="Model:UserData">
+                            <Button Text="Remove"
                         Style="{StaticResource SecondaryButtonStyle}"
                         FontSize="11"
                         Command="{Binding Source={x:Reference dataGrid}, Path=BindingContext.RemoveUserCommand}"
                         CommandParameter="{Binding .}"/>
-                            </DataTemplate>
-                        </datagrid:DataGridTemplateColumn.CellTemplate>
-                    </datagrid:DataGridTemplateColumn>
-
-                </datagrid:SfDataGrid.Columns>
-            </datagrid:SfDataGrid>
-        </VerticalStackLayout>
-        <ScrollView Orientation="Horizontal"                   
-                    Grid.Row="1">
-            <HorizontalStackLayout  VerticalOptions="EndAndExpand">
-                <CollectionView ItemsSource="{Binding Tabs}" 
-        ItemsLayout="HorizontalList"
-        SelectionMode="None"
-        x:Name="navBar"
-                
-        Margin="20">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="Model:TabItem">
-                            <buttons:SfButton
-                                                                        HeightRequest="40"
-                                        WidthRequest="100"
-                                                                Style="{StaticResource PrimaryButtonStyle}"
-                                    ImageSize="20"
-            ImageAlignment="Top"
-            VerticalTextAlignment="End"
-            HorizontalOptions="Center"
-                                FontAutoScalingEnabled="True"
-            ShowIcon="True"
-            IsEnabled="{Binding NotHighlighted}"
-            Text="{Binding Title}"
-            ImageSource="{Binding Pic}"
-            Command="{Binding Source={x:Reference navBar}, Path=BindingContext.NavigateCommand}"
-            CommandParameter="{Binding .}"/>
                         </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </HorizontalStackLayout>
-        </ScrollView>
+                    </datagrid:DataGridTemplateColumn.CellTemplate>
+                </datagrid:DataGridTemplateColumn>
 
-        <ActivityIndicator IsRunning="{Binding InServerCall}"
+            </datagrid:SfDataGrid.Columns>
+        </datagrid:SfDataGrid>
+    <ActivityIndicator IsRunning="{Binding InServerCall}"
                        IsVisible="{Binding InServerCall}"
                        VerticalOptions="Center"
                        HorizontalOptions="Center"
                        Color="{StaticResource Secondary}"/>
-    </Grid>
+    </VerticalStackLayout>
+
 </ContentPage>

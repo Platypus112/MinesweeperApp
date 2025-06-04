@@ -6,6 +6,7 @@
              xmlns:Model="clr-namespace:MinesweeperApp.Models"
              x:DataType="ViewModel:UserReportsViewModel"
              xmlns:datagrid="clr-namespace:Syncfusion.Maui.DataGrid;assembly=Syncfusion.Maui.DataGrid"
+             Shell.TabBarIsVisible="False"
              Title="User Reports">
     <VerticalStackLayout Padding="20" Spacing="15">
  

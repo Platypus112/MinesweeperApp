@@ -14,7 +14,7 @@ using System.Windows.Input;
 
 namespace MinesweeperApp.ViewModels
 {
-    //[QueryProperty(nameof(Diff), "Difficulty")]
+    [QueryProperty(nameof(Diff), "Difficulty")]
     public class GameViewModel:ViewModel
     {
         private ObservableCollection<Difficulty> difficulties;
@@ -25,9 +25,9 @@ namespace MinesweeperApp.ViewModels
 
         public ICommand StartGameCommand { get; private set; }
 
-        private bool isRunning;
-        public bool IsRunning { get { return isRunning; } set { isRunning = value; OnPropertyChanged(); OnPropertyChanged(nameof(IsNotRunning)); } }
-        public bool IsNotRunning { get { return !isRunning; } set { isRunning = !value; OnPropertyChanged(); OnPropertyChanged(nameof(IsRunning)); } }
+        //private bool isRunning;
+        //public bool IsRunning { get { return isRunning; } set { isRunning = value; OnPropertyChanged(); OnPropertyChanged(nameof(IsNotRunning)); } }
+        //public bool IsNotRunning { get { return !isRunning; } set { isRunning = !value; OnPropertyChanged(); OnPropertyChanged(nameof(IsRunning)); } }
 
 
 
@@ -45,26 +45,25 @@ namespace MinesweeperApp.ViewModels
             }
         }
 
-        private async void StartGame()
-        {
-            if (SelectedDifficulty != null)
-            {
-                InServerCall = true;
-                IsRunning = true;
-                AdjustNavBar();
-                t = App.Current.Dispatcher.CreateTimer();
-                t.Stop();
-                t.Interval = new TimeSpan(0, 0, 0, 0, 200);
-                t.Tick += async (object sender, EventArgs e) => Timer = (DateTime.Now - game.StartTime).ToString().Substring(3, 5);
-                notStarted = true;
-                isFlagging = false;
-                gameFinished = false;
-                Diff=SelectedDifficulty;
-                SelectedDifficulty = null;
-                InServerCall = false;
+        //private async void StartGame()
+        //{
+        //    if (SelectedDifficulty != null)
+        //    {
+        //        InServerCall = true;
+        //        //AdjustNavBar();
+        //        t = App.Current.Dispatcher.CreateTimer();
+        //        t.Stop();
+        //        t.Interval = new TimeSpan(0, 0, 0, 0, 200);
+        //        t.Tick += async (object sender, EventArgs e) => Timer = (DateTime.Now - game.StartTime).ToString().Substring(3, 5);
+        //        notStarted = true;
+        //        isFlagging = false;
+        //        gameFinished = false;
+        //        Diff=SelectedDifficulty;
+        //        SelectedDifficulty = null;
+        //        InServerCall = false;
 
-            }
-        }
+        //    }
+        //}
         private Difficulty diff;
         public Difficulty Diff { get => diff; set { diff = value; CreateGameBoard(); OnPropertyChanged(); OnPropertyChanged(nameof(Board)); } }
         public ObservableCollection<Tile> Board { get { return board; } set {board=value; OnPropertyChanged();} }
@@ -99,30 +98,39 @@ namespace MinesweeperApp.ViewModels
         public ICommand ToggleMineCommand { get; private set; }
         public GameViewModel(Service service_) : base(service_,0)
         {
-            IsRunning = false;
-            StartGameCommand = new Command(StartGame, () => SelectedDifficulty != null);
+            //StartGameCommand = new Command(StartGame, () => SelectedDifficulty != null);
             ClickTileCommand = new Command(async (Object obj) => await ClickTile(obj)/*, (object obj) => !gameFinished&!clickingRunning*/);
             ToggleFlagCommand = new Command(async () => await ToggleFlagging(), () => !isFlagging);
             ToggleMineCommand = new Command(async () => await ToggleFlagging(), () => isFlagging);
-            AdjustNavBar();
-            FillDifficulties();
+            //AdjustNavBar();
+            InServerCall = true;
+            //AdjustNavBar();
+            t = App.Current.Dispatcher.CreateTimer();
+            t.Stop();
+            t.Interval = new TimeSpan(0, 0, 0, 0, 200);
+            t.Tick += async (object sender, EventArgs e) => Timer = (DateTime.Now - game.StartTime).ToString().Substring(3, 5);
+            notStarted = true;
+            isFlagging = false;
+            gameFinished = false;
+            SelectedDifficulty = null;
+            InServerCall = false;
         }
-        private async void AdjustNavBar()
-        {
-            if(IsRunning)
-            {
-                NavBarRows = new RowDefinitionCollection();
-                NavBarRows.Add(new RowDefinition() { Height = new GridLength(8, GridUnitType.Star) });
-                OnPropertyChanged(nameof(NavBarRows));
-            }
-            else
-            {
-                NavBarRows = new RowDefinitionCollection();
-                NavBarRows.Add(new RowDefinition() { Height = new GridLength(8, GridUnitType.Star) });
-                NavBarRows.Add(new RowDefinition() { Height = new GridLength(1, GridUnitType.Star) });
-                OnPropertyChanged(nameof(NavBarRows));
-            }
-        }
+        //private async void AdjustNavBar()
+        //{
+        //    if(IsRunning)
+        //    {
+        //        NavBarRows = new RowDefinitionCollection();
+        //        NavBarRows.Add(new RowDefinition() { Height = new GridLength(8, GridUnitType.Star) });
+        //        OnPropertyChanged(nameof(NavBarRows));
+        //    }
+        //    else
+        //    {
+        //        NavBarRows = new RowDefinitionCollection();
+        //        NavBarRows.Add(new RowDefinition() { Height = new GridLength(8, GridUnitType.Star) });
+        //        NavBarRows.Add(new RowDefinition() { Height = new GridLength(1, GridUnitType.Star) });
+        //        OnPropertyChanged(nameof(NavBarRows));
+        //    }
+        //}
         public override void RefreshPage()
         {
             base.RefreshPage();
@@ -203,9 +211,8 @@ namespace MinesweeperApp.ViewModels
                 await AppShell.Current.DisplayAlert("Error occured", "game has not been uploaded", "Ok");
             }
 
-            IsRunning = false;
             InServerCall = false;
-            AdjustNavBar();
+            //AdjustNavBar();
         }
         private async Task ClickTile(Object obj)
         {

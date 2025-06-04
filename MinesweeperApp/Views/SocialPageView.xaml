@@ -8,12 +8,7 @@
              xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
              x:DataType="ViewModel:SocialPageViewModel"
              Title="Social Page">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="8*"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <VerticalStackLayout Grid.Row="0" Padding="20" Spacing="15">
+    <VerticalStackLayout Padding="20" Spacing="15">
 
 
 
@@ -56,7 +51,7 @@
        FontSize="24"
        FontAttributes="Bold"
        HorizontalOptions="Center" />
-        
+
         <datagrid:SfDataGrid
             x:Name="dataGrid"
             SortingMode="Single"
@@ -78,7 +73,7 @@
                 <datagrid:DataGridTextColumn MappingName="Name" HeaderText="Username"/>
                 <datagrid:DataGridTextColumn MappingName="Email" HeaderText="Email" ColumnWidthMode="FitByCell" MinimumWidth="30"/>
                 <datagrid:DataGridTextColumn MappingName="Description" HeaderText="Description"/>
-                    <datagrid:DataGridTemplateColumn ColumnWidthMode="FitByCell">
+                <datagrid:DataGridTemplateColumn ColumnWidthMode="FitByCell">
                     <datagrid:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate x:DataType="Model:AppUser">
                             <Button Text="Remove friend"
@@ -98,36 +93,4 @@
                            HorizontalOptions="Center" />
 
     </VerticalStackLayout>
-        <ScrollView Orientation="Horizontal"                  
-                    Grid.Row="1">
-            <HorizontalStackLayout  VerticalOptions="EndAndExpand">
-                <CollectionView ItemsSource="{Binding Tabs}" 
-ItemsLayout="HorizontalList"
-SelectionMode="None"
-x:Name="navBar"
-        
-Margin="20">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="Model:TabItem">
-                            <buttons:SfButton
-                                                                        HeightRequest="40"
-                                        WidthRequest="100"
-                                                                Style="{StaticResource PrimaryButtonStyle}"
-                                    ImageSize="20"
-    ImageAlignment="Top"
-    VerticalTextAlignment="End"
-    HorizontalOptions="Center"
-                        FontAutoScalingEnabled="True"
-    ShowIcon="True"
-    IsEnabled="{Binding NotHighlighted}"
-    Text="{Binding Title}"
-    ImageSource="{Binding Pic}"
-    Command="{Binding Source={x:Reference navBar}, Path=BindingContext.NavigateCommand}"
-    CommandParameter="{Binding .}"/>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </HorizontalStackLayout>
-        </ScrollView>
-    </Grid>
 </ContentPage>

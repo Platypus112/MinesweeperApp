@@ -36,62 +36,61 @@ namespace MinesweeperApp.ViewModels
         private static bool isAdmin;
         public bool IsAdmin { get { return isAdmin; } set { isAdmin = value; OnPropertyChanged(); } }
 
-        private ObservableCollection<TabItem> tabs;
-        public ObservableCollection<TabItem> Tabs { get { return tabs; } set { tabs = value; OnPropertyChanged(); } }
+        //private ObservableCollection<TabItem> tabs;
+        //public ObservableCollection<TabItem> Tabs { get { return tabs; } set { tabs = value; OnPropertyChanged(); } }
 
-        public ICommand NavigateCommand { get; private set; }
+        //public ICommand NavigateCommand { get; private set; }
 
-        private int highlighted;
+        //private int highlighted;
 
         public ViewModel(Service service_, int highlighted_)
         {
-            NavigateCommand = new Command((Object o) => Navigate(o));
+            //NavigateCommand = new Command((Object o) => Navigate(o));
             this.service = service_;
             InServerCall = false;
-            FillTabs();
-            this.highlighted = highlighted_;
+            //FillTabs();
+            //this.highlighted = highlighted_;
         }
 
         public ViewModel(Service service_)
         {
-            NavigateCommand = new Command((Object o) => Navigate(o));
+            //NavigateCommand = new Command((Object o) => Navigate(o));
             this.service= service_;
             InServerCall= false;
-            this.highlighted = -1;
-            FillTabs();
+            //this.highlighted = -1;
+            //FillTabs();
         }
         public virtual async void RefreshPage()
         {
             InServerCall = true;
             if(service.LoggedUser!=null)IsAdmin = service.LoggedUser.IsAdmin;
-            FillTabs();
-
+            //FillTabs();
             InServerCall = false;
 
         }
-        private async void Navigate(Object o)
-        {
-            try
-            {
-                TabItem page=(TabItem)o;
-                await AppShell.Current.GoToAsync("///"+page.Route);
-            }
-            catch (Exception ex)
-            {
-                await AppShell.Current.DisplayAlert("Navigation failed","try again","ok");
-            }
-        }
-        protected async void FillTabs()
-        {
-            List<TabItem> tabsList = new List<TabItem>();
-            tabsList.Add(new TabItem("Game","mine.png", "gamePage"));
-            tabsList.Add(new TabItem("Leaderboard","leaderboard.png","leaderboardPage"));
-            tabsList.Add(new TabItem("Social","social.png", "socialPage"));
-            tabsList.Add(new TabItem("Profile","profile.png", "profilePage"));
-            if(isAdmin) tabsList.Add(new TabItem("Admin","admin.png", "adminPage"));
-            tabsList.Add(new TabItem("Logout","logout.png", "logoutPage"));
-            if (highlighted >= 0 && highlighted < tabsList.Count) tabsList[highlighted].NotHighlighted = false;
-            Tabs = new(tabsList);
-        }
+        //private async void Navigate(Object o)
+        //{
+        //    try
+        //    {
+        //        TabItem page=(TabItem)o;
+        //        await AppShell.Current.GoToAsync("///"+page.Route);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        await AppShell.Current.DisplayAlert("Navigation failed","try again","ok");
+        //    }
+        //}
+        //protected async void FillTabs()
+        //{
+        //    List<TabItem> tabsList = new List<TabItem>();
+        //    tabsList.Add(new TabItem("Game","mine.png", "gamePage"));
+        //    tabsList.Add(new TabItem("Leaderboard","leaderboard.png","leaderboardPage"));
+        //    tabsList.Add(new TabItem("Social","social.png", "socialPage"));
+        //    tabsList.Add(new TabItem("Profile","profile.png", "profilePage"));
+        //    if(isAdmin) tabsList.Add(new TabItem("Admin","admin.png", "adminPage"));
+        //    tabsList.Add(new TabItem("Logout","logout.png", "logoutPage"));
+        //    if (highlighted >= 0 && highlighted < tabsList.Count) tabsList[highlighted].NotHighlighted = false;
+        //    Tabs = new(tabsList);
+        //}
     }
 }

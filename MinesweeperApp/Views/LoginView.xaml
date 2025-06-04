@@ -4,6 +4,7 @@
              x:Class="MinesweeperApp.Views.LoginView"
              xmlns:ViewModel="clr-namespace:MinesweeperApp.ViewModels"
              x:DataType="ViewModel:LoginViewModel"
+             Shell.TabBarIsVisible="False"
              Title="">
     <VerticalStackLayout Padding="30" Spacing="20" VerticalOptions="CenterAndExpand">
 

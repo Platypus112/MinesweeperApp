@@ -4,6 +4,7 @@
              x:Class="MinesweeperApp.Views.EditProfileView"
              xmlns:ViewModel="clr-namespace:MinesweeperApp.ViewModels"
              x:DataType="ViewModel:EditProfileViewModel"
+             Shell.TabBarIsVisible="False"
              Title="Edit Profile">
     <Grid>
 

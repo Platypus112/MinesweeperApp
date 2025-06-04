@@ -5,6 +5,7 @@
              xmlns:ViewModel="clr-namespace:MinesweeperApp.ViewModels"
              x:DataType="ViewModel:HomeViewModel"
              FlyoutItem.IsVisible="False"
+             Shell.TabBarIsVisible="False"
              Title="">
     <VerticalStackLayout
         Padding="30"

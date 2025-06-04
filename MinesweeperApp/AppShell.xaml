@@ -105,7 +105,7 @@
             <Setter Property="Margin" Value="0,10"/>
         </Style>
     </Shell.Resources>
-    <Shell.ItemTemplate>
+    <!--<Shell.ItemTemplate>
         <DataTemplate x:DataType="ShellContent">
             <Grid
                 BackgroundColor="#25344f">
@@ -124,7 +124,7 @@
                 
             </Grid>
         </DataTemplate>
-    </Shell.ItemTemplate>
+    </Shell.ItemTemplate>-->
        
         <ShellContent Title="Welcome" 
                       FlyoutItemIsVisible="False"
@@ -133,7 +133,9 @@
                       Route="homePage"/>
     <TabBar FlyoutDisplayOptions="AsMultipleItems">
         
-        <Tab Title="LeaderBoards" FlyoutDisplayOptions="AsSingleItem">
+        <Tab Title="LeaderBoards" 
+             Icon="leaderboard.png"
+             FlyoutDisplayOptions="AsSingleItem">
                 <ShellContent Title="Leaderboard"
                       ContentTemplate="{DataTemplate views:LeaderboardView}"
                       Route="leaderboardPage"/>
@@ -145,22 +147,27 @@
 
             <ShellContent Title="Social"
                   ContentTemplate="{DataTemplate views:SocialPageView}"
+                          Icon="social.png"
                   Route="socialPage"/>
 
             <ShellContent Title="Play"
+                          Icon="mine.png"
                   ContentTemplate="{DataTemplate views:StartGameView}"
                   Route="startGamePage"/>
 
             <ShellContent Title="Profile"
+                          Icon="profile.png"
                   ContentTemplate="{DataTemplate views:ProfileView}"
                   Route="profilePage"/>
 
             <ShellContent Title="Admin"
+                          Icon="admin.png"
                   IsVisible="{Binding IsAdmin}"
                   ContentTemplate="{DataTemplate views:AdminView}"
                   Route="adminPage"/>
 
         <ShellContent Title="Log Out"
+                      Icon="logout.png"
                   ContentTemplate="{DataTemplate views:LogoutView}"
                   Route="logoutPage"/>
     </TabBar>

@@ -22,8 +22,6 @@ namespace MinesweeperApp.Models
         #endregion
         public int Value { get { return value; } private set { UpdateDisplay(); this.value = value; } }
         private int value;
-        public int FlagCount { get { return flagCount; } private set { UpdateDisplay(); this.flagCount = value; } }
-        private int flagCount;
         public bool Unveiled { get { return unveiled; } private set { UpdateDisplay();unveiled = value; } }//-1 is bomb
         private bool unveiled;
         public bool Flagged { get{ return flagged; } private set { UpdateDisplay();flagged = value; } }
@@ -35,7 +33,6 @@ namespace MinesweeperApp.Models
             Value = Value_;
             Unveiled = false;
             Flagged = false;
-            FlagCount = 0;
         }
         public Tile(int Value_,bool Unvailed_) : this(Value_)
         {
@@ -105,7 +102,7 @@ namespace MinesweeperApp.Models
         {
             IDispatcherTimer timer = App.Current.Dispatcher.CreateTimer();
             timer.Stop();
-            this.DisplayDetails.BackgroundColor = "#24262b";
+            this.DisplayDetails.BackgroundColor = "#162330";
             int mili = ((int)(secs*1000/12));
             timer.Interval = new TimeSpan(0,0,0,0,mili);
             timer.Tick += (Object sender, EventArgs e) =>
@@ -126,14 +123,6 @@ namespace MinesweeperApp.Models
         public void AddBomb()
         {
             Value+=1;
-        }
-        public void AddFlag()
-        {
-            FlagCount += 1;
-        }
-        public void RemoveFlag()
-        {
-            FlagCount -= 1;
         }
         public override string ToString()
         {

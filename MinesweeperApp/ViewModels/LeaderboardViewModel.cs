@@ -13,7 +13,7 @@ namespace MinesweeperApp.ViewModels
 {
     public class LeaderboardViewModel:ViewModel
     {
-
+        static Random r = new();
 
         private List<GameData> allGames;
         private ObservableCollection<GameData> items;
@@ -210,7 +210,7 @@ namespace MinesweeperApp.ViewModels
                     {
                         GameData g = (GameData)item;
                         allGames.Add(g);
-                        g.User.FullPicPath = service.GetImagesBaseAddress() + g.User.PicPath;
+                        g.User.FullPicPath = service.GetImagesBaseAddress() + g.User.PicPath+ $"?rnd={r.Next()}";
                     }
                     allGames = allGames.OrderByDescending(g => -g.TimeInSeconds).ToList();
                     foreach(GameData g in allGames)

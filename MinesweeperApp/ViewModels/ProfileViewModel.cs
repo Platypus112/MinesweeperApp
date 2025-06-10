@@ -14,6 +14,7 @@ namespace MinesweeperApp.ViewModels
     [QueryProperty(nameof(User2),"user")]
     public class ProfileViewModel:ViewModel
     {
+        static Random r = new Random();
         private List<GameData> allGames;
         private ObservableCollection<GameData> items;
         public ObservableCollection<GameData> Items { get { return items; } set { items = value; OnPropertyChanged(); } }
@@ -29,7 +30,7 @@ namespace MinesweeperApp.ViewModels
             set
             {
                 user = new(value);
-                user.FullPicPath = service.GetImagesBaseAddress() + user.PicPath;
+                user.FullPicPath = service.GetImagesBaseAddress() + user.PicPath + $"?rnd={r.Next()}";
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(Name));
                 OnPropertyChanged(nameof(Email));

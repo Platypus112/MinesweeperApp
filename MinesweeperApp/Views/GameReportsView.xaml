@@ -65,7 +65,7 @@
             <datagrid:SfDataGrid.Columns>
                 <datagrid:DataGridTextColumn HeaderText="Description" MappingName="Description" />
                 <datagrid:DataGridTextColumn HeaderText="Status" MappingName="Status.Name" />
-                <datagrid:DataGridTemplateColumn>
+                <datagrid:DataGridTemplateColumn ColumnWidthMode="Auto">
                     <datagrid:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate x:DataType="Model:GameReport">
                             <Button Text="Resolve Report"
